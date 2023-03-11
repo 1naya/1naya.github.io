@@ -4,17 +4,19 @@
 <meta charset="UTF-8">
 <title>Inaya Creative | Home </title>
 	<link href="img/InayaLogoIcon.svg" rel="shortcut icon">
-	<link href="styles.css" rel="stylesheet" type="text/css">
-	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css">
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css">	
 	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=10.2">
+<!--	不写这个手机会走实际像素，不会响应-->
 <style type="text/css">
-	/* embedded CSS Document */
-	header
+	*{box-sizing: border-box;}
+	/*告诉浏览器：你想要设置的边框和内边距的值是包含在 width 内的。也就是说，如果你将一个元素的 width 设为 100px，那么这 100px 会包含它的 border 和 padding，内容区的实际宽度是 width 减 去(border + padding) 的值。大多数情况下，这使得我们更容易地设定一个元素的宽高。注：border-box 不包含 margin。#F1F1F1 */		
+	body{background-color: black;}
+	.navbar
 			{position: fixed;
 			top: 0;
 			left:0;
-			padding-top: 10px;
-			padding-bottom: 10px;
+			padding-top: 4px;
+			padding-bottom: 4px;
 			width: 100%;
 			display: flex;
 			justify-content: space-between;
@@ -22,30 +24,47 @@
 			align-items: center;
 			/* 垂直居中 */
 			transition: 1.0s;
-			/* 动画过度，变颜色时候用 */}
+			/* 动画过度，变颜色时候用 */
+			background-color: black;;
+			z-index:9;}
 	.logo { }
-	.HeaderMagic{
-			background-color: black;
-		}
-	div a {text-decoration: none; 
+	.HeaderMagic{background-color: #F1F1F1; color:white !important;border: none;}
+	.HeaderMagic a:link {color:black !important;}
+	.HeaderMagic a:visited {color:black !important;}
+	.HeaderMagic a:hover {color:#5B5B5B !important;}
+	.HeaderMagic a:active {color:black !important;}
+			
+	.navbar a {text-decoration: none; 
 			font-family: Gotham, "Helvetica Neue", Helvetica, Arial, "sans-serif";
-			font-weight: bold;
-	font-size: 18pt;}
-	div a:link {color:#ffffff;} /* 未访问链接*/
-	div a:visited {color:#ffffff;} /* 已访问链接 */
-	div a:hover {color:#ffffff;} /* 鼠标移动到链接上 */
-	div a:active {color:#ffffff;} /* 鼠标点击时 */
+			font-weight: bold;font-size: 18pt;}
+	.navbar a:link {color:#F1F1F1;} /* 未访问链接*/
+	.navbar a:visited {color:#F1F1F1;} /* 已访问链接 */
+	.navbar a:hover {color:#B8B8B8;} /* 鼠标移动到链接上 */
+	.navbar a:active {color:#F1F1F1;} /* 鼠标点击时 */
+	
+	.container{display: inherit;margin: 0;}
+	.content{background-color: black;}
+	.botNav{background-color: #F1F1F1; display: flex; justify-content: space-between; 
+			align-items:center; width: 100%;z-index:8;padding-left: 4vw;
+			padding-right: 4vw;position: inherit;height: 70px;width: 100vw;margin: 0;}
+	.botNav a {text-decoration: none; 
+			font-family: Gotham, "Helvetica Neue", Helvetica, Arial, "sans-serif";
+			font-weight: bold;font-size: 12pt;}
+	.botNav a:link {color:black;} /* 未访问链接*/
+	.botNav a:visited {color:black;} /* 已访问链接 */
+	.botNav a:hover {color:#5B5B5B;} /* 鼠标移动到链接上 */
+	.botNav a:active {color:black;} /* 鼠标点击时 */
 
 	@media (max-width: 800px){
-		header{
+		.navbar{
 			padding-left: 4vw;
 			padding-right: 4vw;
 		}
 		.PageNames{display: none;}
 		/*手机屏幕不显示正常文字栏*/
 		.dropbtn {
-    	background-color: rgba(0,0,0,0.00);
-    	color: white;
+    	background-color: rgba(0,0,0,0.00) !important;
+    	color: #FF6633 !important;
 /*    	padding-right: 50px;*/
     	font-size: 48px;
     	border: none;
@@ -58,20 +77,27 @@
 		.dropdown-content {
     	display: none;
     	position:absolute;
-    	background-color: #000000;
+    	background-color: #F1F1F1!important;
 /*    	min-width: 160px;*/
-    	box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+/*    	box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2) !important;*/
 			right: 0;
+/*			height: 400px;*/
+/*			width:80vw;*/
+/*			让右侧bar和屏幕一样长，删掉就三个按钮的高度*/
 		}
 		.dropdown-content a {
-    	color: black;
+    	color: black!important;
     	padding: 12px 16px;
     	text-decoration: none;
     	display:block;
+			
 		}
-		.dropdown-content a:hover {background-color: #ffffff;color:#000000}
+		.dropdown-content a:hover {background-color: #ffffff !important;color:black !important}
 		.PageNameGroup:hover .dropdown-content {display:block}
 		.PageNameGroup:hover .dropbtn {background-color: rgba(0,0,0,0.00);}
+		#largeSHOW{display: none;}
+		#smallSHOW{display: block;}
+		#note {margin-top: 50px;}
 	}
 	
 	
@@ -79,21 +105,22 @@
 	
 	@media (min-width: 801px){
 		
-		header{
+		.navbar{
 			padding-left: 7vw;
 			padding-right: 7vw;
 		}
-		.PageNameGroup{display:none;
-		}
+		.PageNameGroup{display:none;}
 		/*电脑屏幕不显示手机文字栏组*/
 		.PageNames a{margin-right: 30px;}
+		#largeSHOW{display: block;}
+		#smallSHOW{display: none;}
 	}
 </style>
 </head>
 
 <body>
-	
-	<header>
+<div class="container">
+	<div class="navbar">
 		<div class="logo"><a href="#"><img src="img/InayaLogoH.svg" alt="Inaya Creative Studio" width="131" height="66"></a></div>
 		<div class="PageNames">
 			<a href="#">About</a>
@@ -108,39 +135,31 @@
     		<a href="#">Contact</a>
   			</div>
 		</div>
-	</header>
-	
-	<section>
-	
-		<main>
-			<article>
-				ARTICLE1
-			</article>
+	</div>
+	<div class="content">
+		<div style="display: grid;place-items:center;">
 			
-			<article style="color: white; font-size: 8em;">
-				COMMING SOON
-			</article>
+			<img id="largeSHOW" src="img/index_img.svg" style="margin-top: 90px;">
+			<h1 id="note" style="font-size: 32px;color: yellowgreen; text-align: center;padding: 50px 50px;margin-bottom: 0;">Just a friendly reminder that if your task is <span style="font-size:36px;color: yellow;">STRAIGHTFORWARD and CLEAR-CUT</span>, the fee may be as low as <span style="font-size:48px;color: yellow;">$24</span> <span style="font-size:36px;color: yellow;">per hour</span>, which is my standard hourly rate.</h1>
+			<img id="smallSHOW" src="img/index_img_s.svg" style="margin-bottom: 10px;">
+		</div>
 		
-		</main>
-		
-		<aside>
-		aside
-		</aside>
-		
-	</section>
 	
-	<footer>
-	footer
-	</footer>
+	</div>
+	<div class="botNav">
+		<a href="#">© 2023 Inaya Creative Studio - All Rights Reserved.</a>
+		<a href="#">Terms of Service</a>
+		</div>
 	
 	<script>
 	//	header滚动显示代码
 	window.addEventListener("scroll",function(){
-		let header = document.querySelector("header");
+		let navbar = document.querySelector(".navbar");
 		if(window.scrollY > 0)
-			{header.classList.add("HeaderMagic");}
-		else{header.classList.remove("HeaderMagic")}
+			{navbar.classList.add("HeaderMagic");}
+		else{navbar.classList.remove("HeaderMagic")}
 	})	
 	</script>	
+</div>
 </body>
 </html>
