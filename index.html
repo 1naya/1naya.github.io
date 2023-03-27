@@ -1,165 +1,309 @@
-<!doctype html>
+<!DOCTYPE html>
 <html>
-<head>
-<meta charset="UTF-8">
-<title>Inaya Creative | Home </title>
-	<link href="img/InayaLogoIcon.svg" rel="shortcut icon">
-	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css">	
-	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=10.2">
-<!--	不写这个手机会走实际像素，不会响应-->
-<style type="text/css">
-	*{box-sizing: border-box;}
-	/*告诉浏览器：你想要设置的边框和内边距的值是包含在 width 内的。也就是说，如果你将一个元素的 width 设为 100px，那么这 100px 会包含它的 border 和 padding，内容区的实际宽度是 width 减 去(border + padding) 的值。大多数情况下，这使得我们更容易地设定一个元素的宽高。注：border-box 不包含 margin。#F1F1F1 */		
-	body{background-color: black;}
-	.navbar
-			{position: fixed;
-			top: 0;
-			left:0;
-			padding-top: 4px;
-			padding-bottom: 4px;
-			width: 100%;
-			display: flex;
-			justify-content: space-between;
-			/* 均匀排列元素，首元素在起点，末尾元素在终点 */
-			align-items: center;
-			/* 垂直居中 */
-			transition: 1.0s;
-			/* 动画过度，变颜色时候用 */
-			background-color: black;;
-			z-index:9;}
-	.logo { }
-	.HeaderMagic{background-color: #F1F1F1; color:white !important;border: none;}
-	.HeaderMagic a:link {color:black !important;}
-	.HeaderMagic a:visited {color:black !important;}
-	.HeaderMagic a:hover {color:#5B5B5B !important;}
-	.HeaderMagic a:active {color:black !important;}
-			
-	.navbar a {text-decoration: none; 
-			font-family: Gotham, "Helvetica Neue", Helvetica, Arial, "sans-serif";
-			font-weight: bold;font-size: 18pt;}
-	.navbar a:link {color:#F1F1F1;} /* 未访问链接*/
-	.navbar a:visited {color:#F1F1F1;} /* 已访问链接 */
-	.navbar a:hover {color:#B8B8B8;} /* 鼠标移动到链接上 */
-	.navbar a:active {color:#F1F1F1;} /* 鼠标点击时 */
+  <head>
+    <title>Inaya Creative | Home</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+	<link href="img/LOGO_icon.svg" rel="shortcut icon">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css">
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link href="https://fonts.googleapis.com/css2?family=Original+Surfer&display=swap" rel="stylesheet">
+<!--	  font-family: 'Original Surfer', cursive;-->
+	<link href="https://fonts.googleapis.com/css2?family=ZCOOL+KuaiLe&display=swap" rel="stylesheet">
+<!--	  font-family: 'ZCOOL KuaiLe', sans-serif;-->
+	<link href="https://fonts.googleapis.com/css2?family=Open+Sans&display=swap" rel="stylesheet">
+<!--	  font-family: 'Open Sans', sans-serif;-->
+	 <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@500&display=swap" rel="stylesheet">
+<!--	  font-family: 'Open Sans', sans-serif;-->
+	  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500&display=swap" rel="stylesheet">
+<!--	  font-family: 'Noto Sans SC', sans-serif;-->
+	  
+	  
+	  
+	  
+	  
+	  
 	
-	.container{display: inherit;margin: 0;}
-	.content{background-color: black;}
-	.botNav{background-color: #F1F1F1; display: flex; justify-content: space-between; 
-			align-items:center; width: 100%;z-index:8;padding-left: 4vw;
-			padding-right: 4vw;position: inherit;height: 70px;width: 100vw;margin: 0;}
+<style>
+		body {
+  margin: 0;
+}
+
+nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+/*  background-color: #F1F1F1;*/
+	border-bottom: solid #F1F1F1;
+  padding: 10px 20px;
+}
+
+nav .logo a {
+  font-size: 1.5rem;
+  font-weight: bold;
+  text-decoration: none;
+  color: #333;
+}
+
+nav ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+}
+
+nav ul li {
+  margin-right: 10px;
+}
+
+nav ul li a {
+  font-size: 1.5rem;
+  font-family: 'Original Surfer', cursive;
+  text-decoration: none;
+  color: #333;
+}
+
+nav ul li a:hover {
+  color: orange;
+}
+
+.content {
+  max-width: 1600px;
+  margin: 0 auto;
+  padding-top: 20px;
+}
+
+/*	--------navbar-------	*/
+
+		
+	.photo-wall {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 5px;
+	justify-content:center;
+		
+		
+    }
+    .photo {
+      position: relative;
+      width: 100vw;
+      height: 100vw;
+      overflow: hidden;
+	  border: solid black;
+		border-radius: 10px;
+		margin-top: 20px;
+		margin-right: 20px;
+		margin-left: 20px;
+		margin-bottom: 20px;
+    }
+	
+	@media (min-width: 600px){.photo{width: 25vw;height: 25vw;margin-bottom: 10px;}}
+	@media (min-width: 1200px){.photo{width: 20vw;height: 20vw;margin-bottom: 10px;}}
+	
+    .photo img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    .photo:hover .description {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    .description {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      padding: 10px;
+      background-color: rgba(0, 0, 0, 0.7);
+      color: white;
+      opacity: 0;
+      transform: translateY(100%);
+      transition: opacity 0.3s ease, transform 0.3s ease;
+    }
+    .overlay {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background-color: rgba(0, 0, 0, 0.7);
+      z-index: 999;
+    }
+    .overlay img {
+      display: block;
+      max-width: 80%;
+      max-height: 80%;
+      margin: auto;
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+    }
+    .overlay:target {
+      display: block;
+    }
+    .overlay:target .close {
+      display: block;
+    }
+    .close {
+      position: absolute;
+      top: 10vh;
+      right: 5vw;
+      font-size: 40px;
+      color: orange;
+      text-decoration: none;
+      display: none;
+      z-index: 1000;
+    }
+	
+	
+	
+	
+	
+/*	footer*/
+	.botNav{
+		background-color: black; 
+/*		border-top: solid #F1F1F1;*/
+		display: flex; justify-content: space-between; 
+			align-items:center; width: 100%;z-index:8;padding-left: 20px;
+			padding-right: 40px;position: inherit;height: 70px;width: 100vw;margin: 0;}
 	.botNav a {text-decoration: none; 
-			font-family: Gotham, "Helvetica Neue", Helvetica, Arial, "sans-serif";
-			font-weight: bold;font-size: 12pt;}
-	.botNav a:link {color:black;} /* 未访问链接*/
-	.botNav a:visited {color:black;} /* 已访问链接 */
-	.botNav a:hover {color:#5B5B5B;} /* 鼠标移动到链接上 */
-	.botNav a:active {color:black;} /* 鼠标点击时 */
-
-	@media (max-width: 800px){
-		.navbar{
-			padding-left: 4vw;
-			padding-right: 4vw;
-		}
-		.PageNames{display: none;}
-		/*手机屏幕不显示正常文字栏*/
-		.dropbtn {
-    	background-color: rgba(0,0,0,0.00) !important;
-    	color: #FF6633 !important;
-/*    	padding-right: 50px;*/
-    	font-size: 48px;
-    	border: none;
-    	cursor: pointer;
-		}
-		.PageNameGroup {
-    	position:relative;
-		display:block;
-		}
-		.dropdown-content {
-    	display: none;
-    	position:absolute;
-    	background-color: #F1F1F1!important;
-/*    	min-width: 160px;*/
-/*    	box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2) !important;*/
-			right: 0;
-/*			height: 400px;*/
-/*			width:80vw;*/
-/*			让右侧bar和屏幕一样长，删掉就三个按钮的高度*/
-		}
-		.dropdown-content a {
-    	color: black!important;
-    	padding: 12px 16px;
-    	text-decoration: none;
-    	display:block;
-			
-		}
-		.dropdown-content a:hover {background-color: #ffffff !important;color:black !important}
-		.PageNameGroup:hover .dropdown-content {display:block}
-		.PageNameGroup:hover .dropbtn {background-color: rgba(0,0,0,0.00);}
-		#largeSHOW{display: none;}
-		#smallSHOW{display: block;}
-		#note {margin-top: 50px;}
-	}
-	
-	
-	
-	
-	@media (min-width: 801px){
+			font-family: 'Original Surfer', cursive;font-size: 1rem;}
+	.botNav a:link {color:white;} /* 未访问链接*/
+	.botNav a:visited {color:white;} /* 已访问链接 */
+	.botNav a:hover {color:orange;} /* 鼠标移动到链接上 */
+	.botNav a:active {color:white;} /* 鼠标点击时 */
 		
-		.navbar{
-			padding-left: 7vw;
-			padding-right: 7vw;
-		}
-		.PageNameGroup{display:none;}
-		/*电脑屏幕不显示手机文字栏组*/
-		.PageNames a{margin-right: 30px;}
-		#largeSHOW{display: block;}
-		#smallSHOW{display: none;}
-	}
-</style>
-</head>
+	</style>
+  </head>
+  <body>
 
-<body>
-<div class="container">
-	<div class="navbar">
-		<div class="logo"><a href="#"><img src="img/InayaLogoH.svg" alt="Inaya Creative Studio" width="131" height="66"></a></div>
-		<div class="PageNames">
-			<a href="#">About</a>
-			<a href="#">Portfolio</a>
-			<a href="#">Contact</a>
-		</div>
-		<div class="PageNameGroup">
-		<button class="dropbtn"><i class="bi bi-list"></i></button>
-  			<div class="dropdown-content">
-    		<a href="#">About</a>
-    		<a href="#">Portfolio</a>
-    		<a href="#">Contact</a>
-  			</div>
-		</div>
+	<div style="background-color: black; color: white;text-align: center;font-family: 'Original Surfer', cursive;font-size: 1.0rem;padding-top: 3px;padding-bottom: 3px;">
+		Site is still under construction, some features may be unavailable
 	</div>
-	<div class="content">
-		<div style="display: grid;place-items:center;">
-			
-			<img id="largeSHOW" src="img/index_img.svg" style="margin-top: 90px;">
-			<h1 id="note" style="font-size: 32px;color: yellowgreen; text-align: center;padding: 50px 50px;margin-bottom: 0;">Just a friendly reminder that if your task is <span style="font-size:36px;color: yellow;">STRAIGHTFORWARD and CLEAR-CUT</span>, the fee may be as low as <span style="font-size:48px;color: yellow;">$24</span> <span style="font-size:36px;color: yellow;">per hour</span>, which is my standard hourly rate.</h1>
-			<img id="smallSHOW" src="img/index_img_s.svg" style="margin-bottom: 10px;">
-		</div>
+	<nav>
+    <div class="logo">
+    <a href="index.html" style="display: block; width: 100px;"><img src="img/LOGO_H.svg" alt="Inaya Creative Studio"></a>
+    </div>
+     <ul>
+     <li><a href="index.html">Home</a></li>
+     <li><a href="#navbot">About</a></li>
+     <li><a href="#contactbar">Contact</a></li>
+     </ul>
+    </nav>
+	  
+    
+		<div style="display: block"><img src="img/webbanner1.png" alt="IndexBanner" style="width: 100%;height: auto;"></div>
+	  	
+	  
+	 <div style="background-color: black; color: white;justify-content: space-between;display: flex;">	
+	<h1 style="font-family: 'Original Surfer', cursive; text-align: left;padding:15px 0px 15px 25px;display: inline-block;">Popular Products<br>
+		<span style="font-family: 'ZCOOL KuaiLe', sans-serif;margin-left: 0%;">产品推荐</span></h1>
+	<h5 style="font-family: 'Original Surfer', cursive; text-align: right;padding:15px 0px 15px 25px;display: inline-block;margin-right: 25px;color：orange;">
+		Need affordable and quality work done quickly?<br>
+			Our standard hourly rate is just $25 per hour<br>
+			For straightforward tasks, we offer unbeatable value<br>
+		 <span style="font-family: 'ZCOOL KuaiLe', sans-serif;">我们的服务费用为 $25 每小时，不含物料。</span></h5>
+	
+		 
+	</div>
+	 
 		
+ <div class="photo-wall" id="photowall">
+    <div class="photo">
+      <a href="#foil1">
+        <img src="img/foilcard1.png" alt="foilcard1">
+        <div class="description">Foil Cards and Envelope</div><br>
+		
+      </a>
+      <div class="overlay" id="foil1">
+        <a href="#photowall" class="close">&times;</a>
+        <img src="img/foilcard1.png" alt="FoilCards">
+      </div>
+    </div>
+	 <div class="photo">
+      <a href="#photo1">
+        <img src="https://img.freepik.com/free-photo/beautiful-face-red-fox-up-close-personal_493961-180.jpg" alt="Photo 1">
+        <div class="description">Description for Photo 1</div>
+      </a>
+      <div class="overlay" id="photo1">
+        <a href="#photowall" class="close">&times;</a>
+        <img src="https://img.freepik.com/free-photo/beautiful-face-red-fox-up-close-personal_493961-180.jpg" alt="Photo 1">
+      </div>
+    </div>
+	 <div class="photo">
+      <a href="#photo2">
+        <img src="https://cdn.pixabay.com/photo/2021/03/04/14/32/white-fox-6068175_960_720.jpg" alt="Photo 1">
+        <div class="description">Description for Photo 1</div>
+      </a>
+      <div class="overlay" id="photo2">
+        <a href="#photowall" class="close">&times;</a>
+        <img src="https://cdn.pixabay.com/photo/2021/03/04/14/32/white-fox-6068175_960_720.jpg" alt="Photo 1">
+      </div>
+    </div>
+	 <div class="photo">
+      <a href="#photo3">
+        <img src="https://cdn.pixabay.com/photo/2021/03/08/07/14/fox-6078370_960_720.jpg" alt="Photo 1">
+        <div class="description">Description for Photo 1</div>
+      </a>
+      <div class="overlay" id="photo3">
+        <a href="#photowall" class="close">&times;</a>
+        <img src="https://cdn.pixabay.com/photo/2021/03/08/07/14/fox-6078370_960_720.jpg" alt="Photo 1">
+      </div>
+    </div>
+	 
+	 
+	
 	
 	</div>
-	<div class="botNav">
-		<a href="#">© 2023 Inaya Creative Studio - All Rights Reserved.</a>
-		<a href="#">Terms of Service</a>
-		</div>
-	
-	<script>
-	//	header滚动显示代码
-	window.addEventListener("scroll",function(){
-		let navbar = document.querySelector(".navbar");
-		if(window.scrollY > 0)
-			{navbar.classList.add("HeaderMagic");}
-		else{navbar.classList.remove("HeaderMagic")}
-	})	
-	</script>	
-</div>
-</body>
+	  
+	  
+	<div id="contactbar" style="background-color: orange; color:black;text-align: left;font-family: 'Original Surfer', cursive;font-size: 1.0rem;padding-top: 5px;padding-bottom: 5px;padding-left: 25px;"><h2>Contact</h2>
+		<h5>
+			<i class="bi bi-envelope-at"></i> vincent.cui@hotmail.com<br>
+			<i class="bi bi-discord"></i> Inaya#7490
+		</h5>
+	  
+	  </div>
+
+	<div class="botNav" id="navbot">
+		<a href="index.html">© 2023 Inaya Creative Studio<br>&nbsp;&nbsp; Rights Reserved.</a>
+		<a href="#terms">Terms of Service</a>
+		
+	</div>
+	  <div class="overlay" id="terms" style="">
+        <a href="#navbot" class="close" style="">&times;</a>
+		    
+			<p style="background-color: white;width: 90vw; height: 80vh;margin: 3vw;padding: 2vw;text-align: justify;font-family: 'Open Sans', sans-serif;font-weight: 400; overflow:scroll; ">
+			<span style="font-family: 'Original Surfer', cursive; text-align: left;font-size: 1.5em;">TERMS AND CONDITIONS<br></span><br>
+				
+				- The Client agrees to pay 50% of the agreed-upon budget, for all graphics completed by the Designer. The budget covers all artwork and two revisions beyond the due date of the first draft design. Any additional work required after the due date will be billed at a rate of $40 per working hour, and only two more revisions will be given beyond the two allocated revisions. The Client must provide feedback within 48 hours upon receiving the draft designs for the allocated revisions.<br><br>
+
+-The payment can be made via e-transfer (vincent.cui@hotmail.com) or cash.<br><br>
+
+-If the Client fails to provide the final 50% of the budget, the final graphics and artwork will be withheld and not delivered.<br><br>
+
+				
+				
+				
+			- The Designer will provide the Client with design samples in PDF format for approval. All approvals must be made by the Client via email; approvals cannot be made in person or over the phone. It is the Client's responsibility to carefully review the design samples before approving them. The PDF may not show certain issues, such as color, resolution, or layout, when viewed at 100%. Therefore, the Client should zoom in on the PDF to review the design samples. The Designer is not liable for any errors that are not noticed by the Client, such as spelling, translation, image quality, color conversion from RGB to CMYK, color variation, font format, and other similar issues. It is the Client's responsibility to ensure that the design samples are accurate and suitable for their needs.<br><br>
+
+- The Designer cannot guarantee color matching between digital proofs and the final printed product. The appearance of colors on a computer screen or mobile device may vary from the printed product. The Designer will make every effort to match the gradient density of each color, but the final appearance of a color cannot be guaranteed. The application of UV coating or lamination may also affect or change the appearance of printed colors. It is the Client's responsibility to review and approve the final product before distribution.<br><br>
+
+- Orders can be cancelled upon the Client's request via email within 48 hours of placing the order, but may be subject to applicable cancellation charges. If the order is cancelled, any charges for labor hours (such as proofing or graphics design) or administrative fees (such as credit card fees) will be subtracted from the Client's refund. However, no refunds will be issued for any reason once the initial design layouts have been displayed to the Client. Design time is not refundable or transferable. If a deposit was required to reserve a specific date for a specific event, then the deposit will not be refundable.<br><br>
+
+-The Designer relinquishes all rights to monetary gain or royalties for the graphics created after the agreed budget. However, the Designer retains the right to showcase all graphics created in a graphic design portfolio both online and offline.<br><br>
+
+- The Designer warrants that they will only use legal and licensed software and materials and cannot be held liable for any monetary damages related to the agreed budget.<br><br>
+- Inaya Creative Studio reserves the right to refuse service to any person, company, reseller, affiliate, or any third party without disclosing a reason, or to terminate any project prior to completion at any time and for any reason. The Client agrees that Inaya Creative Studio shall have no liability of any kind to them or to any third party arising from such refusal or termination.<br><br>
+By accepting these terms and conditions, the Client acknowledges that they have read, understood, and agree to be bound by them. Any changes or amendments to these terms and conditions must be agreed upon in writing by both parties.
+</p>
+        </div>
+	 
+  </body>
 </html>
