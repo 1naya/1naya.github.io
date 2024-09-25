@@ -1,0 +1,333 @@
+ <!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Application：战斗说明</title>
+	<link href="Kage.svg" rel="shortcut icon">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body, html {
+            height: 100%;
+            font-family: Arial, sans-serif;
+             /* 取消滚动 overflow: hidden;*/
+        }
+
+        /* 设置背景图片 */
+        body {
+            /*background: url('https://images.hdqwalls.com/download/memories-of-my-travels-0v-1920x1080.jpg') no-repeat center center fixed;
+            background-size: cover;*/
+			background-image: linear-gradient(45deg, #fac69b 25%, #ffefd5 25%, #ffefd5 50%, #fac69b 50%, #fac69b 75%, #ffefd5 75%, #ffefd5 100%);
+			background-size: 84.85px 84.85px;
+        }
+
+        .header-container {
+            display: flex;
+            justify-content: space-between; /* 左右分布 */
+            align-items: center;
+            padding: 10px 50px;
+            margin-top: 0px;
+        }
+
+        .header-left {
+            display: flex;
+            align-items: center;
+            background-color: #ece6d9;
+            border-radius: 10px;
+            border: 2px solid black;
+            border-bottom: 4px solid black;
+            border-right: 3px solid black;
+            padding: 10px 10px;
+            flex-grow: 1; /* 自适应宽度 */
+            height: 60px; /* 固定高度 */
+        }
+
+        .logo {
+            height: 40px;
+            margin-right: 15px;
+        }
+
+        .title {
+            font-size: 20px;
+            font-weight: bold;
+        }
+
+        .header-right-container {
+            display: flex;
+            align-items: center;
+            margin-left: 20px;
+        }
+
+        .header-right {
+            position: relative;
+            width: 60px;
+            height: 60px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: #ece6d9;
+            border-radius: 10px;
+            border: 2px solid black;
+            border-bottom: 4px solid black;
+            border-right: 3px solid black;
+        }
+
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            top: 65px; /* 增加与 header 的距离 */
+            right: 0;
+            background-color: #ece6d9;
+            box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2);
+            z-index: 1;
+            border-radius: 10px;
+            border: 2px solid black;
+            border-bottom: 4px solid black;
+            border-right: 3px solid black;
+            width: 150px;
+        }
+
+        .dropdown-content a {
+            color: black;
+            padding: 10px;
+            text-decoration: none;
+            display: block;
+            border-radius: 8px;
+            font-weight: bold;
+        }
+
+        .dropdown-content a:hover {
+            background-color: #f1f1f1;
+        }
+
+        .dropdown-toggle {
+            width: 30px;
+            height: 30px;
+            background: url('arrow-down-left-square-fill.svg') no-repeat center center;
+            background-size: contain;
+            cursor: pointer;
+        }
+
+        .header-right.show .dropdown-content {
+            display: block;
+        }
+		
+		.my-footer {
+		    display: flex;
+            justify-content: right; /* 左分布 */
+            align-items: center;
+            padding: 10px 50px;
+            margin-top: 10px;
+			margin-left: 50px;
+			margin-right: 50px;
+			background-color: #ece6d9;
+            border-radius: 10px;
+            border: 2px solid black;
+            border-bottom: 4px solid black;
+            border-right: 3px solid black;
+            padding: 10px 10px;
+            flex-grow: 1; /* 自适应宽度 */
+            height: 60px; /* 固定高度 */
+			font-size: 20px;
+            font-weight: bold;
+		}
+		.inayalogo {
+		    height: 40px;
+			margin-left: 10px;
+			margin-right: 10px;
+		}
+		
+        /* MOVEIN EXTRA */
+        .movein {
+            display: block;
+            justify-content: space-between; /* 左右分布 */
+            align-items: center;
+            margin-left:50px;
+            margin-right:50px;
+            margin-top: 5px;
+            background-color: #ece6d9;
+            border-radius: 10px;
+            border: 2px solid black;
+            border-bottom: 4px solid black;
+            border-right: 3px solid black;
+        
+        }
+
+		.test-title {
+            font-weight:bold;
+            border-bottom: 2px solid black;
+            padding: 5px 10px;
+        }
+		
+
+
+
+        /* MOVEIN EXTRA */
+
+        /* 适应小屏幕 */
+        @media (max-width: 600px) {
+
+            .header-container {
+                display: flex;
+                justify-content: space-between; /* 左右分布 */
+                align-items: center;
+                padding: 10px 20px;
+                margin-top: 3px;
+        }
+
+            .title {
+                font-size: 16px;
+            }
+
+            .header-left {
+                padding: 5px 15px;
+                height: 50px; /* 小屏幕时的高度 */
+            }
+
+            .logo {
+                height: 30px;
+            }
+
+            .dropdown-toggle {
+                width: 30px;
+                height: 30px;
+            }
+
+            .header-right {
+                width: 50px;
+                height: 50px;
+            }
+
+            .movein {
+                display: block;
+                justify-content: space-between; /* 左右分布 */
+                align-items: center;
+                margin-left:20px;
+                margin-right:20px;
+                margin-top: 0px;
+                background-color: #ece6d9;
+                border-radius: 10px;
+                border: 2px solid black;
+                border-bottom: 4px solid black;
+                border-right: 3px solid black;
+            }
+			
+
+
+            .dropdown-content {
+                top: 50px; /* 增加与 header 的距离 */
+            }
+			.my-footer{
+			margin-left: 20px;
+			margin-right: 20px;	
+			}
+		
+        }
+    </style>
+</head>
+<body>
+
+<div class="header-container">
+    <div class="header-left">
+        <a href="Kage_home.html"><img src="Kage_v.svg" alt="Logo" class="logo"></a>
+        <div class="title">影栖坊桌游</div>
+    </div>
+    <div class="header-right-container">
+        <div class="header-right" id="dropdown">
+            <div class="dropdown-toggle"></div>
+            <div class="dropdown-content">
+                <a href="Kage_home.html">Home：首页</a>
+                <a href="Kage_skill_assign.html">App：技能选取</a>
+                <a href="Kage_skill_test.html">App：技能检定</a>
+                <a href="Kage_battle.html">App：战斗说明</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="movein">
+    <div class="test-title"> <span style="color:blue">𒊹</span>&nbsp;<span style="color:chocolate">𒊹</span>&nbsp;&nbsp;&nbsp; Application：战斗说明</div>
+       
+
+	
+	<div style="padding: 5px 10px;font-weight: bold;color: darkgreen; font-size: 18px;" >
+	
+	<span style="color: indigo"><br>✦ 在游戏中，玩家将会面对各种敌人，有时还需要与这些敌人进行战斗。<br><br></span>
+		&emsp;每个敌人有两个关键数值，它们将被印刷在敌人卡片上：<br>
+			&emsp;&emsp;<span style="color: darkred">坚韧值：</span>敌人的承受能力。玩家成功攻击敌人指定次数后，敌人会撤退或消失。<br>
+			&emsp;&emsp;<span style="color: darkred">战意值：</span>敌人的撤退意图。如果敌人在攻击玩家时失败一定次数（即战意值耗尽），它会选择撤退，主持人（KP）将解释敌人撤退的原因。<br><br>
+		<span style="color: indigo">&emsp;✦ 敌人可能具备多种攻击方式，玩家需要针对不同的攻击方式进行技能检定进行抵挡。<br>
+		&emsp;&emsp;&emsp;例如，玩家可能需要使用“闪避”、“侦察”或“直觉”等技能来化解敌人的攻击。<br>
+		&emsp;&emsp;&emsp;&emsp;每当玩家成功抵挡敌人的攻击时，主持人可以根据玩家的表现或策略给予反击机会。<br>
+		&emsp;&emsp;&emsp;&emsp;&emsp;战斗将持续进行，直到敌人的战意值耗尽，敌人选择撤退，或者玩家无法继续战斗。</span>
+		<p style="color:darkred;font-size: 24px;"><br>&emsp;✦ 不用担心，作为玩家无需了解这些复杂的规则，主持人将负责计算这一切！ ✦</p>
+	</div>
+	
+	<div style="margin:20px 10px 30px 75px;width: 250px;height:375px; border: solid 2px GoldenRod; 
+				border-bottom: solid 4px DarkGoldenRod;border-right: solid 3px DarkGoldenRod; border-radius: 10px;
+				background-color: black; color:gold; ">
+		<div style="border-bottom: solid 2px GoldenRod; font-size: 21px;font-weight: bold; padding: 7px;">✤ 粉红绒绒兔</div>
+		<div style="display: flex;padding: 10px 5px 10px 0px; border-bottom:solid 2px GoldenRod">
+			<img src="cardexample.svg" alt="example" width="175px" height="175px" style="">
+			<div style="color:Gold;padding: 10px 0px 10px 10px;">
+				<div style="width=50px; height=50px;font-size: 18px;margin-bottom: 20px;" >战意<br><span style="font-size: 36px; color:gainsboro; ">②</span></div>
+				<div style="width=50px; height=200px;font-size: 18px" >坚韧<br><span style="font-size: 36px;color:gainsboro;">①</span></div>
+			</div>
+			
+		</div>
+		
+		<div style="font-weight: bold;margin-left: 20px;margin-top: 10px;">
+			<p>• 偷袭(侦察-简单)<br>• 脚蹬(敏捷-简单)<br>• 魔贯光杀炮(战斗技巧-困难)</p>
+			<div style="font-weight: lighter;margin-left: 20px;margin-top: 15px;color:lightgrey;font-style:oblique;">一只随处可见的小兔子。</div>
+		</div>
+	</div>
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+
+</div>
+<footer class="my-footer">
+
+	Powered By <a href="#"><img src="Inaya_v_ZH.svg" alt="Logo" class="inayalogo"></a>
+</footer>
+
+<script>
+    // 获取下拉菜单元素
+    const dropdown = document.getElementById('dropdown');
+    const dropdownContent = dropdown.querySelector('.dropdown-content');
+
+    // 点击按钮显示/隐藏下拉菜单
+    dropdown.querySelector('.dropdown-toggle').addEventListener('click', function(event) {
+        event.stopPropagation();
+        dropdown.classList.toggle('show');
+    });
+
+    // 点击空白处隐藏下拉菜单
+    window.addEventListener('click', function() {
+        dropdown.classList.remove('show');
+    });
+
+    // 阻止点击下拉菜单时关闭菜单
+    dropdownContent.addEventListener('click', function(event) {
+        event.stopPropagation();
+    });
+</script>
+
+
+	
+	
+
+</body>
+</html>

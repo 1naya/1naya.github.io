@@ -1,0 +1,546 @@
+ <!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Application：技能选取</title>
+	<link href="Kage.svg" rel="shortcut icon">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body, html {
+            height: 100%;
+            font-family: Arial, sans-serif;
+             /* 取消滚动 overflow: hidden;*/
+        }
+
+        /* 设置背景图片 */
+        body {
+            /*background: url('https://images.hdqwalls.com/download/memories-of-my-travels-0v-1920x1080.jpg') no-repeat center center fixed;
+            background-size: cover;*/
+			background-image: linear-gradient(45deg, #fac69b 25%, #ffefd5 25%, #ffefd5 50%, #fac69b 50%, #fac69b 75%, #ffefd5 75%, #ffefd5 100%);
+			background-size: 84.85px 84.85px;
+        }
+
+        .header-container {
+            display: flex;
+            justify-content: space-between; /* 左右分布 */
+            align-items: center;
+            padding: 10px 50px;
+            margin-top: 0px;
+        }
+
+        .header-left {
+            display: flex;
+            align-items: center;
+            background-color: #ece6d9;
+            border-radius: 10px;
+            border: 2px solid black;
+            border-bottom: 4px solid black;
+            border-right: 3px solid black;
+            padding: 10px 10px;
+            flex-grow: 1; /* 自适应宽度 */
+            height: 60px; /* 固定高度 */
+        }
+
+        .logo {
+            height: 40px;
+            margin-right: 15px;
+        }
+
+        .title {
+            font-size: 20px;
+            font-weight: bold;
+        }
+
+        .header-right-container {
+            display: flex;
+            align-items: center;
+            margin-left: 20px;
+        }
+
+        .header-right {
+            position: relative;
+            width: 60px;
+            height: 60px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: #ece6d9;
+            border-radius: 10px;
+            border: 2px solid black;
+            border-bottom: 4px solid black;
+            border-right: 3px solid black;
+        }
+
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            top: 65px; /* 增加与 header 的距离 */
+            right: 0;
+            background-color: #ece6d9;
+            box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2);
+            z-index: 1;
+            border-radius: 10px;
+            border: 2px solid black;
+            border-bottom: 4px solid black;
+            border-right: 3px solid black;
+            width: 150px;
+        }
+
+        .dropdown-content a {
+            color: black;
+            padding: 10px;
+            text-decoration: none;
+            display: block;
+            border-radius: 8px;
+            font-weight: bold;
+        }
+
+        .dropdown-content a:hover {
+            background-color: #f1f1f1;
+        }
+
+        .dropdown-toggle {
+            width: 30px;
+            height: 30px;
+            background: url('arrow-down-left-square-fill.svg') no-repeat center center;
+            background-size: contain;
+            cursor: pointer;
+        }
+
+        .header-right.show .dropdown-content {
+            display: block;
+        }
+		
+		.my-footer {
+		    display: flex;
+            justify-content: right; /* 左分布 */
+            align-items: center;
+            padding: 10px 50px;
+            margin-top: 10px;
+			margin-left: 50px;
+			margin-right: 50px;
+			background-color: #ece6d9;
+            border-radius: 10px;
+            border: 2px solid black;
+            border-bottom: 4px solid black;
+            border-right: 3px solid black;
+            padding: 10px 10px;
+            flex-grow: 1; /* 自适应宽度 */
+            height: 60px; /* 固定高度 */
+			font-size: 20px;
+            font-weight: bold;
+		}
+		.inayalogo {
+		    height: 40px;
+			margin-left: 10px;
+			margin-right: 10px;
+		}
+		
+        /* MOVEIN EXTRA */
+        .movein {
+            display: block;
+            justify-content: space-between; /* 左右分布 */
+            align-items: center;
+            margin-left:50px;
+            margin-right:50px;
+            margin-top: 5px;
+            background-color: #ece6d9;
+            border-radius: 10px;
+            border: 2px solid black;
+            border-bottom: 4px solid black;
+            border-right: 3px solid black;
+        
+        }
+
+	     #magic-container {
+			padding: 5px 10px;
+			font-weight: bold;
+            color: black;
+            position: relative;
+            overflow: hidden;
+        }
+
+        #magic-container button {
+            background-color: orange;
+            color: black;
+			font-weight: bold;
+            border: 2px solid black;
+			border-bottom: 3px solid black;
+            border-right: 3px solid black;
+            padding: 10px 20px;
+            cursor: pointer;
+            border-radius: 3px;
+            font-size: 16px;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            margin: 5px;
+        }
+
+        #magic-container button:hover {
+            background-color: darkorange;
+            box-shadow: 0 0 5px #3f3f7f;
+        }
+
+        #current_draw, #selected_cards, #remaining_draws, #explain {
+            margin-top: 10px;
+            background-color: #ffbc8f;
+            padding: 10px 20px;
+            border-radius: 3px;
+        }
+
+        #magic-container img {
+            border-radius: 5px;
+            border: 2px solid black;
+			border-bottom: 3px solid black;
+            border-right: 3px solid black;
+        }
+
+        #magic-container span {
+            display: block;
+            margin: 0px 0;
+            color: indigo;
+			font-weight: bold;
+        }
+
+        #button-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+		.test-title {
+            font-weight:bold;
+            border-bottom: 2px solid black;
+            padding: 5px 10px;
+        }
+		
+        #magic-container img {
+            max-width: 100%;
+        }	
+		
+		.explain_text {
+			display: flex; 
+		}
+
+
+        /* MOVEIN EXTRA */
+
+        /* 适应小屏幕 */
+        @media (max-width: 600px) {
+
+            .header-container {
+                display: flex;
+                justify-content: space-between; /* 左右分布 */
+                align-items: center;
+                padding: 10px 20px;
+                margin-top: 3px;
+        }
+
+            .title {
+                font-size: 16px;
+            }
+
+            .header-left {
+                padding: 5px 15px;
+                height: 50px; /* 小屏幕时的高度 */
+            }
+
+            .logo {
+                height: 30px;
+            }
+
+            .dropdown-toggle {
+                width: 30px;
+                height: 30px;
+            }
+
+            .header-right {
+                width: 50px;
+                height: 50px;
+            }
+
+            .movein {
+                display: block;
+                justify-content: space-between; /* 左右分布 */
+                align-items: center;
+                margin-left:20px;
+                margin-right:20px;
+                margin-top: 0px;
+                background-color: #ece6d9;
+                border-radius: 10px;
+                border: 2px solid black;
+                border-bottom: 4px solid black;
+                border-right: 3px solid black;
+            }
+			
+			.explain_text {
+				display: block; 
+			}
+
+            .dropdown-content {
+                top: 50px; /* 增加与 header 的距离 */
+            }
+			.my-footer{
+			margin-left: 20px;
+			margin-right: 20px;	
+			}
+		
+        }
+    </style>
+</head>
+<body>
+
+<div class="header-container">
+    <div class="header-left">
+        <a href="Kage_home.html"><img src="Kage_v.svg" alt="Logo" class="logo"></a>
+        <div class="title">影栖坊桌游</div>
+    </div>
+    <div class="header-right-container">
+        <div class="header-right" id="dropdown">
+            <div class="dropdown-toggle"></div>
+            <div class="dropdown-content">
+                <a href="Kage_home.html">Home：首页</a>
+                <a href="Kage_skill_assign.html">App：技能选取</a>
+                <a href="Kage_skill_test.html">App：技能检定</a>
+                <a href="Kage_battle.html">App：战斗说明</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="movein">
+    <div class="test-title"> <span style="color:blue">𒊹</span>&nbsp;<span style="color:chocolate">𒊹</span>&nbsp;&nbsp;&nbsp; Application：技能选取</div>
+       
+	<div id="magic-container"> <!-- 将整个页面的内容放在一个 div 中 -->
+
+    <div id="button-container">
+        <button onclick="start()">开始抽卡</button>
+        <button onclick="resetContainer()">重置容器</button> <!-- 改为重置按钮 -->
+    </div>
+
+    <div id="remaining_draws"></div> <!-- 显示剩余抽取次数 -->
+    <div id="current_draw"></div>
+    <div id="selected_cards"></div>
+	<div id="explain" >
+		<div style="display: flex; color: saddlebrown;">每个玩家可以抽取9张卡牌，作为玩家的起始能力<br>
+		游戏中涉及四大类能力，每个大类下分为4个具体的技能。<br><br>
+		</div>
+		
+		<div style="color: DarkOliveGreen;" class="explain_text">
+		<div style="margin-right: 25px;">
+		身体能力<br><br>
+		力量：角色的物理力量，用于测试身体上的挑战。<br>
+		敏捷：用于快速反应、闪避等。<br>
+		体力：影响角色的耐力和生存能力。<br>
+		战斗技巧：影响角色在战斗中的表现，无论是近战还是远程攻击。<br><br>
+		</div>	
+		<div style="margin-right: 25px;">
+		社交能力<br><br>
+		说服：用于影响他人或达成协议。<br>
+		欺骗：撒谎、伪装等。<br>
+		察言观色：识别他人的情绪和意图。<br>
+		领导力：激励他人，组织团队。<br><br>
+		</div>
+		<div style="margin-right: 25px;">
+		智力能力<br><br>
+		学识：角色的知识储备，用于调查、知识领域。<br>
+		调查：用于寻找线索、分析情况。<br>
+		心理学：用于分析他人内心的状态，也可以缓解心理疾病。<br>
+		技术使用：用于使用或修理现代设备和技术。<br>
+		医疗知识：用于治愈伤病、急救等。<br><br>
+		</div>
+		<div style="margin-right: 25px;">
+		感知能力<br><br>
+		侦察：发现隐藏的物体或敌人。<br>
+		倾听：用于捕捉微小的声音或远处的动静。<br>
+		直觉：用于预感危险或感知超自然现象。<br>
+		</div>
+		</div>
+		
+		</div>
+	</div> <!-- 结束页面内容的 div 容器 -->
+
+</div>
+<footer class="my-footer">
+
+	Powered By <a href="#"><img src="Inaya_v_ZH.svg" alt="Logo" class="inayalogo"></a>
+</footer>
+
+<script>
+    // 获取下拉菜单元素
+    const dropdown = document.getElementById('dropdown');
+    const dropdownContent = dropdown.querySelector('.dropdown-content');
+
+    // 点击按钮显示/隐藏下拉菜单
+    dropdown.querySelector('.dropdown-toggle').addEventListener('click', function(event) {
+        event.stopPropagation();
+        dropdown.classList.toggle('show');
+    });
+
+    // 点击空白处隐藏下拉菜单
+    window.addEventListener('click', function() {
+        dropdown.classList.remove('show');
+    });
+
+    // 阻止点击下拉菜单时关闭菜单
+    dropdownContent.addEventListener('click', function(event) {
+        event.stopPropagation();
+    });
+</script>
+
+<script>
+    let card_list = [
+        { text: "力量+1", image: "你经常帮人搬家，肌肉就是这样练出来的。" },
+        { text: "力量+1", image: "你有张健身房的年卡，虽然只是去自拍，时间久了居然也变壮了。" },
+        { text: "敏捷+1", image: "查寝时，你总是第一个溜走的人。" },
+        { text: "敏捷+1", image: "你练就了从沙发到冰箱的“瞬移术”，永远比别人快一步拿到零食。" },
+        { text: "体力+1", image: "通宵看剧？小意思！你早已修炼出不睡觉的神技。" },
+        { text: "体力+1", image: "你曾在一次马拉松比赛中跑了5公里……在游戏里。" },
+        { text: "战斗技巧+1", image: "曾在烧烤派对上单挑一群蚊子，并取得了压倒性胜利。" },
+        { text: "战斗技巧+1", image: "你是桌游王者，朋友不敢挑战你。" },
+        { text: "说服+1", image: "你总能让朋友替你买零食，不掏钱。" },
+        { text: "说服+1", image: "外卖小哥总是给你多带酱料。" },
+        { text: "欺骗+1", image: "每次迟到都能编出新的理由，连自己都快信了。" },
+        { text: "欺骗+1", image: "演技堪比奥斯卡影帝，没人能看穿你“今晚要早睡”的谎言。" },
+		{ text: "察言观色+1", image: "别人一个表情你就能判断他们是不是在偷偷吃东西而不告诉你。" },
+        { text: "察言观色+1", image: "你能一眼看出谁在争最后一块披萨。" },
+		{ text: "领导力+1", image: "你是宿舍的“室长”，虽然没人选你，你自动承担了这个角色。" },
+        { text: "领导力+1", image: "曾组织过一次旷世派对，虽然到场的人比预料的少了一半。" },
+		{ text: "学识+1", image: "常说“书到用时方恨少”，你相信短视频也是一种知识来源。" },
+        { text: "学识+1", image: "知识储备全靠知乎，虽然很多问题没经历过，但感觉自己已经是专家了。" },
+		{ text: "调查+1", image: "社交媒体平台上，你能通过几张照片找到某人的祖宗十八代。" },
+        { text: "调查+1", image: "曾经破获了一起宿舍里的“谁偷吃了我的零食”大案。" },
+		{ text: "心理学+1", image: "能够轻松分析出室友的情感状态，因为他们总在“刷屏式倾诉”。" },
+        { text: "心理学+1", image: "看过很多心理鸡汤文，自认是半个心理学家。" },
+		{ text: "技术使用+1", image: "“拍打修理法”是你独门绝技。" },
+        { text: "技术使用+1", image: "宿舍里唯一知道如何配置路由器的神人。" },
+		{ text: "侦察+1", image: "教室里偷偷玩手机的人瞒不过你。" },
+        { text: "侦察+1", image: "总能在最混乱的房间里找到丢失的充电器。" },
+		{ text: "倾听+1", image: "你耳朵极灵，没有八卦能逃过你的耳朵。" },
+        { text: "倾听+1", image: "能在嘈杂的咖啡馆里听见别人的小声嘀咕。" },
+		{ text: "直觉+1", image: "总能提前预感到即将关闭的电梯，正好赶上。" },
+        { text: "直觉+1", image: "总能提前嗅到餐厅打折的气息，什么美食优惠都逃不过你的感觉。" },
+		{ text: "医疗知识+1", image: "曾在野外用一张创可贴和一把草救治了朋友，虽然他当时只是擦破了点皮。" },
+        { text: "医疗知识+1", image: "对感冒药的了解程度不亚于药剂师，因为每年都会多次感冒。" },
+		{ text: "任选技能+1", image: "你总能发现自己隐藏的技能，真是个“万事通”，无论啥都能来两招！" },
+        { text: "任选技能+1", image: "你的潜力就像藏在角落里的零食，一发现就能瞬间引发围观！" },
+    	];
+
+    let selected_cards = []; // 用于存储用户已选择的卡片
+    let drawn_cards = []; // 当前抽出的三张卡片
+    let draw_count = 0; // 计数器，用于限制抽取次数
+    const max_draws = 9; // 最大抽取次数
+
+    function start() {
+        draw_count = 0; // 初始化计数器
+        selected_cards = []; // 重置已选择的卡片
+        shuffleAndDraw(); // 洗牌并抽卡
+        updateDisplay(); // 更新显示
+    }
+
+    function shuffleAndDraw() {
+        // 洗牌
+        card_list = card_list
+            .map(value => ({ value, sort: Math.random() }))
+            .sort((a, b) => a.sort - b.sort)
+            .map(({ value }) => value);
+
+        // 抽取三张卡片
+        drawn_cards = [card_list[0], card_list[1], card_list[2]];
+    }
+
+    function updateDisplay() {
+        let draw_html = "✦ [当前抽出的卡片]<br><br>";
+        drawn_cards.forEach((card, index) => {
+            draw_html += `
+                <div style="display: inline-block; text-align: left; margin-right: 10px;margin-left: 0px;">
+                    <!--<img src="${card.image}" alt="Card Image" style="display: block; margin-bottom: 5px;"> -->
+					<span style="margin-left: 10px;color:saddlebrown;width:270px;">${card.image}</span><br>
+                    <span style="margin-left: 10px;font-size:24px;color:darkgreen;">${card.text}</span><br>
+                    <!--<button onclick="pick(${index})">选择 #${index + 1}</button>-->
+					<button onclick="pick(${index})">选择这张！</button>
+                </div>`;
+        });
+        document.getElementById("current_draw").innerHTML = draw_html;
+
+        document.getElementById("selected_cards").innerHTML = "✦ [已选择的卡片]<br>" + selected_cards.map(card => card.text).join("<br>");
+        document.getElementById("remaining_draws").innerHTML = "✦ [剩余抽取次数] " + (max_draws - draw_count); // 显示剩余抽取次数
+    }
+
+    function pick(index) {
+        if (draw_count < max_draws) { // 限制抽卡次数为 max_draws
+            let removed_card = drawn_cards[index];
+            let cardIndex = card_list.indexOf(removed_card); // 找到卡片在原始卡组中的索引
+            card_list.splice(cardIndex, 1);
+            selected_cards.push(removed_card); // 记录已选择的卡片
+
+            draw_count++; // 增加计数器
+
+            if (draw_count < max_draws && card_list.length > 2) {
+                shuffleAndDraw();
+            } else {
+                drawn_cards = []; // 如果已经抽取了 max_draws 次或卡片不足，停止抽卡
+            }
+
+            updateDisplay(); // 更新显示
+        }
+    }
+
+    // 重置容器的内容
+    function resetContainer() {
+        // 重置卡片和计数
+        card_list = [
+        { text: "力量+1", image: "你经常帮人搬家，肌肉就是这样练出来的。" },
+        { text: "力量+1", image: "你有张健身房的年卡，虽然只是去自拍，时间久了居然也变壮了。" },
+        { text: "敏捷+1", image: "查寝时，你总是第一个溜走的人。" },
+        { text: "敏捷+1", image: "你练就了从沙发到冰箱的“瞬移术”，永远比别人快一步拿到零食。" },
+        { text: "体力+1", image: "通宵看剧？小意思！你早已修炼出不睡觉的神技。" },
+        { text: "体力+1", image: "你曾在一次马拉松比赛中跑了5公里……在游戏里。" },
+        { text: "战斗技巧+1", image: "曾在烧烤派对上单挑一群蚊子，并取得了压倒性胜利。" },
+        { text: "战斗技巧+1", image: "你是桌游王者，朋友不敢挑战你。" },
+        { text: "说服+1", image: "你总能让朋友替你买零食，不掏钱。" },
+        { text: "说服+1", image: "外卖小哥总是给你多带酱料。" },
+        { text: "欺骗+1", image: "每次迟到都能编出新的理由，连自己都快信了。" },
+        { text: "欺骗+1", image: "演技堪比奥斯卡影帝，没人能看穿你“今晚要早睡”的谎言。" },
+		{ text: "察言观色+1", image: "别人一个表情你就能判断他们是不是在偷偷吃东西而不告诉你。" },
+        { text: "察言观色+1", image: "你能一眼看出谁在争最后一块披萨。" },
+		{ text: "领导力+1", image: "你是宿舍的“室长”，虽然没人选你，你自动承担了这个角色。" },
+        { text: "领导力+1", image: "曾组织过一次旷世派对，虽然到场的人比预料的少了一半。" },
+		{ text: "学识+1", image: "常说“书到用时方恨少”，你相信短视频也是一种知识来源。" },
+        { text: "学识+1", image: "知识储备全靠知乎，虽然很多问题没经历过，但感觉自己已经是专家了。" },
+		{ text: "调查+1", image: "社交媒体平台上，你能通过几张照片找到某人的祖宗十八代。" },
+        { text: "调查+1", image: "曾经破获了一起宿舍里的“谁偷吃了我的零食”大案。" },
+		{ text: "心理学+1", image: "能够轻松分析出室友的情感状态，因为他们总在“刷屏式倾诉”。" },
+        { text: "心理学+1", image: "看过很多心理鸡汤文，自认是半个心理学家。" },
+		{ text: "技术使用+1", image: "“拍打修理法”是你独门绝技。" },
+        { text: "技术使用+1", image: "宿舍里唯一知道如何配置路由器的神人。" },
+		{ text: "侦察+1", image: "教室里偷偷玩手机的人瞒不过你。" },
+        { text: "侦察+1", image: "总能在最混乱的房间里找到丢失的充电器。" },
+		{ text: "倾听+1", image: "你耳朵极灵，没有八卦能逃过你的耳朵。" },
+        { text: "倾听+1", image: "能在嘈杂的咖啡馆里听见别人的小声嘀咕。" },
+		{ text: "直觉+1", image: "总能提前预感到即将关闭的电梯，正好赶上。" },
+        { text: "直觉+1", image: "总能提前嗅到餐厅打折的气息，什么美食优惠都逃不过你的感觉。" },
+		{ text: "医疗知识+1", image: "曾在野外用一张创可贴和一把草救治了朋友，虽然他当时只是擦破了点皮。" },
+        { text: "医疗知识+1", image: "对感冒药的了解程度不亚于药剂师，因为每年都会多次感冒。" },
+		{ text: "任选技能+1", image: "你总能发现自己隐藏的技能，真是个“万事通”，无论啥都能来两招！" },
+        { text: "任选技能+1", image: "你的潜力就像藏在角落里的零食，一发现就能瞬间引发围观！" },	
+    	];
+        selected_cards = [];
+        drawn_cards = [];
+        draw_count = 0;
+        document.getElementById("current_draw").innerHTML = "";
+        document.getElementById("selected_cards").innerHTML = "";
+        document.getElementById("remaining_draws").innerHTML = "✦ [剩余抽取次数] " + max_draws;
+    }
+</script>
+	
+	
+
+</body>
+</html>
