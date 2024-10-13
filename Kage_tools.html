@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>KAGE CHAN：影栖坊桌游</title>
+    <title>Utilities：常用工具</title>
 	<link href="Kage.svg" rel="shortcut icon">
     <style>
         * {
@@ -164,22 +164,27 @@
             padding: 5px 10px;
         }
 		
-		
-		.mainbox{
-			
-		  --s: 26px; /* control the size*/
-		  --c1: #ece6d9;
-		  --c2: #ffefd5;
+		.test-button {
+            color: black;
+            font-weight:bold;
+            border: 2px solid black;
+			border-right: 3px solid black;
+			border-bottom: 4px solid black;
+            border-radius: 3px;
+            padding: 10px 10px;
+            font-size: 16px;
+            cursor: help;
+            margin: 12px;
+            transition: background-color 0.3s, transform 0.2s;
+        }
 
-		  --c: var(--c1) 0 25%,var(--c2) 0 50%,#0000 0;
-		  background:
-			conic-gradient(from 180deg,var(--c)) 
-			0/var(--s) var(--s),
-			repeating-conic-gradient(from 90deg,var(--c))
-			0/calc(3*var(--s)) calc(3*var(--s));
-		}
+        .green-button {background-color: #8BC34A;}
+		.green-button:hover {background-color: #7CB342;}
+		.yellow-button {background-color: #FFC107;}
+		.yellow-button:hover {background-color: #FFB300;}
 		
-		
+		.test-button:active {transform: scale(0.98);}
+		.result{ margin-bottom: 20px;margin-left: 15px;color:darkred;}
 
 
         /* MOVEIN EXTRA */
@@ -266,26 +271,38 @@
 </div>
 
 <div class="movein">
-    <div class="test-title"> <span style="color:blue">𒊹</span>&nbsp;<span style="color:chocolate">𒊹</span>&nbsp;&nbsp;&nbsp; Home：首页</div>
+    <div class="test-title"> <span style="color:blue">𒊹</span>&nbsp;<span style="color:chocolate">𒊹</span>&nbsp;&nbsp;&nbsp; Utilities：常用工具</div>
        
-	<div class="mainbox">
-		<div style="text-align: center;padding-top: 20px;">
-			<div style="padding: 15px 10px;font-weight: bold;font-size: 18px; color: black;text-align: center; margin:auto; width: fit-content;" class="">
 
-				<div style="font-size: 32px; margin-bottom: -15px;">✦ &nbsp;欢迎来到影栖坊桌游！✦</div><br>
-				<div style=" color:darkgreen;margin-bottom: -15px;">我是店长影栖影，一位热爱桌游的玩家，致力于将桌游的乐趣与更多的朋友分享。</div><br>		
-				目前，我正在设计一款基于跑团玩法的全新卡牌驱动桌游。<br> 
-					我的目标是创造一个人物卡创建简便、单个剧本游戏时间短，<br>
-				可以在繁忙的生活中也能轻松体验精彩冒险的游戏。<br><br>
-				<div style="font-size: 21px;color:SaddleBrown">希望也能与你一起感受桌游的独特魅力！</div>	
-			</div>
+	<div style="padding: 5px 10px;font-weight: bold;color: dimgray;" >
+		<div style="margin-left: 15px;margin-top: 10px;">投掷一个 [面数] 面的骰子<br><span style="font-style: oblique;line-height: 24px;">Roll a [number]-sided die</span></div>
+		<div class="dice-container">
+			<button onclick="rollDice(2, 'single')" class="test-button green-button">双面骰（D2）</button>
+			<button onclick="rollDice(4, 'single')" class="test-button green-button">四面骰（D4）</button>
+			<button onclick="rollDice(6, 'single')" class="test-button green-button">六面骰（D6）</button>
+			<button onclick="rollDice(8, 'single')" class="test-button green-button">八面骰（D8）</button>
+			<button onclick="rollDice(10, 'single')" class="test-button green-button">十面骰（D10）</button>
+			<button onclick="rollDice(12, 'single')" class="test-button green-button">十二面骰（D12）</button>
+			<button onclick="rollDice(20, 'single')" class="test-button green-button">二十面骰（D20）</button>
+			<button onclick="rollDice(100, 'single')" class="test-button green-button">百面骰（D100）</button>
+			<div id="single-result" class="result"></div>
 		</div>
 
-		<div style="text-align: center; margin-top: -75px;">
-			<img src="Kage.svg" alt="" width="350" height="445" >
-			
+		<div style="margin-left: 15px;">投掷两个 [面数] 面的骰子<br><span>Roll two [number]-sided dice </span></div>
+		<div class="dice-container">
+			<button onclick="rollDice(2, 'double')" class="test-button yellow-button" >双面骰（D2）</button>
+			<button onclick="rollDice(4, 'double')" class="test-button yellow-button">四面骰（D4）</button>
+			<button onclick="rollDice(6, 'double')" class="test-button yellow-button">六面骰（D6）</button>
+			<button onclick="rollDice(8, 'double')" class="test-button yellow-button">八面骰（D8）</button>
+			<button onclick="rollDice(10, 'double')" class="test-button yellow-button">十面骰（D10）</button>
+			<button onclick="rollDice(12, 'double')" class="test-button yellow-button">十二面骰（D12）</button>
+			<button onclick="rollDice(20, 'double')" class="test-button yellow-button">二十面骰（D20）</button>
+			<button onclick="rollDice(100, 'double')" class="test-button yellow-button">百面骰（D100）</button>
+			<div id="double-result" class="result"></div>
 		</div>
+
 	</div>
+	
 	
 	
 	
@@ -326,6 +343,21 @@
     });
 </script>
 
+<script>
+    function rollDice(sides, type) {
+    if (type === 'single') {
+    // 掷一个骰子
+    let result = Math.floor(Math.random() * sides) + 1;
+    document.getElementById('single-result').textContent = `结果（Result）: D${sides} = ${result}`;
+    } else if (type === 'double') {
+    // 掷两个骰子
+    let result1 = Math.floor(Math.random() * sides) + 1;
+    let result2 = Math.floor(Math.random() * sides) + 1;
+    let total = result1 + result2;
+    document.getElementById('double-result').textContent = `结果（Result）: D${sides} = ${result1}, D${sides} = ${result2}, 总和（Sum） = ${total}`;
+    }
+    }
+</script>
 
 	
 	
