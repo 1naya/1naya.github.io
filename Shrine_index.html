@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>狐禅</title>
+    <style>
+        /* 页面背景和容器样式 */
+        body {
+            background-color: #f8f4f0; /* 浅米色作为背景，温暖柔和 */
+            font-family: 'Arial', sans-serif;
+        }
+        .container {
+            max-width: 600px;
+            margin: auto;
+            padding: 20px;
+            background-color: rgba(255, 255, 255, 0.8); /* 白色，带有轻微透明度 */
+            border: 2px solid rgba(255, 0, 0, 0.6); /* 红色边框，半透明 */
+            border-radius: 15px;
+            box-shadow: 0 0 15px rgba(255, 0, 0, 0.4); /* 模糊阴影，带红色 */
+            backdrop-filter: blur(10px); /* 背景模糊效果 */
+        }
+
+        /* 标题样式 */
+        h1 {
+            text-align: left;
+            color: #c21807; /* 深红色字体 */
+            text-shadow: 1px 1px 2px rgba(255, 255, 255, 0.8); /* 白色阴影效果 */
+        }
+
+        h3 {
+            color: #d32f2f; /* 较为明亮的红色 */
+            text-align: left;
+        }
+
+        /* 输入框和按钮样式 */
+        textarea {
+            width: calc(100% - 20px);
+            height: 100px;
+            margin-bottom: 10px;
+            padding: 10px;
+            border-radius: 8px;
+            border: 1px solid rgba(255, 0, 0, 0.4); /* 半透明红色边框 */
+            background-color: rgba(255, 255, 255, 0.7); /* 半透明白色背景 */
+            font-size: 16px;
+            font-family: 'Arial', sans-serif;
+        }
+
+        button {
+            background-color: #e53935; /* 红色按钮 */
+            color: #ffffff; /* 白色文字 */
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            margin-right: 10px;
+            transition: background-color 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #c21807; /* 鼠标悬停时颜色变深 */
+        }
+
+        /* 复制成功提示 */
+        .copy-success {
+            color: #4caf50; /* 绿色提示 */
+            margin-top: 10px;
+            font-weight: bold;
+            display: none;
+        }
+
+        /* 输出结果的样式 */
+        p {
+            background-color: rgba(255, 255, 255, 0.7); /* 半透明背景 */
+            padding: 10px;
+            border-radius: 5px;
+            border: 1px solid rgba(255, 0, 0, 0.3); /* 轻微红色边框 */
+        }
+
+        /* 适配移动设备 */
+        @media (max-width: 600px) {
+            .container {
+                padding: 15px;
+            }
+
+            button {
+                padding: 8px 15px;
+                font-size: 14px;
+            }
+
+            textarea {
+                height: 80px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>狐禅</h1>
+
+        <h3>听狐说宇宙的奥秘:</h3>
+        <textarea id="inputText" placeholder="输入要加密的文字"></textarea><br>
+        <button onclick="encrypt()">加密</button>
+        <button onclick="clearInput('inputText')">清除输入</button>
+        <p id="encryptedText"></p>
+        <button id="copyButton" style="display:none;" onclick="copyToClipboard()">复制到剪贴板</button>
+        <p id="decryptedFromEncrypt"></p>
+        <p id="copySuccess" class="copy-success">加密结果已复制到剪贴板！</p>
+
+        <h3>参透狐说的真意:</h3>
+        <textarea id="encodedText" placeholder="输入要解密的文字"></textarea><br>
+        <button onclick="decrypt()">解密</button>
+        <button onclick="clearInput('encodedText')">清除输入</button>
+        <p id="decryptedText"></p>
+    </div>
+
+    <script>
+        const keyMap1 = {
+            "0": "狐", "1": "影", "2": "幻", "3": "梦", "4": "灵", "5": "雾", "6": "静", "7": "隙",
+            "8": "境", "9": "音", "a": "云", "b": "霭", "c": "霞", "d": "星", "e": "寒", "f": "彩", "兮": "兮"
+        };
+        const keyMap2 = {
+            "0": "晨", "1": "曦", "2": "影", "3": "梦", "4": "风", "5": "雪", "6": "幻", "7": "清",
+            "8": "露", "9": "珠", "a": "月", "b": "幽", "c": "醉", "d": "蓝", "e": "静", "f": "莎", "兮": "兮"
+        };
+        const keyMap3 = {
+            "0": "幻", "1": "影", "2": "狐", "3": "梦", "4": "妖", "5": "兰", "6": "雨", "7": "晴",
+            "8": "境", "9": "诗", "a": "舞", "b": "花", "c": "霞", "d": "星", "e": "谷", "f": "霜", "兮": "兮"
+        };
+        const keyMap4 = {
+            "0": "梦", "1": "幻", "2": "影", "3": "狐", "4": "雪", "5": "萧", "6": "音", "7": "隙",
+            "8": "庭", "9": "霞", "a": "晨", "b": "露", "c": "夜", "d": "雪", "e": "柳", "f": "幽", "兮": "兮"
+        };
+
+        const reverseKeyMap1 = reverseMap(keyMap1);
+        const reverseKeyMap2 = reverseMap(keyMap2);
+        const reverseKeyMap3 = reverseMap(keyMap3);
+        const reverseKeyMap4 = reverseMap(keyMap4);
+
+        const schemes = [
+            { name: "神斯常乐兮", keyMap: keyMap1, reverseKeyMap: reverseKeyMap1 },
+            { name: "归去何来兮", keyMap: keyMap2, reverseKeyMap: reverseKeyMap2 },
+            { name: "吁嗟徂矣兮", keyMap: keyMap3, reverseKeyMap: reverseKeyMap3 },
+            { name: "福泽久延兮", keyMap: keyMap4, reverseKeyMap: reverseKeyMap4 }
+        ];
+
+        function reverseMap(map) {
+            const reversed = {};
+            for (let key in map) {
+                reversed[map[key]] = key;
+            }
+            return reversed;
+        }
+
+        function encrypt() {
+            const inputText = document.getElementById("inputText").value;
+            const scheme = schemes[Math.floor(Math.random() * schemes.length)];
+            const hexText = Array.from(inputText).map(c => c.charCodeAt(0).toString(16)).join('兮');
+            const encryptedText = Array.from(hexText).map(c => scheme.keyMap[c] || c).join('') + scheme.name;
+
+            document.getElementById("encryptedText").innerText = "加密结果: " + encryptedText;
+            document.getElementById("copyButton").style.display = "inline-block";
+
+            // 同时输出解密结果验证
+            let decryptedText = decryptInstant(encryptedText);
+            document.getElementById("decryptedFromEncrypt").innerText = "解密验证: " + decryptedText;
+        }
+
+        function decryptInstant(encryptedText) {
+            for (let scheme of schemes) {
+                if (encryptedText.endsWith(scheme.name)) {
+                    const encodedPart = encryptedText.slice(0, -scheme.name.length);
+                    const decodedText = Array.from(encodedPart).map(c => scheme.reverseKeyMap[c] || c).join('');
+                    const hexArray = decodedText.split('兮');
+                    return String.fromCharCode(...hexArray.map(h => parseInt(h, 16)));
+                }
+            }
+            return "无法解密";
+        }
+
+        function decrypt() {
+            const encryptedText = document.getElementById("encodedText").value;
+            const decryptedText = decryptInstant(encryptedText);
+            document.getElementById("decryptedText").innerText = "解密结果: " + decryptedText;
+        }
+
+        function clearInput(id) {
+            document.getElementById(id).value = "";
+            if (id === "inputText") {
+                document.getElementById("encryptedText").innerText = "";
+                document.getElementById("decryptedFromEncrypt").innerText = "";
+                document.getElementById("copyButton").style.display = "none";
+            } else {
+                document.getElementById("decryptedText").innerText = "";
+            }
+        }
+
+        function copyToClipboard() {
+            const encryptedText = document.getElementById("encryptedText").innerText.replace("加密结果: ", "");
+            navigator.clipboard.writeText(encryptedText).then(function() {
+                document.getElementById("copySuccess").style.display = "block";
+                setTimeout(() => document.getElementById("copySuccess").style.display = "none", 3000);
+            });
+        }
+    </script>
+</body>
+</html>
