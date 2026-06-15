@@ -21,7 +21,7 @@ const imageFiles = [];
 // 自动探测独立文件夹 `S1_Memory_MAG_CN_IMG/` 中的图片数量
 function autoDetectImages(callback) {
     let currentCheckIndex = 1;
-    pageIndicator.innerText = "正在参悟...";
+    pageIndicator.innerText = "正在加载...";
 
     function checkNext() {
         let num = String(currentCheckIndex).padStart(3, '0');
