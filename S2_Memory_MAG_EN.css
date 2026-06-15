@@ -11,7 +11,7 @@ body {
     min-height: 100vh;
     font-family: 'Arial', -apple-system, sans-serif;
     overflow: hidden;
-    color: #333333; /* 浅色背景下使用深色字确保清晰 */
+    color: #333333; /* 浅色背景下 使用深色字确保清晰 */
 }
 
 /* ==================== 左侧竖向 Header 栏 ==================== */
