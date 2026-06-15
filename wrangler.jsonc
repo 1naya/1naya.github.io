@@ -1,6 +1,7 @@
 {
   "$schema": "node_modules/wrangler/config-schema.json",
   "name": "1naya",
+  "name": "inaya",
   "compatibility_date": "2026-06-14",
   "observability": {
     "enabled": true
