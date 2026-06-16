@@ -1,0 +1,416 @@
+/* ==================== 统一视觉基调 ==================== */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    /* 与 mag1 保持绝对统一步调：古典温暖浅米色 */
+    background-color: #f8f4f0;
+    font-family: 'Arial', -apple-system, sans-serif;
+    color: #333333;
+    line-height: 1.6;
+    overflow-x: hidden;
+}
+
+/* ==================== 顶部英雄公告头图区 ==================== */
+.hero-section {
+    padding: 60px 20px 40px 20px;
+    background: linear-gradient(180deg, rgba(255,255,255,0.5) 0%, rgba(248,244,240,0) 100%);
+    text-align: center;
+}
+
+.hero-container {
+    max-width: 1100px;
+    margin: 0 auto;
+}
+
+.main-title {
+    font-size: 36px;
+    font-weight: 900;
+    letter-spacing: 2px;
+    color: #c21807; /* 标志性深朱红 */
+    text-shadow: 1px 1px 2px rgba(255, 255, 255, 0.9);
+    margin-bottom: 12px;
+}
+
+.sub-title-accent {
+    font-size: 22px;
+    font-weight: 400;
+    color: #baa79c;
+    letter-spacing: 1px;
+    margin-bottom: 24px;
+}
+
+/* 提取旧网页的核心设计元素：半透明、毛玻璃、红微影 */
+.intro-box {
+    background-color: rgba(255, 255, 255, 0.7);
+    border: 1px solid rgba(194, 24, 7, 0.15);
+    border-radius: 16px;
+    padding: 24px 32px;
+    box-shadow: 0 4px 20px rgba(194, 24, 7, 0.03);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    max-width: 850px;
+    margin: 0 auto 30px auto;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.intro-text {
+    font-size: 15px;
+    color: #4a423d;
+    text-align: justify;
+}
+
+.intro-text-en {
+    font-size: 13.5px;
+    color: #7a6e67;
+    font-style: italic;
+    text-align: justify;
+    border-top: 1px dashed rgba(194, 24, 7, 0.1);
+    padding-top: 12px;
+}
+
+/* Discord 经典朱红转换按钮 */
+.social-links {
+    display: flex;
+    justify-content: center;
+}
+
+.dc-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    background-color: #e53935; /* 旧网页标志性红色按钮 */
+    color: #ffffff;
+    text-decoration: none;
+    padding: 12px 28px;
+    border-radius: 30px;
+    font-size: 14px;
+    font-weight: 600;
+    letter-spacing: 1px;
+    box-shadow: 0 4px 15px rgba(229, 57, 53, 0.2);
+    transition: all 0.3s ease;
+}
+
+.dc-btn:hover {
+    background-color: #c21807; /* 悬停颜色变深 */
+    box-shadow: 0 6px 20px rgba(194, 24, 7, 0.4);
+    transform: translateY(-2px);
+}
+
+/* ==================== 中央全局内容排版 ==================== */
+.archive-container {
+    max-width: 1300px;
+    margin: 0 auto;
+    padding: 20px 40px 80px 40px;
+    display: flex;
+    flex-direction: column;
+    gap: 70px; /* 板块之间拉开舒适的呼应距离 */
+}
+
+.magazine-sector, .gallery-sector {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+}
+
+.sector-header {
+    border-bottom: 2px solid rgba(194, 24, 7, 0.15);
+    padding-bottom: 12px;
+}
+
+.sector-header h2 {
+    font-size: 22px;
+    color: #c21807;
+    letter-spacing: 2px;
+}
+
+.en-sector-title {
+    font-size: 16px;
+    color: #baa79c;
+    font-weight: 400;
+}
+
+.sector-desc {
+    font-size: 13px;
+    color: #7a6e67;
+    margin-top: 4px;
+}
+
+/* ==================== 响应式货架网格 ==================== */
+.magazine-grid {
+    display: grid;
+    /* 自动计算：只要每张卡片到了280px宽，就自动换行叠加，无限包容未来卡片 */
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 32px;
+}
+
+.mag-card {
+    background: rgba(255, 255, 255, 0.8);
+    border-radius: 12px;
+    border: 1px solid rgba(0,0,0,0.04);
+    overflow: hidden;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.02);
+    display: flex;
+    flex-direction: column;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.mag-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 12px 24px rgba(194, 24, 7, 0.08);
+}
+
+/* 严格控制货架里的封面比例（按照独立页面高宽比压缩呈现） */
+.cover-wrapper {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 210 / 287; /* 严格按照你纸张的 210*287mm 比例渲染货架 */
+    background-color: #e6dfd8;
+    overflow: hidden;
+}
+
+.cover-wrapper img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* 货架卡片悬浮遮罩 */
+.card-hover-overlay {
+    position: absolute;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background: rgba(194, 24, 7, 0.2);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    backdrop-filter: blur(2px);
+}
+
+.mag-card:hover .card-hover-overlay {
+    opacity: 1;
+}
+
+.view-tag {
+    color: #fff;
+    background: #c21807;
+    padding: 6px 16px;
+    font-size: 12px;
+    border-radius: 20px;
+    font-weight: 600;
+    letter-spacing: 1px;
+}
+
+/* 货架信息区 */
+.card-info {
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+}
+
+.card-info h3 {
+    font-size: 17px;
+    color: #222;
+    margin-bottom: 8px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.edition-tag {
+    font-size: 11px;
+    background: rgba(194, 24, 7, 0.1);
+    color: #c21807;
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-weight: normal;
+}
+
+.mag-desc {
+    font-size: 13px;
+    color: #666;
+    margin-bottom: 20px;
+    text-align: justify;
+    flex-grow: 1;
+}
+
+.read-now-btn {
+    display: block;
+    text-align: center;
+    background: rgba(194, 24, 7, 0.05);
+    border: 1px solid rgba(194, 24, 7, 0.2);
+    color: #c21807;
+    text-decoration: none;
+    padding: 10px;
+    border-radius: 6px;
+    font-size: 13px;
+    font-weight: 600;
+    transition: all 0.2s ease;
+}
+
+.mag-card:hover .read-now-btn {
+    background: #e53935;
+    color: #fff;
+    border-color: #e53935;
+}
+
+/* 筹备中/未上架空卡片样式 */
+.placeholder-card {
+    opacity: 0.65;
+}
+.no-cover {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: #ebe4dc !important;
+    border: 2px dashed rgba(0,0,0,0.05);
+}
+.coming-soon {
+    text-align: center;
+    color: #a09085;
+    font-size: 14px;
+    font-weight: bold;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+.coming-soon .en-sub {
+    font-size: 11px;
+    font-weight: normal;
+    opacity: 0.7;
+}
+.read-now-btn:disabled {
+    background: #e0d8d0 !important;
+    color: #9c9088 !important;
+    border-color: #d0c8bf !important;
+    cursor: not-allowed;
+}
+
+/* ==================== 独立相册专区（完美固守 A3 比例） ==================== */
+.gallery-grid {
+    display: grid;
+    /* 网格列定义：由于 A3 图片较宽，我们让它两列并排（大屏下极具冲击力） */
+    grid-template-columns: repeat(auto-fit, minmax(450px, 1fr));
+    gap: 28px;
+}
+
+.gallery-item {
+    position: relative;
+    width: 100%;
+    /* 🚀 核心关键：A3 国际标准物理纸张比例为 420mm * 297mm，推导其宽高比约为 1.414 : 1 */
+    aspect-ratio: 1.4142 / 1; 
+    border-radius: 12px;
+    overflow: hidden;
+    background-color: #1a1a1a;
+    cursor: pointer;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+}
+
+.gallery-item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* 完美铺满容器，且绝对锁死在 A3 容器框内，拒绝上下裁剪破坏 */
+    transition: transform 0.5s ease;
+}
+
+.gallery-overlay {
+    position: absolute;
+    bottom: 0; left: 0; width: 100%;
+    background: linear-gradient(0deg, rgba(0,0,0,0.85) 0%, rgba(0,0,0,0) 100%);
+    padding: 24px 20px 16px 20px;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.gallery-item:hover img { transform: scale(1.03); }
+.gallery-item:hover class .gallery-overlay { opacity: 1; }
+/* 兼容移动端持续显示名称 */
+.gallery-item:hover .gallery-overlay, .gallery-overlay { opacity: 1; }
+
+.gallery-text h4 { color: #ffffff; font-size: 15px; letter-spacing: 1px; margin-bottom: 2px;}
+.gallery-text p { color: #baa79c; font-size: 11px; }
+
+/* ==================== 灯箱大图交互弹窗 ==================== */
+.lightbox {
+    display: none;
+    position: fixed;
+    z-index: 9999;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background-color: rgba(13, 13, 13, 0.95);
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.lightbox-content {
+    max-width: 90%;
+    max-height: 82vh;
+    object-fit: contain;
+    border-radius: 4px;
+    box-shadow: 0 0 30px rgba(0,0,0,0.5);
+    animation: zoom 0.25s ease-out;
+}
+
+@keyframes zoom {
+    from { transform: scale(0.95); opacity: 0; }
+    to { transform: scale(1); opacity: 1; }
+}
+
+.close-btn {
+    position: absolute;
+    top: 24px; right: 32px;
+    color: #baa79c;
+    font-size: 40px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: color 0.2s;
+}
+.close-btn:hover { color: #fff; }
+
+.lightbox-caption {
+    margin-top: 16px;
+    color: #baa79c;
+    font-size: 13px;
+    letter-spacing: 1px;
+    text-align: center;
+}
+
+/* ==================== 脚部与隐藏彩蛋 ==================== */
+.main-footer {
+    text-align: center;
+    padding: 40px 20px;
+    background: rgba(0,0,0,0.02);
+    border-top: 1px solid rgba(0,0,0,0.03);
+    font-size: 12px;
+    color: #9c8c82;
+}
+
+.main-footer p { margin-bottom: 6px; }
+
+/* 隐蔽的隐藏彩蛋链接样式：平时长得像普通几何小符号，完美藏匿 */
+.hidden-egg-link {
+    color: #baa79c;
+    text-decoration: none;
+    font-size: 10px;
+    margin: 0 4px;
+    cursor: default;
+    transition: color 0.3s;
+}
+.hidden-egg-link:hover {
+    color: #c21807 !important; /* 只有极其敏锐的人鼠标滑过才会发现变红 */
+}
+
+/* ==================== 移动端极限宽度宽屏适配 ==================== */
+@media (max-width: 768px) {
+    .archive-container { padding: 10px 20px; gap: 40px;}
+    .gallery-grid { grid-template-columns: 1fr; }
+    .main-title { font-size: 28px; }
+    .intro-box { padding: 16px; }
+}
