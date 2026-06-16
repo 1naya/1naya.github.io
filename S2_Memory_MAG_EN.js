@@ -25,7 +25,7 @@ const isMobile = () => window.innerWidth <= 768;
 // 自动探测图片数量
 function autoDetectImages(callback) {
     let currentCheckIndex = 1;
-    pageIndicator.innerText = "正在加载...";
+    pageIndicator.innerText = "Grab a coffee, this might take a minute...";
 
     function checkNext() {
         let num = String(currentCheckIndex).padStart(3, '0');
