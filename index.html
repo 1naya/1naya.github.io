@@ -2,206 +2,186 @@
 <html lang="zh-CN">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>狐禅</title>
-    <style>
-        /* 页面背景和容器样式 */
-        body {
-            background-color: #f8f4f0; /* 浅米色作为背景，温暖柔和 */
-            font-family: 'Arial', sans-serif;
-        }
-        .container {
-            max-width: 600px;
-            margin: auto;
-            padding: 20px;
-            background-color: rgba(255, 255, 255, 0.8); /* 白色，带有轻微透明度 */
-            border: 2px solid rgba(255, 0, 0, 0.6); /* 红色边框，半透明 */
-            border-radius: 15px;
-            box-shadow: 0 0 15px rgba(255, 0, 0, 0.4); /* 模糊阴影，带红色 */
-            backdrop-filter: blur(10px); /* 背景模糊效果 */
-        }
-
-        /* 标题样式 */
-        h1 {
-            text-align: left;
-            color: #c21807; /* 深红色字体 */
-            text-shadow: 1px 1px 2px rgba(255, 255, 255, 0.8); /* 白色阴影效果 */
-        }
-
-        h3 {
-            color: #d32f2f; /* 较为明亮的红色 */
-            text-align: left;
-        }
-
-        /* 输入框和按钮样式 */
-        textarea {
-            width: calc(100% - 20px);
-            height: 100px;
-            margin-bottom: 10px;
-            padding: 10px;
-            border-radius: 8px;
-            border: 1px solid rgba(255, 0, 0, 0.4); /* 半透明红色边框 */
-            background-color: rgba(255, 255, 255, 0.7); /* 半透明白色背景 */
-            font-size: 16px;
-            font-family: 'Arial', sans-serif;
-        }
-
-        button {
-            background-color: #e53935; /* 红色按钮 */
-            color: #ffffff; /* 白色文字 */
-            padding: 10px 20px;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            font-size: 16px;
-            margin-right: 10px;
-            transition: background-color 0.3s ease;
-        }
-
-        button:hover {
-            background-color: #c21807; /* 鼠标悬停时颜色变深 */
-        }
-
-        /* 复制成功提示 */
-        .copy-success {
-            color: #4caf50; /* 绿色提示 */
-            margin-top: 10px;
-            font-weight: bold;
-            display: none;
-        }
-
-        /* 输出结果的样式 */
-        p {
-            background-color: rgba(255, 255, 255, 0.7); /* 半透明背景 */
-            padding: 10px;
-            border-radius: 5px;
-            border: 1px solid rgba(255, 0, 0, 0.3); /* 轻微红色边框 */
-        }
-
-        /* 适配移动设备 */
-        @media (max-width: 600px) {
-            .container {
-                padding: 15px;
-            }
-
-            button {
-                padding: 8px 15px;
-                font-size: 14px;
-            }
-
-            textarea {
-                height: 80px;
-            }
-        }
-    </style>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>星痕共鸣国际服中文交流</title>
+    <!-- 🚀 核心隔离：只链接专属的主页 CSS -->
+    <link rel="stylesheet" href="index.css">
 </head>
 <body>
-    <div class="container">
-        <h1>狐禅</h1>
 
-        <h3>听狐说宇宙的奥秘:</h3>
-        <textarea id="inputText" placeholder="输入要加密的文字"></textarea><br>
-        <button onclick="encrypt()">加密</button>
-        <button onclick="clearInput('inputText')">清除输入</button>
-        <p id="encryptedText"></p>
-        <button id="copyButton" style="display:none;" onclick="copyToClipboard()">复制到剪贴板</button>
-        <p id="decryptedFromEncrypt"></p>
-        <p id="copySuccess" class="copy-success">加密结果已复制到剪贴板！</p>
+    <!-- ==================== 顶部史诗级公会简介区 ==================== -->
+    <header class="hero-section">
+        <div class="hero-container">
+            <h1 class="main-title">星痕共鸣 | Star Resonance</span></h1>
+            <h1 class="sub-title-accent">星痕档案馆 | Star Memories</h1>
+            
+            <div class="intro-box">
+                <div class="lang-block zh">
+                    <p class="intro-text">
+                        欢迎来到我们的档案馆。这里记录着我们在雷格纳斯广袤世界中共同编织的故事。
+                        每一本刊物、每一张合影，都留下了我们最珍贵的回忆。愿我们的感情不输给时间，长久相伴。
+                    </p>
+                </div>
+                <div class="lang-block en">
+                    <p class="intro-text-en">
+                        Welcome to our Archives—a record of our adventures in Regnas. 
+                        Every journal and photo keeps our memories alive. May our bond last a lifetime.                        
+                    </p>
+                </div>
+            </div>
+        </div>
+    </header>
 
-        <h3>参透狐说的真意:</h3>
-        <textarea id="encodedText" placeholder="输入要解密的文字"></textarea><br>
-        <button onclick="decrypt()">解密</button>
-        <button onclick="clearInput('encodedText')">清除输入</button>
-        <p id="decryptedText"></p>
+    <!-- ==================== 主体双语分栏货架区 ==================== -->
+    <main class="archive-container">
+        
+        <!-- 🇨🇳 中文杂志专区 -->
+        <section class="magazine-sector">
+            <div class="sector-header">
+                <h2>刊物合辑 <span class="en-sector-title">/ Chinese Editions</span></h2>
+                <p class="sector-desc">字里行间，皆是属于我们的故事与感动。/ Scroll down for the English editions.</p>
+            </div>
+            
+            <!-- 响应式网格容器 -->
+            <div class="magazine-grid">
+                
+                <!-- 中文杂志 1 -->
+                <article class="mag-card">
+                    <!-- 💡 优化核心：去掉 a 标签，改用 onclick="openLightbox(this)"。点击这里直接原地放大封面图！ -->
+                    <div class="cover-wrapper" onclick="openLightbox(this)">
+                        <!-- alt 属性里的字就是放大后图片下方的描述，顺便把中英文标上 -->
+                        <img src="images_index/cover_mag1.webp" alt="《流光之忆 - 光影之章 / Starlight Memories - The Genesis Month Keepsake》">
+                        <div class="card-hover-overlay">
+                            <span class="view-tag">查阅封面 / VIEW COVER</span>
+                        </div>
+                    </div>
+                    <div class="card-info">
+                        <h3>流光之忆 - 光影之章 <span class="edition-tag">创刊号</span></h3>
+                        <p class="mag-desc">本期收录了S1赛季期间中文玩家协会的各种合影与日常照片，以及几篇玩家访谈。</p>
+                        <!-- 💡 只有点击这里才是真正跳转进 mag1.html 翻书 -->
+                        <a href="S1_Memory_MAG_CN.html" class="read-now-btn">开始阅读 / Read Now</a>
+                    </div>
+                </article>
+
+                <!-- 中文杂志 2 -->
+                <article class="mag-card">
+                    <div class="cover-wrapper" onclick="openLightbox(this)">
+                        <img src="images_index/cover_mag2.webp" alt="《流光之忆 - 绮梦之章 / Starlight Memories - The Dreamscape Keepsake》">
+                        <div class="card-hover-overlay">
+                            <span class="view-tag">查阅封面 / VIEW COVER</span>
+                        </div>
+                    </div>
+                    <div class="card-info">
+                        <h3>流光之忆 - 绮梦之章 <span class="edition-tag">VOL.02</span></h3>
+                        <p class="mag-desc">本期收录了S2赛季期间中文玩家社区的集体合影，以及一篇根据游戏经历改编的小故事。</p>
+                        <a href="S2_Memory_MAG_CN.html" class="read-now-btn">开始阅读 / Read Now</a>
+                    </div>
+                </article>
+
+            </div>
+        </section>
+
+        <!-- 🇬🇧 海外英文译本专区（完全解耦，独立更新） -->
+        <section class="magazine-sector">
+            <div class="sector-header">
+                <h2>英文译本 <span class="en-sector-title">/ English Editions</span></h2>
+                <p class="sector-desc">Where our stories live and every memory lingers.</p>
+            </div>
+            
+            <!-- 响应式网格容器 -->
+            <div class="magazine-grid">
+                
+                <!-- 英文杂志 1 -->
+                <article class="mag-card">
+                    <div class="cover-wrapper" onclick="openLightbox(this)">
+                        <img src="images_index/cover_mag1_en.webp" alt="Starlight Memories - The Dreamscape Keepsake">
+                        <div class="card-hover-overlay">
+                            <span class="view-tag">VIEW COVER</span>
+                        </div>
+                    </div>
+                    <div class="card-info">
+                        <h3>The Dreamscape Keepsake <span class="edition-tag">Vol.02</span></h3>
+                        <p class="mag-desc">Featuring group photos of the Chinese Player Community from Season 2, along with a short story inspired by in-game adventures.</p>
+                        <a href="S2_Memory_MAG_EN.html" class="read-now-btn">开始阅读 / Read Now</a>
+                    </div>
+                </article>
+
+
+
+            </div>
+        </section>
+
+        <!-- ==================== 独立相册画廊区（完美保留 A3 比例） ==================== -->
+        <section class="gallery-sector">
+            <div class="sector-header">
+                <h2>星痕掠影 <span class="en-sector-title">/ Community Gallery</span></h2>
+                <p class="sector-desc">公会合影与活动集锦，点击查看高清原图。/ Guild photos and event highlights. Click to view in full resolution.</p>
+            </div>
+
+            <div class="gallery-grid">
+                <!-- 照片卡片 1 -->
+                <div class="gallery-item" onclick="openLightbox(this)">
+                    <img src="images_index/gallery_001.webp" alt="S2赛季拼图 / S2 Season Character Collage">
+                    <div class="gallery-overlay">
+                        <div class="gallery-text">
+                            <h4>S2赛季拼图 / S2 Season Character Collage</h4>
+                            <p> </p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 照片卡片 2 -->
+                <div class="gallery-item" onclick="openLightbox(this)">
+                    <img src="images_index/gallery_002.webp" alt="S1赛季拼图 / S1 Season Character Collage">
+                    <div class="gallery-overlay">
+                        <div class="gallery-text">
+                            <h4>S1赛季拼图 / S1 Season Character Collage</h4>
+                            <p> </p>
+                        </div>
+                    </div>
+                </div>
+
+
+
+            </div>
+        </section>
+            <!-- 社交联系方式（预留 Discord 链接入口） -->
+            <div class="social-links">
+                <a href="https://discordapp.com/users/325077792998031361" target="_blank" class="dc-btn" title="想一起做点什么？随时聊聊！ / Want to build something together? Get in touch!">
+                    <span class="dc-icon">💬</span>
+                    <span class="dc-text">随时私信我 / DM me on Discord</span>
+                </a>
+            </div>
+    </main>
+
+    <!-- ==================== 纯前端轻量级大图弹窗（Lightbox） ==================== -->
+    <div id="lightbox" class="lightbox" onclick="closeLightbox()">
+        <span class="close-btn">&times;</span>
+        <img class="lightbox-content" id="lightboxImg">
+        <div id="lightboxCaption" class="lightbox-caption"></div>
     </div>
+    <!-- ==================== 页脚与隐藏趣味彩蛋 ==================== -->
+    <footer class="main-footer">
+        <p>© 2026 BPSR Community Archives. 星痕共鸣国际服中文玩家交流群保留所有羁绊所有权。 / All Bonds Reserved.</p>
+        <p>Designed for our Community <a href="Fox_said.html" class="hidden-egg-link" title="狐说...">❖</a> Powered by Inaya.</p>
+    </footer>
 
+    <!-- 主页专属轻量脚本 -->
     <script>
-        const keyMap1 = {
-            "0": "狐", "1": "影", "2": "幻", "3": "梦", "4": "灵", "5": "雾", "6": "静", "7": "隙",
-            "8": "境", "9": "音", "a": "云", "b": "霭", "c": "霞", "d": "星", "e": "寒", "f": "彩", "兮": "兮"
-        };
-        const keyMap2 = {
-            "0": "晨", "1": "曦", "2": "影", "3": "梦", "4": "风", "5": "雪", "6": "幻", "7": "清",
-            "8": "露", "9": "珠", "a": "月", "b": "幽", "c": "醉", "d": "蓝", "e": "静", "f": "莎", "兮": "兮"
-        };
-        const keyMap3 = {
-            "0": "幻", "1": "影", "2": "狐", "3": "梦", "4": "妖", "5": "兰", "6": "雨", "7": "晴",
-            "8": "境", "9": "诗", "a": "舞", "b": "花", "c": "霞", "d": "星", "e": "谷", "f": "霜", "兮": "兮"
-        };
-        const keyMap4 = {
-            "0": "梦", "1": "幻", "2": "影", "3": "狐", "4": "雪", "5": "萧", "6": "音", "7": "隙",
-            "8": "庭", "9": "霞", "a": "晨", "b": "露", "c": "夜", "d": "雪", "e": "柳", "f": "幽", "兮": "兮"
-        };
+        // 💡 极其聪明的解耦：不论是点杂志封面、还是点集体照，都会统一触发这个函数，把图片拉大展示！
+        function openLightbox(element) {
+            const lightbox = document.getElementById("lightbox");
+            const lightboxImg = document.getElementById("lightboxImg");
+            const lightboxCaption = document.getElementById("lightboxCaption");
+            const clickedImg = element.querySelector("img");
 
-        const reverseKeyMap1 = reverseMap(keyMap1);
-        const reverseKeyMap2 = reverseMap(keyMap2);
-        const reverseKeyMap3 = reverseMap(keyMap3);
-        const reverseKeyMap4 = reverseMap(keyMap4);
-
-        const schemes = [
-            { name: "神斯常乐兮", keyMap: keyMap1, reverseKeyMap: reverseKeyMap1 },
-            { name: "归去何来兮", keyMap: keyMap2, reverseKeyMap: reverseKeyMap2 },
-            { name: "吁嗟徂矣兮", keyMap: keyMap3, reverseKeyMap: reverseKeyMap3 },
-            { name: "福泽久延兮", keyMap: keyMap4, reverseKeyMap: reverseKeyMap4 }
-        ];
-
-        function reverseMap(map) {
-            const reversed = {};
-            for (let key in map) {
-                reversed[map[key]] = key;
-            }
-            return reversed;
+            lightbox.style.display = "flex";
+            lightboxImg.src = clickedImg.src;
+            lightboxCaption.innerText = clickedImg.alt;
         }
 
-        function encrypt() {
-            const inputText = document.getElementById("inputText").value;
-            const scheme = schemes[Math.floor(Math.random() * schemes.length)];
-            const hexText = Array.from(inputText).map(c => c.charCodeAt(0).toString(16)).join('兮');
-            const encryptedText = Array.from(hexText).map(c => scheme.keyMap[c] || c).join('') + scheme.name;
-
-            document.getElementById("encryptedText").innerText = "加密结果: " + encryptedText;
-            document.getElementById("copyButton").style.display = "inline-block";
-
-            // 同时输出解密结果验证
-            let decryptedText = decryptInstant(encryptedText);
-            document.getElementById("decryptedFromEncrypt").innerText = "解密验证: " + decryptedText;
-        }
-
-        function decryptInstant(encryptedText) {
-            for (let scheme of schemes) {
-                if (encryptedText.endsWith(scheme.name)) {
-                    const encodedPart = encryptedText.slice(0, -scheme.name.length);
-                    const decodedText = Array.from(encodedPart).map(c => scheme.reverseKeyMap[c] || c).join('');
-                    const hexArray = decodedText.split('兮');
-                    return String.fromCharCode(...hexArray.map(h => parseInt(h, 16)));
-                }
-            }
-            return "无法解密";
-        }
-
-        function decrypt() {
-            const encryptedText = document.getElementById("encodedText").value;
-            const decryptedText = decryptInstant(encryptedText);
-            document.getElementById("decryptedText").innerText = "解密结果: " + decryptedText;
-        }
-
-        function clearInput(id) {
-            document.getElementById(id).value = "";
-            if (id === "inputText") {
-                document.getElementById("encryptedText").innerText = "";
-                document.getElementById("decryptedFromEncrypt").innerText = "";
-                document.getElementById("copyButton").style.display = "none";
-            } else {
-                document.getElementById("decryptedText").innerText = "";
-            }
-        }
-
-        function copyToClipboard() {
-            const encryptedText = document.getElementById("encryptedText").innerText.replace("加密结果: ", "");
-            navigator.clipboard.writeText(encryptedText).then(function() {
-                document.getElementById("copySuccess").style.display = "block";
-                setTimeout(() => document.getElementById("copySuccess").style.display = "none", 3000);
-            });
+        function closeLightbox() {
+            document.getElementById("lightbox").style.display = "none";
         }
     </script>
 </body>
