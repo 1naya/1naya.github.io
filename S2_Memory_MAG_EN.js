@@ -12,16 +12,20 @@ const prevBtn = document.getElementById('prevBtn');
 const nextBtn = document.getElementById('nextBtn'); 
 const pageIndicator = document.getElementById('pageIndicator');
 
-let currentPagePairIndex = 0; 
-let pagePairsCount = 0;
+// 🌟 跨端双轨指针：电脑端使用 pairIndex(双页)，手机端使用单独的单页
+let currentPageIndex = 0; 
+let totalPagesCount = 0;
 let pagesData = []; 
 let domElements = []; 
 const imageFiles = [];
 
-// 自动探测独立文件夹 `S2_Memory_MAG_EN_IMG/` 中的图片数量
+// 判断当前是否为手机端
+const isMobile = () => window.innerWidth <= 768;
+
+// 自动探测图片数量
 function autoDetectImages(callback) {
     let currentCheckIndex = 1;
-    pageIndicator.innerText = "Grab a coffee, this might take a minute...";
+    pageIndicator.innerText = "正在加载...";
 
     function checkNext() {
         let num = String(currentCheckIndex).padStart(3, '0');
@@ -56,7 +60,7 @@ function initMagazine() {
     if (images.length % 2 !== 0) {
         images.push(null); 
     }
-    pagePairsCount = images.length / 2;
+    totalPagesCount = images.length;
 
     pagesData = images.map((src, index) => {
         return {
@@ -71,10 +75,11 @@ function initMagazine() {
     book.innerHTML = '';
     domElements = [];
 
+    const pagePairsCount = totalPagesCount / 2;
     for (let i = 0; i < pagePairsCount; i++) {
         const pageDiv = document.createElement('div');
         pageDiv.className = 'page';
-        pageDiv.style.zIndex = pagePairsCount - i;
+        pageDiv.setAttribute('data-index', i); // 标记是第几张纸
 
         const frontDiv = document.createElement('div');
         frontDiv.className = 'front blank-page';
@@ -95,13 +100,14 @@ function initMagazine() {
         });
     }
 
-    managePreloading();
-    updateUI();
+    updateBookDOM();
 }
 
 function managePreloading() {
-    const startWindow = Math.max(0, currentPagePairIndex - PRELOAD_WINDOW);
-    const endWindow = Math.min(pagePairsCount - 1, currentPagePairIndex + PRELOAD_WINDOW);
+    const pagePairsCount = totalPagesCount / 2;
+    const currentPairIndex = Math.floor(currentPageIndex / 2);
+    const startWindow = Math.max(0, currentPairIndex - PRELOAD_WINDOW);
+    const endWindow = Math.min(pagePairsCount - 1, currentPairIndex + PRELOAD_WINDOW);
 
     for (let i = 0; i < pagePairsCount; i++) {
         const frontPageIndex = i * 2;
@@ -148,37 +154,95 @@ function unloadImage(pageIndex, domNode) {
     }
 }
 
-function turnPage(direction) {
-    if (direction === 'next' && currentPagePairIndex < pagePairsCount) {
-        domElements[currentPagePairIndex].container.style.transform = 'rotateY(-180deg)';
-        domElements[currentPagePairIndex].container.style.zIndex = currentPagePairIndex + 1;
-        currentPagePairIndex++;
-    } else if (direction === 'prev' && currentPagePairIndex > 0) {
-        currentPagePairIndex--;
-        domElements[currentPagePairIndex].container.style.transform = 'rotateY(0deg)';
-        domElements[currentPagePairIndex].container.style.zIndex = pagePairsCount - currentPagePairIndex;
-    }
-    
+// 🌟 核心双轨驱动函数
+function updateBookDOM() {
+    const pagePairsCount = totalPagesCount / 2;
+    const mobileMode = isMobile();
+
+    domElements.forEach((page, index) => {
+        // 先清除残余的行内特殊属性，防止跨端切换样式死锁
+        page.container.style.display = '';
+        page.container.style.opacity = '';
+        page.container.style.pointerEvents = '';
+
+        if (mobileMode) {
+            // 📱 【手机模式】：彻底关闭 3D 效果
+            page.container.style.transform = 'none';
+            
+            const frontPageIndex = index * 2;
+            const backPageIndex = index * 2 + 1;
+
+            if (currentPageIndex === frontPageIndex) {
+                // 当前页是这张纸的正面
+                page.container.classList.add('active-page');
+                page.container.classList.remove('show-back');
+            } else if (currentPageIndex === backPageIndex) {
+                // 当前页是这张纸的背面
+                page.container.classList.add('active-page');
+                page.container.classList.add('show-back');
+            } else {
+                // 别的页面全部隐藏
+                page.container.classList.remove('active-page');
+                page.container.classList.remove('show-back');
+            }
+        } else {
+            // 💻 【电脑模式】：恢复你最爱的完美 3D 物理翻页
+            page.container.classList.remove('active-page', 'show-back');
+            
+            const pairIndex = Math.floor(currentPageIndex / 2);
+            if (index < pairIndex) {
+                page.container.style.transform = 'rotateY(-180deg)';
+                page.container.style.zIndex = index;
+            } else {
+                page.container.style.transform = 'rotateY(0deg)';
+                page.container.style.zIndex = pagePairsCount - index;
+            }
+        }
+    });
+
     managePreloading();
     updateUI();
 }
 
+function turnPage(direction) {
+    const step = isMobile() ? 1 : 2; 
+
+    if (direction === 'next') {
+        if (currentPageIndex + step < totalPagesCount) {
+            currentPageIndex += step;
+            updateBookDOM();
+        }
+    } else if (direction === 'prev') {
+        if (currentPageIndex - step >= 0) {
+            currentPageIndex -= step;
+            updateBookDOM();
+        }
+    }
+}
+
 function updateUI() {
-    prevBtn.disabled = currentPagePairIndex === 0;
-    nextBtn.disabled = currentPagePairIndex === pagePairsCount;
+    const mobileMode = isMobile();
+    
+    prevBtn.disabled = currentPageIndex === 0;
+    nextBtn.disabled = mobileMode ? (currentPageIndex === totalPagesCount - 1) : (currentPageIndex >= totalPagesCount - 2);
     
     let displayText = "";
-    if (currentPagePairIndex === 0) {
+    if (currentPageIndex === 0) {
         displayText = "Cover";
-    } else if (currentPagePairIndex === pagePairsCount) {
+    } else if (currentPageIndex === totalPagesCount - 1) {
         displayText = "Back Cover";
     } else {
-        const leftPage = currentPagePairIndex * 2;
-        const rightPage = leftPage + 1;
-        displayText = `P${leftPage} - ${rightPage}`;
+        if (mobileMode) {
+            displayText = `P${currentPageIndex}`;
+        } else {
+            const currentPair = Math.floor(currentPageIndex / 2);
+            const leftPage = currentPair * 2;
+            const rightPage = leftPage + 1;
+            displayText = `P${leftPage}-P${rightPage}`;
+        }
     }
     
-    pageIndicator.innerText = `${displayText} / ${pagePairsCount * 2} Pages`;
+    pageIndicator.innerText = `${displayText}/${totalPagesCount}Pages`;
 }
 
 prevBtn.addEventListener('click', () => turnPage('prev'));
@@ -188,6 +252,8 @@ document.addEventListener('keydown', (e) => {
     if (e.key === 'ArrowRight') turnPage('next');
     if (e.key === 'ArrowLeft') turnPage('prev');
 });
+
+window.addEventListener('resize', updateBookDOM);
 
 window.addEventListener('DOMContentLoaded', () => {
     autoDetectImages(initMagazine);

@@ -5,19 +5,17 @@
 }
 
 body {
-    /* 🎨 配色提取：采用旧网页温暖柔和的古典浅米色背景 */
     background-color: #f8f4f0; 
     display: flex; 
     min-height: 100vh;
     font-family: 'Arial', -apple-system, sans-serif;
     overflow: hidden;
-    color: #333333; /* 浅色背景下 使用深色字确保清晰 */
+    color: #333333;
 }
 
 /* ==================== 左侧竖向 Header 栏 ==================== */
 .sidebar-header {
     width: 240px;
-    /* 🎨 设计元素提取：半透明白色背景 + 红色质感边框 + 背景模糊毛玻璃 */
     background-color: rgba(255, 255, 255, 0.75);
     border-right: 2px solid rgba(194, 24, 7, 0.2); 
     backdrop-filter: blur(10px); 
@@ -37,7 +35,6 @@ body {
 }
 
 .magazine-title {
-    /* 🎨 配色提取：标志性的深朱红色字体与白色微阴影 */
     font-size: 28px;
     font-weight: 800;
     letter-spacing: 0px;
@@ -47,7 +44,7 @@ body {
 
 .magazine-subtitle {
     font-size: 16px;
-    color: #d32f2f; /* 明亮红副标题 */
+    color: #d32f2f;
     margin-top: 8px;
     letter-spacing: 1px;
 }
@@ -78,7 +75,7 @@ body {
 
 .nav-item.active {
     color: #ffffff;
-    background-color: #e53935; /* 🎨 配色提取：经典的红色激活态 */
+    background-color: #e53935;
     font-weight: 600;
 }
 
@@ -105,16 +102,14 @@ body {
     height: 100vh;
 }
 
-/* 核心3D画布容器：96vh高度锁死，彻底抹平宽屏下的上下黑边 */
 .book {
     position: relative;
     height: 96vh;             
-    width: 140.48vh; /* 严格遵守 210mm * 287mm 比例比例换算 */         
+    width: 140.48vh;          
     perspective: 2500px;      
     background: transparent;
 }
 
-/* 纸张容器 */
 .page {
     position: absolute;
     width: 50%;
@@ -128,7 +123,6 @@ body {
     will-change: transform, z-index;
 }
 
-/* 页面基座 */
 .front, .back {
     position: absolute;
     width: 100%;
@@ -136,8 +130,7 @@ body {
     top: 0;
     left: 0;
     backface-visibility: hidden;
-    background-color: #ffffff; /* 画册内页载体默认为纯白宣纸感 */
-    box-shadow: none; /* 拒绝丑陋的中缝生硬阴影，保持干净对页 */
+    background-color: #ffffff;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -160,7 +153,6 @@ body {
     display: block;
 }
 
-/* 空白与占位 */
 .blank-page {
     background: #fdfcfb;
     color: #baa79c;
@@ -183,7 +175,6 @@ body {
 .control-btn {
     width: 54px;
     height: 120px; 
-    /* 🎨 设计元素提取：半透明白色 + 毛玻璃 + 红色微模糊阴影 */
     background: rgba(255, 255, 255, 0.75);
     border: 1px solid rgba(255, 0, 0, 0.2);
     color: #e53935;
@@ -212,7 +203,6 @@ body {
 }
 
 .control-btn:hover:not(:disabled) {
-    /* 🎨 悬停转换：变为深红色背景，白色字体 */
     background: #c21807;
     color: #ffffff;
     border-color: #c21807;
@@ -235,15 +225,14 @@ body {
 @media (max-width: 768px) {
     
     body {
-        flex-direction: column; /* 纵向排列：顶部Header -> 中间画册 -> 底部控制 */
-        overflow-y: auto; /* 允许手机上下微调滚动 */
+        flex-direction: column;
+        overflow-y: auto;
     }
 
-    /* 1. 将左侧 Header 变成顶部通栏导航 */
     .sidebar-header {
         width: 100%;
         height: auto;
-        flex-direction: row; /* 横向并排 */
+        flex-direction: row;
         align-items: center;
         padding: 12px 16px;
         border-right: none;
@@ -252,17 +241,21 @@ body {
         top: 0;
     }
 
+    .sidebar-footer {
+    margin-left: 20px ;
+    }
+
     .brand-zone {
         border-bottom: none;
         padding-bottom: 0;
     }
 
     .magazine-title { font-size: 20px; }
-    .magazine-subtitle { display: none; } /* 手机端隐藏副标题 */
+    .magazine-subtitle { display: none; } 
 
     .sidebar-nav {
-        margin-top: 0;
-        flex-direction: row; /* 导航横过来 */
+        margin-top: 0 ;
+        flex-direction: row;
         gap: 8px;
     }
 
@@ -271,14 +264,8 @@ body {
         padding: 6px 10px;
     }
 
-    .sidebar-footer {
-        display: flex;
-        align-items: center;
-    }
-
-    /* 2. 主区域重新计算 */
     .main-content {
-        padding: 20px 16px 100px 16px; /* 留出底部按钮的空间 */
+        padding: 20px 16px 100px 16px;
         height: auto;
         min-height: calc(100vh - 140px);
         display: flex;
@@ -286,42 +273,62 @@ body {
         align-items: center;
     }
 
-    /* 3. 🌟 核心修正：死守单页比例，绝不拉伸 */
+    /* 手机端杂志外框：严格按单页比例锁定 */
     .book {
-        /* 原本杂志的双页物理比例是 140.48vh (宽) : 96vh (高) 
-           折算成单页的【宽 : 高】比例约为 0.7316 : 1 */
-        width: 90vw;                     /* 手机端以屏幕宽度为基准，占满 90% */
-        height: calc(90vw / 0.7316);     /* 🌟 高度通过数学公式动态算出来，死死锁定制定的高宽比 */
-        max-height: 65vh;                /* 防止在极长屏幕的手机上撑得太高 */
-        /* 如果触发了 max-height，为了不让宽度变形，反向约束宽度 */
+        width: 90vw;                     
+        height: calc(90vw / 0.7316);     
+        max-height: 65vh;                
         width: calc(min(90vw, calc(65vh * 0.7316))); 
         height: calc(min(65vh, calc(90vw / 0.7316)));
-        
-        perspective: none;               /* 手机端关闭3D透视，防止翻页时边缘穿模 */
+        perspective: none;               
     }
 
+    /* 手机端容器降维：所有的纸张全部原地撑满 100% 宽度，且默认隐藏 */
     .page {
-        width: 100%;       /* 原本纸张占 50% 宽度，手机端直接占满 100% 变成单页 */
-        height: 100%;
-        left: 0;           
-        transform-origin: center;
+        width: 100% !important;
+        height: 100% !important;
+        left: 0 !important;
+        right: 0 !important;
+        transform: none !important;
+        display: none; /* 默认隐藏所有纸张 */
     }
 
-    /* 🌟 核心修正：图片本身绝不拉伸，而是以比例填满单页载体 */
+    /* 当 JS 判定当前页属于这张纸时，显示该纸张 */
+    .page.active-page {
+        display: block !important;
+        z-index: 10 !important;
+    }
+
+    /* 手机端重置正反两面：让他们在 2D 状态下重叠铺满 */
+    .front, .back {
+        width: 100% !important;
+        height: 100% !important;
+        position: absolute;
+        top: 0; left: 0;
+        backface-visibility: visible !important;
+        transform: none !important; /* 强制清空 3D 旋转旋转 */
+    }
+
+    /* 🌟 核心显隐逻辑：通过简单干净的 2D display 切换，彻底杜绝空白 */
+    .page.active-page .front { display: block; }
+    .page.active-page .back { display: none; }
+
+    /* 当激活背面（左侧页）时：隐藏正面，直接把背面翻转校正并展现 */
+    .page.active-page.show-back .front {
+        display: none;
+    }
+    .page.active-page.show-back .back {
+        display: block;
+        transform: none; 
+    }
+
     .front img, .back img {
         width: 100%;
         height: 100%;
-        object-fit: contain; /* 🌟 就算容器产生微小误差，图片也只会等比例缩放居中，绝对不拉伸变形 */
+        object-fit: contain; 
     }
 
-    /* 当页面翻过去时，手机端直接用透明度隐藏它 */
-    .page[style*="rotateY(-180deg)"] {
-        transform: none !important; 
-        opacity: 0;                 
-        pointer-events: none;       
-    }
-
-    /* 4. 将右侧悬浮按钮固定到底部控制栏 */
+    /* 固定底栏控制面板 */
     .right-controls {
         position: fixed;
         bottom: 0; left: 0; right: 0; top: auto;
