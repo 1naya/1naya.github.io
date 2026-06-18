@@ -53,7 +53,7 @@ body {
     display: flex;
     flex-direction: column;
     gap: 0px;
-    margin-top: -600px;
+    margin-top: 0px;
 }
 
 .nav-item {
