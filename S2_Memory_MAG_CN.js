@@ -182,7 +182,7 @@ function turnPage(direction) {
     const step = isMobile() ? 1 : 2; 
 
     if (direction === 'next') {
-        if (currentPageIndex + step < totalPagesCount) {
+        if (currentPageIndex + step <= totalPagesCount) {
             currentPageIndex += step;
             updateBookDOM();
         }
@@ -198,7 +198,7 @@ function updateUI() {
     const mobileMode = isMobile();
     
     prevBtn.disabled = currentPageIndex === 0;
-    nextBtn.disabled = mobileMode ? (currentPageIndex === totalPagesCount - 1) : (currentPageIndex >= totalPagesCount - 2);
+    nextBtn.disabled = mobileMode ? (currentPageIndex === totalPagesCount - 1) : (currentPageIndex >= totalPagesCount - 1);
     
     let displayText = "";
     if (currentPageIndex === 0) {
