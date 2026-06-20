@@ -7,7 +7,7 @@ const IMAGE_FOLDER = "S1_Memory_MAG_CN_IMG/";
 // 🎯 【速度质跃关键】：直接指定杂志的总图片张数，彻底废除阻塞网络探测，实现秒开！
 const TOTAL_IMAGES_COUNT = 36; // 👈 请在这里输入你文件夹里实际的图片总张数（例如40、42等）
 
-const PRELOAD_WINDOW = 1; // 手机端和电脑端首屏缓冲，1 已经足够，能极大减轻首屏并发压力
+const PRELOAD_WINDOW = 2; // 手机端和电脑端首屏缓冲，2 已经足够，能极大减轻首屏并发压力
 // ========================================================
 
 const book = document.getElementById('book');
