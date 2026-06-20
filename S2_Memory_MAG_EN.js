@@ -4,7 +4,10 @@ const IMAGE_EXTENSION = "webp";
 // 🚀 核心隔离：在这里直接定义专属于这期杂志的图片文件夹路径！与其他网页和项目永不冲突
 const IMAGE_FOLDER = "S2_Memory_MAG_EN_IMG/"; 
 
-const PRELOAD_WINDOW = 2; 
+// 🎯 【速度质跃关键】：直接指定杂志的总图片张数，彻底废除阻塞网络探测，实现秒开！
+const TOTAL_IMAGES_COUNT = 36; // 👈 请在这里输入你文件夹里实际的图片总张数（例如40、42等）
+
+const PRELOAD_WINDOW = 2; // 手机端和电脑端首屏缓冲，2 已经足够，能极大减轻首屏并发压力
 // ========================================================
 
 const book = document.getElementById('book');
@@ -22,43 +25,19 @@ const imageFiles = [];
 // 判断当前是否为手机端
 const isMobile = () => window.innerWidth <= 768;
 
-// 自动探测图片数量
-function autoDetectImages(callback) {
-    let currentCheckIndex = 1;
+// 🚀 瞬间生成图片文件名列表，不再走死板的逐张网络加载探测
+function generateImageArray() {
     pageIndicator.innerText = "Grab a coffee, this might take a minute...";
-
-    function checkNext() {
-        let num = String(currentCheckIndex).padStart(3, '0');
-        let testImg = new Image();
-        testImg.src = `${IMAGE_FOLDER}${num}.${IMAGE_EXTENSION}`;
-        
-        testImg.onload = function() {
-            imageFiles.push(`${num}.${IMAGE_EXTENSION}`);
-            currentCheckIndex++;
-            if (currentCheckIndex < 1000) {
-                checkNext();
-            } else {
-                callback();
-            }
-        };
-
-        testImg.onerror = function() {
-            if (imageFiles.length === 0) {
-                pageIndicator.innerText = `未在 ${IMAGE_FOLDER} 发现 001.webp`;
-                console.error("未检测到有效图片，请确认命名和文件夹是否正确");
-            } else {
-                callback(); 
-            }
-        };
+    for (let i = 1; i <= TOTAL_IMAGES_COUNT; i++) {
+        let num = String(i).padStart(3, '0');
+        imageFiles.push(`${num}.${IMAGE_EXTENSION}`);
     }
-
-    checkNext();
 }
 
 function initMagazine() {
     let images = [...imageFiles];
     if (images.length % 2 !== 0) {
-        images.push(null); 
+        images.push(null); // 奇数张图时自动补一张空白页作为封底背面
     }
     totalPagesCount = images.length;
 
@@ -79,15 +58,15 @@ function initMagazine() {
     for (let i = 0; i < pagePairsCount; i++) {
         const pageDiv = document.createElement('div');
         pageDiv.className = 'page';
-        pageDiv.setAttribute('data-index', i); // 标记是第几张纸
+        pageDiv.setAttribute('data-index', i);
 
         const frontDiv = document.createElement('div');
         frontDiv.className = 'front blank-page';
-        frontDiv.innerHTML = '<span>Loading...</span>';
+        frontDiv.innerHTML = '<span>Grab a coffee, this might take a minute...</span>';
 
         const backDiv = document.createElement('div');
         backDiv.className = 'back blank-page';
-        backDiv.innerHTML = '<span>Loading...</span>';
+        backDiv.innerHTML = '<span>Grab a coffee, this might take a minute...</span>';
 
         pageDiv.appendChild(frontDiv);
         pageDiv.appendChild(backDiv);
@@ -154,39 +133,34 @@ function unloadImage(pageIndex, domNode) {
     }
 }
 
-// 🌟 核心双轨驱动函数
+// 🌟 跨端双轨驱动函数（完美兼容手机端展平与电脑端3D）
 function updateBookDOM() {
     const pagePairsCount = totalPagesCount / 2;
     const mobileMode = isMobile();
 
     domElements.forEach((page, index) => {
-        // 先清除残余的行内特殊属性，防止跨端切换样式死锁
         page.container.style.display = '';
         page.container.style.opacity = '';
         page.container.style.pointerEvents = '';
 
         if (mobileMode) {
-            // 📱 【手机模式】：彻底关闭 3D 效果
+            // 📱 【手机模式】
             page.container.style.transform = 'none';
             
             const frontPageIndex = index * 2;
             const backPageIndex = index * 2 + 1;
 
             if (currentPageIndex === frontPageIndex) {
-                // 当前页是这张纸的正面
                 page.container.classList.add('active-page');
                 page.container.classList.remove('show-back');
             } else if (currentPageIndex === backPageIndex) {
-                // 当前页是这张纸的背面
                 page.container.classList.add('active-page');
                 page.container.classList.add('show-back');
             } else {
-                // 别的页面全部隐藏
-                page.container.classList.remove('active-page');
-                page.container.classList.remove('show-back');
+                page.container.classList.remove('active-page', 'show-back');
             }
         } else {
-            // 💻 【电脑模式】：恢复你最爱的完美 3D 物理翻页
+            // 💻 【电脑模式】
             page.container.classList.remove('active-page', 'show-back');
             
             const pairIndex = Math.floor(currentPageIndex / 2);
@@ -208,7 +182,7 @@ function turnPage(direction) {
     const step = isMobile() ? 1 : 2; 
 
     if (direction === 'next') {
-        if (currentPageIndex + step < totalPagesCount) {
+        if (currentPageIndex + step <= totalPagesCount) {
             currentPageIndex += step;
             updateBookDOM();
         }
@@ -224,7 +198,7 @@ function updateUI() {
     const mobileMode = isMobile();
     
     prevBtn.disabled = currentPageIndex === 0;
-    nextBtn.disabled = mobileMode ? (currentPageIndex === totalPagesCount - 1) : (currentPageIndex >= totalPagesCount - 2);
+    nextBtn.disabled = mobileMode ? (currentPageIndex === totalPagesCount - 1) : (currentPageIndex >= totalPagesCount - 1);
     
     let displayText = "";
     if (currentPageIndex === 0) {
@@ -238,7 +212,7 @@ function updateUI() {
             const currentPair = Math.floor(currentPageIndex / 2);
             const leftPage = currentPair * 2;
             const rightPage = leftPage + 1;
-            displayText = `P${leftPage}-P${rightPage}`;
+            displayText = `P${leftPage} - P${rightPage}`;
         }
     }
     
@@ -256,5 +230,8 @@ document.addEventListener('keydown', (e) => {
 window.addEventListener('resize', updateBookDOM);
 
 window.addEventListener('DOMContentLoaded', () => {
-    autoDetectImages(initMagazine);
+    // 1. 先瞬间生成文件名映射
+    generateImageArray();
+    // 2. 紧接着直接无缝初始化界面
+    initMagazine();
 });
