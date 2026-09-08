@@ -1,0 +1,1588 @@
+/* ==========================================================================
+   REGNAS TRAVEL GUIDE
+   Project Introduction Page
+   ========================================================================== */
+
+
+/* ==========================================================================
+   1. 基础重置 & 全局背景
+   ========================================================================== */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    background-color: #f8f4f0;
+
+    font-family:
+        'Arial',
+        -apple-system,
+        BlinkMacSystemFont,
+        "Segoe UI",
+        Roboto,
+        sans-serif;
+
+    color: #333333;
+
+    line-height: 1.7;
+
+    overflow-x: hidden;
+
+    position: relative;
+
+    background-image:
+        radial-gradient(
+            rgba(0, 0, 0, .015) 1px,
+            transparent 1px
+        );
+
+    background-size: 4px 4px;
+}
+
+
+/* 背景巨大文字 */
+
+body::before {
+    content: "REGNAS";
+
+    position: fixed;
+
+    top: 50%;
+    left: 50%;
+
+    transform: translate(-50%, -50%);
+
+    font-size: 16vw;
+    font-weight: 900;
+
+    color: #e53935;
+
+    opacity: .022;
+
+    pointer-events: none;
+    user-select: none;
+
+    z-index: 0;
+}
+
+
+/* ==========================================================================
+   2. 顶部按钮
+   ========================================================================== */
+
+.back-home-btn {
+    position: fixed;
+
+    top: 24px;
+    right: 24px;
+
+    z-index: 999;
+
+    display: inline-flex;
+
+    align-items: center;
+
+    gap: 8px;
+
+    background: rgba(248, 244, 240, .88);
+
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+
+    border: 1px solid rgba(194, 24, 7, .15);
+
+    padding: 8px 15px;
+
+    border-radius: 8px;
+
+    text-decoration: none;
+
+    color: #c21807;
+
+    font-size: 13px;
+    font-weight: 700;
+
+    letter-spacing: .5px;
+
+    box-shadow:
+        0 4px 15px rgba(0, 0, 0, .03);
+
+    transition:
+        background-color .3s ease,
+        color .3s ease,
+        border-color .3s ease,
+        transform .3s ease,
+        box-shadow .3s ease;
+
+    text-align: right;
+}
+
+.back-home-btn:hover {
+    background: #e53935;
+
+    color: #ffffff;
+
+    border-color: #e53935;
+
+    transform: translateX(-4px);
+
+    box-shadow:
+        0 6px 20px rgba(229, 57, 53, .15);
+}
+
+.back-icon {
+    font-size: 16px;
+}
+
+.submit-btn {
+    top: 90px;
+}
+
+
+
+/* ==========================================================================
+   3. 页面主体
+   ========================================================================== */
+
+.travel-page-container {
+    width: min(1280px, calc(100% - 48px));
+
+    margin: 0 auto;
+
+    padding: 120px 0 80px;
+
+    position: relative;
+
+    z-index: 1;
+}
+
+
+/* ==========================================================================
+   4. 页面标题
+   ========================================================================== */
+
+.travel-header {
+    border-bottom:
+        2px solid rgba(194, 24, 7, .15);
+
+    padding-bottom: 28px;
+
+    margin-bottom: 64px;
+}
+
+.section-label {
+    color: #c21807;
+
+    font-size: 10px;
+
+    font-weight: 800;
+
+    letter-spacing: 2.5px;
+
+    margin-bottom: 10px;
+}
+
+.travel-header h1 {
+    color: #c21807;
+
+    font-size: clamp(30px, 4vw, 46px);
+
+    line-height: 1.25;
+
+    letter-spacing: 2px;
+
+    margin-bottom: 14px;
+}
+
+.travel-header h1 span {
+    display: block;
+
+    color: #99867a;
+
+    font-size: .42em;
+
+    letter-spacing: 3px;
+
+    margin-top: 7px;
+}
+
+.header-lead {
+    max-width: 800px;
+
+    color: #665b55;
+
+    font-size: 14px;
+
+    line-height: 1.9;
+}
+
+
+/* ==========================================================================
+   5. 项目介绍 + A4 海报
+   ========================================================================== */
+
+.project-intro {
+    display: grid;
+
+    grid-template-columns:
+        minmax(0, 1fr)
+        minmax(300px, 390px);
+
+    gap: clamp(50px, 8vw, 110px);
+
+    align-items: start;
+
+    margin-bottom: 30px;
+}
+
+
+/* 标题 */
+
+.intro-text h2,
+.travel-section h2,
+.preview-section h2,
+.wip-section h2 {
+    color: #292321;
+
+    font-size: 26px;
+
+    line-height: 1.3;
+
+    margin-bottom: 25px;
+}
+
+.intro-text h2 span,
+.travel-section h2 span,
+.preview-section h2 span,
+.wip-section h2 span {
+    display: block;
+
+    color: #99867a;
+
+    font-size: 13px;
+
+    font-weight: 700;
+
+    letter-spacing: 1.5px;
+
+    margin-top: 5px;
+}
+
+
+/* 正文 */
+
+.intro-text p,
+.travel-section p,
+.preview-section p,
+.wip-section p {
+    max-width: 720px;
+
+    color: #4e4540;
+
+    font-size: 14px;
+
+    margin-bottom: 15px;
+}
+
+.en-text {
+    color: #8c7d73 !important;
+
+    font-size: 12px !important;
+
+    line-height: 1.7 !important;
+}
+
+
+/* 小故事 */
+
+.story-note {
+    margin-top: 38px;
+
+    padding:
+        25px
+        0
+        5px
+        22px;
+
+    border-left:
+        2px solid rgba(194, 24, 7, .25);
+}
+
+.story-note h3 {
+    color: #5b4d46;
+
+    font-size: 16px;
+
+    margin-bottom: 15px;
+}
+
+.story-note h3 span {
+    color: #99867a;
+
+    font-size: 11px;
+
+    letter-spacing: 1px;
+
+    margin-left: 7px;
+}
+
+
+/* ==========================================================================
+   6. A4 海报
+   ========================================================================== */
+
+.poster-column {
+    width: 100%;
+
+    position: sticky;
+
+    top: 40px;
+}
+
+.poster-frame {
+    width: 100%;
+
+    aspect-ratio: 210 / 297;
+
+    background: #e9e3de;
+
+    padding: 9px;
+
+    box-shadow:
+        0 18px 45px rgba(60, 42, 32, .10),
+        0 2px 6px rgba(60, 42, 32, .05);
+}
+
+.poster-image {
+    display: block;
+
+    width: 100%;
+    height: 100%;
+
+    object-fit: cover;
+}
+
+.poster-caption {
+    display: flex;
+
+    justify-content: space-between;
+
+    gap: 15px;
+
+    padding-top: 10px;
+
+    color: #99867a;
+
+    font-size: 9px;
+
+    font-weight: 700;
+
+    letter-spacing: 1.5px;
+}
+
+.poster-caption span:last-child {
+    font-weight: 400;
+
+    letter-spacing: .5px;
+
+    text-align: right;
+}
+
+
+/* ==========================================================================
+   7. 普通 Section
+   ========================================================================== */
+
+.travel-section {
+    border-top:
+        1px solid rgba(194, 24, 7, .10);
+
+    padding-top: 55px;
+
+    margin-bottom: 30px;/*原来是85px*/
+}
+
+
+/* ==========================================================================
+   8. 参与方式
+   ========================================================================== */
+
+.participation-grid {
+    display: grid;
+
+    grid-template-columns:
+        repeat(3, 1fr);
+
+    gap: 18px;
+
+    margin-top: 35px;
+}
+
+.participation-card {
+    position: relative;
+
+    min-height: 230px;
+
+    background:
+        rgba(255, 255, 255, .58);
+
+    border:
+        1px solid rgba(0, 0, 0, .045);
+
+    padding: 25px;
+
+    transition:
+        transform .3s ease,
+        box-shadow .3s ease;
+}
+
+.participation-card:hover {
+    transform: translateY(-4px);
+
+    box-shadow:
+        0 12px 25px rgba(60, 42, 32, .07);
+}
+
+.card-number {
+    color: rgba(194, 24, 7, .28);
+
+    font-size: 12px;
+
+    font-weight: 800;
+
+    letter-spacing: 2px;
+
+    margin-bottom: 15px;
+}
+
+.participation-card h3 {
+    color: #302a27;
+
+    font-size: 17px;
+
+    margin-bottom: 2px;
+}
+
+.participation-card > span {
+    color: #99867a;
+
+    font-size: 10px;
+
+    font-weight: 700;
+
+    letter-spacing: 1px;
+}
+
+.participation-card p {
+    margin-top: 18px;
+
+    font-size: 12px !important;
+}
+
+.participation-card .en-text {
+    margin-top: 0;
+}
+
+
+/* 小提示 */
+
+.small-note {
+    margin-top: 20px;
+
+    padding: 13px 16px;
+
+    background:
+        rgba(194, 24, 7, .045);
+
+    color: #725f55;
+
+    font-size: 12px;
+
+    border-left:
+        2px solid rgba(194, 24, 7, .25);
+}
+
+.small-note span {
+    display: block;
+
+    color: #99867a;
+
+    font-size: 11px;
+
+    margin-top: 3px;
+}
+
+
+/* ==========================================================================
+   9. 服务器
+   ========================================================================== */
+
+.server-list {
+    display: grid;
+
+    grid-template-columns:
+        repeat(4, 1fr);
+
+    gap: 12px;
+
+    margin-top: 30px;
+}
+
+.server-item {
+    background:
+        rgba(255, 255, 255, .65);
+
+    border:
+        1px solid rgba(0, 0, 0, .045);
+
+    padding: 22px 18px;
+
+    text-align: center;
+}
+
+.server-item strong {
+    display: block;
+
+    color: #c21807;
+
+    font-size: 20px;
+
+    letter-spacing: 2px;
+}
+
+.server-item span {
+    display: block;
+
+    color: #554a45;
+
+    font-size: 11px;
+
+    margin-top: 3px;
+}
+
+.server-item em {
+    display: block;
+
+    color: #99867a;
+
+    font-size: 9px;
+
+    font-style: normal;
+
+    letter-spacing: 1px;
+
+    margin-top: 12px;
+}
+
+.server-item.other {
+    background:
+        rgba(0, 0, 0, .025);
+}
+
+.server-item.other strong {
+    color: #8c7d73;
+}
+
+.server-note {
+    margin-top: 20px;
+
+    font-size: 12px !important;
+
+    color: #725f55 !important;
+}
+
+.server-note span {
+    color: #99867a;
+}
+
+
+/* ==========================================================================
+   10. 投稿
+   ========================================================================== */
+
+.submission-requirement {
+    margin-top: 30px;
+
+    background:
+        rgba(255, 255, 255, .58);
+
+    border:
+        1px solid rgba(0, 0, 0, .045);
+
+    padding: 25px;
+}
+
+.submission-requirement h3 {
+    color: #403733;
+
+    font-size: 16px;
+
+    margin-bottom: 22px;
+}
+
+.submission-requirement h3 span {
+    color: #99867a;
+
+    font-size: 10px;
+
+    letter-spacing: 1px;
+
+    margin-left: 7px;
+}
+
+.requirement-row {
+    display: grid;
+
+    grid-template-columns:
+        repeat(3, 1fr);
+
+    gap: 20px;
+}
+
+.requirement-row > div {
+    display: grid;
+
+    grid-template-columns:
+        28px 1fr;
+
+    align-items: start;
+}
+
+.requirement-row strong {
+    grid-row: span 2;
+
+    color: #c21807;
+
+    font-size: 11px;
+
+    letter-spacing: 1px;
+}
+
+.requirement-row b {
+    color: #4b403b;
+
+    font-size: 12px;
+}
+
+.requirement-row span {
+    color: #8c7d73;
+
+    font-size: 11px;
+
+    line-height: 1.6;
+
+    margin-top: 2px;
+}
+
+.location-hint {
+    margin-top: 22px;
+
+    padding-top: 18px;
+
+    border-top:
+        1px solid rgba(0, 0, 0, .05);
+
+    font-size: 12px !important;
+
+    color: #725f55 !important;
+}
+
+
+/* 投稿入口 */
+
+.submission-links {
+    display: grid;
+
+    grid-template-columns:
+        repeat(3, 1fr);
+
+    gap: 12px;
+
+    margin-top: 18px;
+}
+
+.submission-link {
+    display: flex;
+
+    flex-direction: column;
+
+    align-items: center;
+    justify-content: center;
+
+    min-height: 90px;
+
+    background: #ffffff;
+
+    border:
+        1px solid rgba(194, 24, 7, .12);
+
+    color: #c21807;
+
+    text-decoration: none;
+
+    transition:
+        background-color .25s ease,
+        color .25s ease,
+        transform .25s ease;
+}
+
+.submission-link:hover {
+    background: #e53935;
+
+    color: #ffffff;
+
+    transform: translateY(-3px);
+}
+
+.submission-link span {
+    font-size: 10px;
+
+    font-weight: 800;
+
+    letter-spacing: 2px;
+
+    margin-bottom: 4px;
+}
+
+.submission-link {
+    font-size: 13px;
+
+    font-weight: 700;
+}
+
+.submission-link small {
+    color: #99867a;
+
+    font-size: 9px;
+
+    font-weight: 400;
+
+    letter-spacing: .5px;
+
+    margin-top: 2px;
+}
+
+.submission-link:hover small {
+    color: rgba(255, 255, 255, .8);
+}
+
+.submission-link.no-link {
+    cursor: default;
+
+    background:
+        rgba(255, 255, 255, .45);
+
+    border-color:
+        rgba(0, 0, 0, .05);
+
+    color: #8c7d73;
+}
+
+.submission-link.no-link:hover {
+    background:
+        rgba(255, 255, 255, .45);
+
+    color: #8c7d73;
+
+    transform: none;
+}
+
+
+/* ==========================================================================
+   11. QQ 二维码
+   ========================================================================== */
+
+.qq-card {
+    display: flex;
+
+    align-items: center;
+
+    gap: 24px;
+
+    margin-top: 18px;
+
+    padding: 20px;
+
+    background:
+        rgba(255, 255, 255, .58);
+
+    border:
+        1px solid rgba(0, 0, 0, .045);
+}
+
+.qq-info {
+    flex: 1;
+}
+
+.qq-info strong {
+    display: block;
+
+    color: #c21807;
+
+    font-size: 15px;
+}
+
+.qq-info > span {
+    display: block;
+
+    color: #99867a;
+
+    font-size: 10px;
+
+    letter-spacing: 1px;
+
+    margin-top: 2px;
+}
+
+.qq-info p {
+    margin-top: 12px !important;
+
+    margin-bottom: 0 !important;
+
+    font-size: 12px !important;
+}
+
+.qq-qr {
+    width: 110px;
+    height: auto;
+
+    flex:
+        0 0 110px;
+
+    display: block;
+
+    object-fit: cover;
+}
+
+
+/* ==========================================================================
+   12. Discord
+   ========================================================================== */
+
+.discord-notice {
+    display: grid;
+
+    grid-template-columns:
+        42px 1fr;
+
+    gap: 15px;
+
+    margin-top: 25px;
+
+    padding: 22px;
+
+    background:
+        rgba(194, 24, 7, .045);
+
+    border:
+        1px solid rgba(194, 24, 7, .08);
+}
+
+.notice-icon {
+    width: 32px;
+    height: 32px;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 50%;
+
+    background: #e53935;
+
+    color: #ffffff;
+
+    font-size: 13px;
+
+    font-weight: 800;
+}
+
+.discord-notice strong {
+    display: block;
+
+    color: #4b403b;
+
+    font-size: 12px;
+
+    margin-bottom: 3px;
+}
+
+.discord-notice > div > span {
+    display: block;
+
+    color: #99867a;
+
+    font-size: 10px;
+}
+
+.discord-notice p {
+    font-size: 11px !important;
+
+    margin-top: 12px !important;
+
+    margin-bottom: 5px !important;
+}
+
+.discord-join-btn {
+    display: inline-flex;
+
+    align-items: center;
+
+    gap: 20px;
+
+    margin-top: 20px;
+
+    padding: 13px 24px;
+
+    background: #e53935;
+
+    color: #ffffff;
+
+    text-decoration: none;
+
+    border-radius: 30px;
+
+    box-shadow:
+        0 5px 18px rgba(229, 57, 53, .18);
+
+    transition:
+        background-color .25s ease,
+        transform .25s ease,
+        box-shadow .25s ease;
+}
+
+.discord-join-btn:hover {
+    background: #c21807;
+
+    transform: translateY(-2px);
+
+    box-shadow:
+        0 8px 22px rgba(194, 24, 7, .25);
+}
+
+.discord-join-btn span {
+    font-size: 13px;
+
+    font-weight: 700;
+}
+
+.discord-join-btn small {
+    font-size: 9px;
+
+    letter-spacing: 1px;
+
+    opacity: .75;
+}
+
+
+/* ==========================================================================
+   13. Preview
+   ========================================================================== */
+
+.preview-section {
+    position: relative;
+
+    margin:
+        0 0 85px;
+
+    padding:
+        55px
+        55px
+        60px;
+
+    background: #2b2522;
+
+    color: #ffffff;
+
+    overflow: hidden;
+}
+
+.preview-section::after {
+    content: "PREVIEW";
+
+    position: absolute;
+
+    right: -20px;
+    bottom: -45px;
+
+    font-size: 130px;
+
+    font-weight: 900;
+
+    color: #ffffff;
+
+    opacity: .025;
+
+    pointer-events: none;
+}
+
+.preview-content {
+    position: relative;
+
+    z-index: 1;
+
+    max-width: 700px;
+}
+
+.preview-section .section-label {
+    color: #e5736f;
+}
+
+.preview-section h2 {
+    color: #ffffff;
+}
+
+.preview-section h2 span {
+    color: #baa79c;
+}
+
+.preview-section p {
+    color: #e2d9d4;
+}
+
+.preview-section .en-text {
+    color: #aa9b92 !important;
+}
+
+.preview-detail {
+    margin-top: 25px;
+}
+
+.preview-btn {
+    display: inline-flex;
+
+    align-items: center;
+
+    gap: 25px;
+
+    margin-top: 25px;
+
+    padding: 13px 20px;
+
+    background: #e53935;
+
+    color: #ffffff;
+
+    text-decoration: none;
+
+    font-size: 12px;
+
+    font-weight: 800;
+
+    letter-spacing: 1.5px;
+
+    transition:
+        background-color .25s ease,
+        transform .25s ease;
+}
+
+.preview-btn b {
+    font-size: 18px;
+
+    font-weight: 400;
+
+    line-height: 1;
+}
+
+.preview-btn:hover {
+    background: #c21807;
+
+    transform: translateX(4px);
+}
+
+
+/* ==========================================================================
+   14. WIP
+   ========================================================================== */
+
+.wip-section {
+    padding:
+        0
+        0
+        65px;
+
+    text-align: center;
+}
+
+.wip-section .section-label {
+    margin-bottom: 15px;
+}
+
+.wip-section h2 span {
+    margin-top: 6px;
+}
+
+.wip-section p {
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.wip-line {
+    display: flex;
+
+    justify-content: center;
+
+    gap: 30px;
+
+    margin-top: 35px;
+
+    color: rgba(194, 24, 7, .45);
+
+    font-size: 9px;
+
+    font-weight: 800;
+
+    letter-spacing: 3px;
+}
+
+
+/* ==========================================================================
+   15. Footer
+   ========================================================================== */
+
+.main-footer {
+    background-color: #f8f4f0;
+
+    width: 100%;
+
+    padding:
+        40px
+        0
+        60px;
+
+    border-top:
+        1px solid rgba(194, 24, 7, .05);
+}
+
+.footer-container {
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: flex-end;
+
+    flex-wrap: wrap;
+
+    gap: 24px;
+
+    max-width: 1300px;
+
+    padding:
+        0
+        40px;
+
+    margin: 0 auto;
+}
+
+.footer-text {
+    flex: 1;
+
+    min-width: 300px;
+}
+
+.footer-text p {
+    text-align: left;
+
+    margin: 4px 0;
+
+    font-size: 12px;
+
+    color: #333333;
+}
+
+.social-links {
+    display: flex;
+
+    justify-content: flex-end;
+
+    flex-shrink: 0;
+}
+
+.dc-btn {
+    display: inline-flex;
+
+    align-items: center;
+
+    gap: 10px;
+
+    background-color: #e53935;
+
+    color: #ffffff;
+
+    text-decoration: none;
+
+    padding:
+        12px
+        28px;
+
+    border-radius: 30px;
+
+    font-size: 14px;
+
+    font-weight: 600;
+
+    letter-spacing: 1px;
+
+    box-shadow:
+        0 4px 15px rgba(229, 57, 53, .2);
+
+    transition: all .3s ease;
+}
+
+.dc-btn:hover {
+    background-color: #c21807;
+
+    box-shadow:
+        0 6px 20px rgba(194, 24, 7, .4);
+
+    transform: translateY(-2px);
+}
+
+.hidden-egg-link {
+    color: #baa79c;
+
+    text-decoration: none;
+
+    font-size: 10px;
+
+    margin: 0 4px;
+
+    cursor: default;
+}
+
+.hidden-egg-link:hover {
+    color: #c21807;
+}
+
+
+/* ==========================================================================
+   16. 平板
+   ========================================================================== */
+
+@media (max-width: 900px) {
+
+    .project-intro {
+        grid-template-columns:
+            minmax(0, 1fr)
+            300px;
+
+        gap: 40px;
+    }
+
+    .participation-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .participation-card {
+        min-height: auto;
+    }
+
+    .server-list {
+        grid-template-columns:
+            repeat(2, 1fr);
+    }
+
+    .requirement-row {
+        grid-template-columns: 1fr;
+    }
+
+    .requirement-row > div {
+        margin-bottom: 12px;
+    }
+}
+
+
+/* ==========================================================================
+   17. 手机
+   ========================================================================== */
+
+@media (max-width: 700px) {
+
+    .travel-page-container {
+        width: calc(100% - 32px);
+
+        padding-top: 125px;
+    }
+
+
+    /* 顶部按钮 */
+
+    .back-home-btn {
+        top: 18px;
+        right: 16px;
+
+        padding:
+            7px
+            11px;
+
+        font-size: 11px;
+    }
+
+    .submit-btn {
+        top: 70px;
+    }
+
+    .back-icon {
+        font-size: 14px;
+    }
+
+
+    /* 标题 */
+
+    .travel-header {
+        margin-bottom: 45px;
+
+        padding-bottom: 22px;
+    }
+
+    .travel-header h1 {
+        font-size: 29px;
+
+        letter-spacing: 1px;
+    }
+
+    .travel-header h1 span {
+        font-size: 11px;
+
+        letter-spacing: 2px;
+    }
+
+    .header-lead {
+        font-size: 12px;
+
+        line-height: 1.8;
+    }
+
+
+    /* 项目介绍：
+       手机端文字在上，海报在下 */
+
+    .project-intro {
+        display: flex;
+
+        flex-direction: column;
+
+        gap: 45px;
+
+        margin-bottom: 70px;
+    }
+
+    .intro-text {
+        order: 1;
+    }
+
+    .poster-column {
+        order: 2;
+
+        position: static;
+
+        width:
+            min(100%, 430px);
+
+        margin:
+            0 auto;
+    }
+
+
+    /* 标题 */
+
+    .intro-text h2,
+    .travel-section h2,
+    .preview-section h2,
+    .wip-section h2 {
+        font-size: 23px;
+    }
+
+
+    /* 正文 */
+
+    .travel-section p,
+    .intro-text p {
+        font-size: 13px;
+    }
+
+
+    /* 服务器 */
+
+    .server-list {
+        grid-template-columns:
+            repeat(2, 1fr);
+
+        gap: 8px;
+    }
+
+    .server-item {
+        padding:
+            18px
+            10px;
+    }
+
+    .server-item strong {
+        font-size: 17px;
+    }
+
+
+    /* 投稿 */
+
+    .submission-requirement {
+        padding: 18px;
+    }
+
+    .submission-links {
+        grid-template-columns: 1fr;
+
+        gap: 8px;
+    }
+
+    .submission-link {
+        min-height: 65px;
+    }
+
+
+    /* QQ */
+
+    .qq-card {
+        gap: 15px;
+
+        padding: 15px;
+    }
+
+    .qq-qr {
+        width: 100px;
+        height: auto;
+        flex-basis: 100px;
+    }
+
+
+    /* Discord */
+
+    .discord-notice {
+        grid-template-columns:
+            32px 1fr;
+
+        gap: 10px;
+
+        padding: 17px;
+    }
+
+    .notice-icon {
+        width: 27px;
+        height: 27px;
+
+        font-size: 11px;
+    }
+
+    .discord-join-btn {
+        width: 100%;
+
+        justify-content: space-between;
+    }
+
+
+    /* Preview */
+
+    .preview-section {
+        padding:
+            40px
+            25px
+            45px;
+
+        margin-bottom: 60px;
+    }
+
+    .preview-section::after {
+        font-size: 80px;
+
+        bottom: -20px;
+    }
+
+    .preview-btn {
+        width: 100%;
+
+        justify-content: space-between;
+    }
+
+
+    /* WIP */
+
+    .wip-line {
+        flex-direction: column;
+
+        gap: 6px;
+    }
+
+
+    /* Footer */
+
+    .footer-container {
+        padding:
+            0
+            20px;
+
+        align-items: stretch;
+    }
+
+    .footer-text {
+        min-width: 100%;
+    }
+
+    .footer-text p {
+        font-size: 10px;
+    }
+
+    .social-links {
+        justify-content: flex-start;
+    }
+
+    .dc-btn {
+        width: 100%;
+
+        justify-content: center;
+
+        padding:
+            11px
+            15px;
+
+        font-size: 12px;
+    }
+
+}
+
+
+/* ==========================================================================
+   18. 小屏手机
+   ========================================================================== */
+
+@media (max-width: 400px) {
+
+    .travel-page-container {
+        width:
+            calc(100% - 24px);
+    }
+
+    .back-home-btn {
+        right: 12px;
+    }
+
+    .submit-btn {
+        top: 68px;
+    }
+
+    .server-list {
+        grid-template-columns:
+            1fr 1fr;
+    }
+
+    .poster-frame {
+        padding: 6px;
+    }
+
+}

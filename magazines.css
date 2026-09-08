@@ -1,0 +1,375 @@
+/* ==========================================================================
+   1. 基础重置 & 全局背景系统 (严格复刻相册页粒子纹理)
+   ========================================================================== */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: #f8f4f0;
+    font-family: 'Arial', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    color: #333333;
+    line-height: 1.6;
+    overflow-x: hidden;
+    position: relative;
+    
+    /* 🎯 完美像素同步：粒子细微网格背景 */
+    background-image: radial-gradient(rgba(0,0,0,.015) 1px, transparent 1px);
+    background-size: 4px 4px;
+}
+
+/* 🎯 完美像素同步：MAGAZINES 居中巨型艺术字浅红水印 */
+body::before {
+    content: "MAGAZINES";
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 13vw; /* 稍微压缩一点字号防止长单词溢出 */
+    font-weight: 900;
+    color: #e53935;
+    opacity: .025;
+    pointer-events: none;
+    user-select: none;
+    z-index: 0;
+}
+
+/* ==========================================================================
+   2. 极其丝滑的返回按钮组 (右侧定位、多行对齐)
+   ========================================================================== */
+.back-home-btn {
+    position: fixed;
+    top: 24px;
+    left: auto;
+    right: 24px;
+    z-index: 999;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: rgba(248, 244, 240, 0.85);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    border: 1px solid rgba(194, 24, 7, 0.15);
+    padding: 8px 15px;
+    border-radius: 8px;
+    text-decoration: none;
+    color: #c21807;
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.03);
+    transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    text-align: right;
+}
+
+.back-home-btn:hover {
+    background: #e53935;
+    color: #ffffff;
+    border-color: #e53935;
+    transform: translateX(-4px); /* 保持与相册一致的左滑反馈 */
+    box-shadow: 0 6px 20px rgba(229, 57, 53, 0.15);
+}
+
+.back-icon {
+    font-size: 16px;
+}
+
+/* ==========================================================================
+   3. 中央全局内容排版
+   ========================================================================== */
+.archive-container {
+    max-width: 1300px;
+    margin: 0 auto;
+    padding: 90px 24px 80px 24px; /* 顶部留足 160px，防止双按钮遮挡第一栏标题 */
+    position: relative;
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 70px;
+}
+
+.magazine-sector {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+}
+
+.sector-header {
+    border-bottom: 2px solid rgba(194, 24, 7, 0.15);
+    padding-bottom: 16px;
+}
+
+.sector-header h2 {
+    font-size: 22px;
+    color: #c21807;
+    letter-spacing: 2px;
+}
+
+.en-sector-title {
+    font-size: 16px;
+    color: #baa79c;
+    font-weight: 400;
+}
+
+.sector-desc {
+    font-size: 13px;
+    color: #7a6e67;
+    margin-top: 6px;
+}
+
+/* ==========================================================================
+   4. 响应式货架网格
+   ========================================================================== */
+.magazine-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 32px;
+}
+
+.mag-card {
+    background: rgba(255, 255, 255, 0.85);
+    border-radius: 12px;
+    border: 1px solid rgba(0,0,0,0.04);
+    overflow: hidden;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.01);
+    display: flex;
+    flex-direction: column;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.mag-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 12px 24px rgba(194, 24, 7, 0.08);
+}
+
+/* 严格控制货架里的封面比例（按照纸张 210*287mm 比例渲染货架） */
+.cover-wrapper {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 210 / 287;
+    background-color: #e6dfd8;
+    overflow: hidden;
+    cursor: pointer;
+}
+
+.cover-wrapper img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* 货架卡片悬浮遮罩 */
+.card-hover-overlay {
+    position: absolute;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background: rgba(194, 24, 7, 0.2);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    backdrop-filter: blur(2px);
+}
+
+.mag-card:hover .card-hover-overlay {
+    opacity: 1;
+}
+
+.view-tag {
+    color: #fff;
+    background: #c21807;
+    padding: 6px 16px;
+    font-size: 11px;
+    border-radius: 20px;
+    font-weight: 600;
+    letter-spacing: 1px;
+}
+
+/* 货架信息区 */
+.card-info {
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+}
+
+.card-info h3 {
+    font-size: 16px;
+    color: #222;
+    margin-bottom: 8px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.edition-tag {
+    font-size: 11px;
+    background: rgba(194, 24, 7, 0.1);
+    color: #c21807;
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-weight: normal;
+}
+
+.mag-desc {
+    font-size: 13px;
+    color: #666;
+    margin-bottom: 20px;
+    text-align: justify;
+    flex-grow: 1;
+}
+
+.read-now-btn {
+    display: block;
+    text-align: center;
+    background: rgba(194, 24, 7, 0.05);
+    border: 1px solid rgba(194, 24, 7, 0.2);
+    color: #c21807;
+    text-decoration: none;
+    padding: 10px;
+    border-radius: 6px;
+    font-size: 13px;
+    font-weight: 600;
+    transition: all 0.2s ease;
+}
+
+.mag-card:hover .read-now-btn {
+    background: #e53935;
+    color: #fff;
+    border-color: #e53935;
+}
+
+/* ==========================================================================
+   5. 灯箱大图交互弹窗
+   ========================================================================== */
+.lightbox {
+    display: none;
+    position: fixed;
+    z-index: 2000;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background-color: rgba(13, 13, 13, 0.95);
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.lightbox-content {
+    max-width: 90%;
+    max-height: 82vh;
+    object-fit: contain;
+    border-radius: 4px;
+    box-shadow: 0 0 30px rgba(0,0,0,0.5);
+    animation: zoom 0.25s ease-out;
+}
+
+@keyframes zoom {
+    from { transform: scale(0.95); opacity: 0; }
+    to { transform: scale(1); opacity: 1; }
+}
+
+.close-btn {
+    position: absolute;
+    top: 24px; right: 32px;
+    color: #baa79c;
+    font-size: 40px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: color 0.2s;
+}
+.close-btn:hover { color: #fff; }
+
+.lightbox-caption {
+    margin-top: 16px;
+    color: #baa79c;
+    font-size: 13px;
+    letter-spacing: 1px;
+    text-align: center;
+}
+
+/* ==========================================================================
+   6. 页脚与彩蛋 (Footer)
+   ========================================================================== */
+.main-footer {
+    background-color: #f8f4f0; 
+    width: 100%;
+    padding: 40px 0 60px 0; 
+    border-top: 1px solid rgba(194, 24, 7, 0.05);
+    position: relative;
+    z-index: 1;
+}
+
+.footer-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;         
+    flex-wrap: wrap;               
+    gap: 24px;
+    max-width: 1300px;             
+    padding: 0 40px;
+    margin: 0 auto;                
+}
+
+.footer-text {
+    flex: 1;
+    min-width: 300px;              
+}
+
+.footer-text p {
+    text-align: left;              
+    margin: 4px 0;                 
+    font-size: 12px;               
+    color: #333333;                
+}
+
+.main-footer .social-links {
+    display: flex;
+    justify-content: flex-end;     
+    margin-top: 0 !important;      
+    flex-shrink: 0;                
+}
+
+.dc-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    background-color: #e53935;
+    color: #ffffff;
+    text-decoration: none;
+    padding: 12px 28px;
+    border-radius: 30px;
+    font-size: 14px;
+    font-weight: 600;
+    letter-spacing: 1px;
+    box-shadow: 0 4px 15px rgba(229, 57, 53, 0.2);
+    transition: all 0.3s ease;
+}
+
+.dc-btn:hover {
+    background-color: #c21807;
+    box-shadow: 0 6px 20px rgba(194, 24, 7, 0.4);
+    transform: translateY(-2px);
+}
+
+.hidden-egg-link {
+    color: #baa79c;
+    text-decoration: none;
+    font-size: 10px;
+    margin: 0 4px;
+    cursor: default;
+    transition: color 0.3s;
+}
+.hidden-egg-link:hover {
+    color: #c21807; 
+}
+
+/* ==========================================================================
+   7. 📱 移动端适应断点
+   ========================================================================== */
+@media (max-width: 768px) {
+    .archive-container { padding: 90px 20px 40px 20px; gap: 40px;}
+    .back-home-btn { top: 12px; right: 12px; padding: 6px 12px; font-size: 11px; }
+    /* 移动端将第二个按钮往下移一点，防止挤压 */
+    .back-home-btn[style*="top: 90px;"] { top: 70px !important; }
+}

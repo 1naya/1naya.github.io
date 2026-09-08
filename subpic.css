@@ -1,0 +1,1287 @@
+/* ==========================================================================
+   1. 基础重置 & 全局背景
+   ========================================================================== */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: #f8f4f0;
+
+    font-family:
+        'Arial',
+        -apple-system,
+        BlinkMacSystemFont,
+        "Segoe UI",
+        Roboto,
+        sans-serif;
+
+    color: #333333;
+
+    line-height: 1.6;
+
+    overflow-x: hidden;
+
+    position: relative;
+
+    background-image:
+        radial-gradient(
+            rgba(0, 0, 0, .015) 1px,
+            transparent 1px
+        );
+
+    background-size: 4px 4px;
+}
+
+
+/* ==========================================================================
+   2. 背景巨大水印
+   ========================================================================== */
+
+body::before {
+    content: "PREVIEW";
+
+    position: fixed;
+
+    top: 50%;
+    left: 50%;
+
+    transform: translate(-50%, -50%);
+
+    font-size: 16vw;
+
+    font-weight: 900;
+
+    color: #e53935;
+
+    opacity: .025;
+
+    pointer-events: none;
+
+    user-select: none;
+
+    z-index: 0;
+}
+
+
+/* ==========================================================================
+   3. 右上角按钮容器
+   ========================================================================== */
+
+.top-buttons {
+    position: fixed;
+
+    top: 24px;
+    right: 24px;
+
+    z-index: 999;
+
+    display: flex;
+
+    flex-direction: column;
+
+    align-items: flex-end;
+
+    gap: 10px;
+}
+
+
+/* ==========================================================================
+   4. 返回按钮
+   ========================================================================== */
+
+.back-home-btn {
+    display: inline-flex;
+
+    align-items: center;
+
+    gap: 8px;
+
+    background: rgba(248, 244, 240, 0.85);
+
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+
+    border: 1px solid rgba(194, 24, 7, 0.15);
+
+    padding: 8px 15px;
+
+    border-radius: 8px;
+
+    text-decoration: none;
+
+    color: #c21807;
+
+    font-size: 13px;
+
+    font-weight: 700;
+
+    letter-spacing: 0.5px;
+
+    box-shadow:
+        0 4px 15px rgba(0, 0, 0, 0.03);
+
+    transition:
+        all 0.3s cubic-bezier(
+            0.25,
+            0.46,
+            0.45,
+            0.94
+        );
+
+    text-align: right;
+}
+
+.back-home-btn:hover {
+    background: #e53935;
+
+    color: #ffffff;
+
+    border-color: #e53935;
+
+    transform: translateX(-4px);
+
+    box-shadow:
+        0 6px 20px rgba(229, 57, 53, 0.15);
+}
+
+.back-icon {
+    font-size: 16px;
+}
+
+.back-text {
+    line-height: 1.35;
+}
+
+
+/* ==========================================================================
+   5. 页面主体
+   ========================================================================== */
+
+.subpic-page-container {
+    max-width: 1300px;
+
+    margin: 0 auto;
+
+    padding:
+        120px
+        24px
+        80px
+        24px;
+
+    position: relative;
+
+    z-index: 1;
+}
+
+
+/* ==========================================================================
+   6. 页面主标题
+   ========================================================================== */
+
+.page-header {
+    border-left:
+        4px solid #e53935;
+
+    padding-left: 20px;
+
+    margin-bottom: 42px;
+
+    position: relative;
+}
+
+.page-title {
+    font-size: 32px;
+
+    color: #c21807;
+
+    letter-spacing: 2px;
+
+    line-height: 1.3;
+}
+
+.page-subtitle {
+    font-size: 18px;
+
+    color: #99867a;
+
+    font-weight: 700;
+
+    margin-top: 4px;
+
+    letter-spacing: 1px;
+}
+
+.page-description {
+    font-size: 13px;
+
+    color: #7a6e67;
+
+    margin-top: 8px;
+
+    line-height: 1.8;
+}
+
+
+/* ==========================================================================
+   7. 加载状态
+   ========================================================================== */
+
+.loading-state {
+    border-left:
+        4px solid #e53935;
+
+    padding-left: 20px;
+
+    margin-bottom: 42px;
+}
+
+.loading-title {
+    font-size: 28px;
+
+    color: #c21807;
+
+    font-weight: 800;
+
+    letter-spacing: 2px;
+}
+
+.loading-subtitle {
+    margin-top: 4px;
+
+    font-size: 16px;
+
+    color: #99867a;
+
+    font-weight: 700;
+}
+
+
+/* ==========================================================================
+   8. 错误状态
+   ========================================================================== */
+
+.error-state {
+    border-left:
+        4px solid #e53935;
+
+    padding:
+        4px 0 4px 20px;
+
+    margin-bottom: 42px;
+}
+
+.error-title {
+    font-size: 26px;
+
+    font-weight: 800;
+
+    color: #c21807;
+
+    letter-spacing: 1px;
+}
+
+.error-message {
+    margin-top: 8px;
+
+    font-size: 13px;
+
+    color: #7a6e67;
+
+    line-height: 1.8;
+}
+
+
+/* ==========================================================================
+   9. 地点区域
+   ========================================================================== */
+
+.location-section {
+    margin-bottom: 54px;
+}
+
+
+/* 地点标题 */
+
+.location-header {
+    margin-bottom: 18px;
+
+    padding-bottom: 12px;
+
+    border-bottom:
+        2px solid rgba(194, 24, 7, 0.12);
+}
+
+.location-title-row {
+    display: flex;
+
+    align-items: baseline;
+
+    gap: 10px;
+}
+
+.location-number {
+    font-size: 13px;
+
+    color: #baa79c;
+
+    font-weight: 700;
+
+    letter-spacing: 1px;
+}
+
+.location-title {
+    font-size: 22px;
+
+    color: #c21807;
+
+    letter-spacing: 1.5px;
+}
+
+.location-description {
+    margin-top: 4px;
+
+    font-size: 13px;
+
+    color: #7a6e67;
+
+    line-height: 1.7;
+}
+
+
+/* ==========================================================================
+   10. 图片网格
+   ========================================================================== */
+
+.photo-grid {
+    display: grid;
+
+    grid-template-columns:
+        repeat(1, minmax(0, 1fr));
+
+    gap: 26px 20px;
+
+    width: 100%;
+}
+
+
+/* ==========================================================================
+   11. 图片卡片
+   ========================================================================== */
+
+.photo-card {
+    min-width: 0;
+
+    display: flex;
+
+    flex-direction: column;
+}
+
+
+/* ==========================================================================
+   12. 图片容器
+   ========================================================================== */
+
+.photo-frame {
+    position: relative;
+
+    width: 100%;
+
+    aspect-ratio: 16 / 9;
+
+    overflow: hidden;
+
+    background: rgba(194, 24, 7, 0.15);
+
+    border-radius: 6px;
+
+    border:
+        1px solid rgba(0, 0, 0, 0.05);
+
+    box-shadow:
+        0 4px 12px rgba(0, 0, 0, 0.025);
+
+    cursor: pointer;
+}
+
+
+/* ==========================================================================
+   13. 图片
+   ========================================================================== */
+
+.photo-image {
+    display: block;
+
+    width: 100%;
+    height: 100%;
+
+    object-fit: cover;
+
+    transition:
+        transform 0.35s ease;
+}
+
+.photo-frame:hover .photo-image {
+    transform: scale(1.025);
+}
+
+
+/* ==========================================================================
+   14. 图片悬浮效果
+   ========================================================================== */
+
+.photo-frame::after {
+    content: "查看大图";
+
+    position: absolute;
+
+    left: 50%;
+    top: 50%;
+
+    transform:
+        translate(-50%, -50%)
+        translateY(4px);
+
+    padding:
+        6px 16px;
+
+    background:
+        rgba(194, 24, 7, 0.92);
+
+    color: #ffffff;
+
+    border-radius: 20px;
+
+    font-size: 11px;
+
+    font-weight: 600;
+
+    letter-spacing: 1px;
+
+    opacity: 0;
+
+    transition:
+        opacity 0.25s ease,
+        transform 0.25s ease;
+
+    pointer-events: none;
+
+    z-index: 2;
+}
+
+.photo-frame:hover::after {
+    opacity: 1;
+
+    transform:
+        translate(-50%, -50%)
+        translateY(0);
+}
+
+
+/* ==========================================================================
+   15. 已占用图片
+   ========================================================================== */
+
+.photo-card.is-occupied .photo-frame {
+    cursor: default;
+}
+
+.photo-card.is-occupied .photo-frame::after {
+    content: none;
+}
+
+.photo-card.is-occupied .photo-image {
+    transform: none;
+}
+
+
+/* ==========================================================================
+   16. 图片编号
+   ========================================================================== */
+
+.photo-id {
+    margin-top: 7px;
+
+    margin-bottom: 5px;
+
+    text-align: center;
+
+    font-size: 12px;
+
+    color: #99867a;
+
+    font-weight: 700;
+
+    letter-spacing: 1px;
+
+    line-height: 1.3;
+}
+
+
+/* ==========================================================================
+   17. Lightbox
+   ========================================================================== */
+
+.lightbox {
+    display: none;
+
+    position: fixed;
+
+    z-index: 2000;
+
+    top: 0;
+    left: 0;
+
+    width: 100%;
+    height: 100%;
+
+    background:
+        rgba(13, 13, 13, 0.95);
+
+    justify-content: center;
+
+    align-items: center;
+
+    flex-direction: column;
+
+    padding: 40px 20px;
+}
+
+.lightbox.is-open {
+    display: flex;
+}
+
+
+/* ==========================================================================
+   18. Lightbox 大图
+   ========================================================================== */
+
+.lightbox-content {
+    display: block;
+
+    max-width: 92vw;
+
+    max-height: 82vh;
+
+    width: auto;
+    height: auto;
+
+    object-fit: contain;
+
+    border-radius: 4px;
+
+    box-shadow:
+        0 0 30px rgba(0, 0, 0, 0.5);
+
+    animation:
+        subpicZoom 0.25s ease-out;
+}
+
+@keyframes subpicZoom {
+
+    from {
+        transform: scale(0.95);
+
+        opacity: 0;
+    }
+
+    to {
+        transform: scale(1);
+
+        opacity: 1;
+    }
+}
+
+
+/* ==========================================================================
+   19. Lightbox 关闭按钮
+   ========================================================================== */
+
+.close-btn {
+    position: absolute;
+
+    top: 24px;
+    right: 32px;
+
+    width: 48px;
+    height: 48px;
+
+    padding: 0;
+
+    border: 0;
+
+    background: transparent;
+
+    color: #baa79c;
+
+    font-size: 40px;
+
+    font-weight: bold;
+
+    line-height: 48px;
+
+    text-align: center;
+
+    cursor: pointer;
+
+    transition:
+        color 0.2s ease;
+
+    z-index: 2001;
+}
+
+.close-btn:hover {
+    color: #ffffff;
+}
+
+
+/* ==========================================================================
+   20. Lightbox 编号
+   ========================================================================== */
+
+.lightbox-caption {
+    margin-top: 16px;
+
+    color: #baa79c;
+
+    font-size: 13px;
+
+    letter-spacing: 1px;
+
+    text-align: center;
+}
+
+
+/* ==========================================================================
+   21. 页脚
+   ========================================================================== */
+
+.main-footer {
+    background-color: #f8f4f0;
+
+    width: 100%;
+
+    padding:
+        40px 0
+        60px 0;
+
+    border-top:
+        1px solid rgba(194, 24, 7, 0.05);
+
+    position: relative;
+
+    z-index: 1;
+}
+
+.footer-container {
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: flex-end;
+
+    flex-wrap: wrap;
+
+    gap: 24px;
+
+    max-width: 1300px;
+
+    padding: 0 40px;
+
+    margin: 0 auto;
+}
+
+.footer-text {
+    flex: 1;
+
+    min-width: 300px;
+}
+
+.footer-text p {
+    text-align: left;
+
+    margin: 4px 0;
+
+    font-size: 12px;
+
+    color: #333333;
+}
+
+.main-footer .social-links {
+    display: flex;
+
+    justify-content: flex-end;
+
+    margin-top: 0 !important;
+
+    flex-shrink: 0;
+}
+
+.dc-btn {
+    display: inline-flex;
+
+    align-items: center;
+
+    gap: 10px;
+
+    background-color: #e53935;
+
+    color: #ffffff;
+
+    text-decoration: none;
+
+    padding:
+        12px 28px;
+
+    border-radius: 30px;
+
+    font-size: 14px;
+
+    font-weight: 600;
+
+    letter-spacing: 1px;
+
+    box-shadow:
+        0 4px 15px rgba(229, 57, 53, 0.2);
+
+    transition:
+        all 0.3s ease;
+}
+
+.dc-btn:hover {
+    background-color: #c21807;
+
+    box-shadow:
+        0 6px 20px rgba(194, 24, 7, 0.4);
+
+    transform:
+        translateY(-2px);
+}
+
+.hidden-egg-link {
+    color: #baa79c;
+
+    text-decoration: none;
+
+    font-size: 10px;
+
+    margin: 0 4px;
+
+    cursor: default;
+
+    transition:
+        color 0.3s;
+}
+
+.hidden-egg-link:hover {
+    color: #c21807;
+}
+
+
+/* ==========================================================================
+   22. 平板
+   ========================================================================== */
+
+@media (min-width: 600px) {
+
+    .subpic-page-container {
+        padding:
+            120px
+            40px
+            80px
+            40px;
+    }
+
+    .photo-grid {
+        grid-template-columns:
+            repeat(2, minmax(0, 1fr));
+
+        gap:
+            28px 24px;
+    }
+
+}
+
+
+/* ==========================================================================
+   23. PC
+   ========================================================================== */
+
+@media (min-width: 1024px) {
+
+    .subpic-page-container {
+        padding:
+            120px
+            40px
+            80px
+            40px;
+    }
+
+    .photo-grid {
+        grid-template-columns:
+            repeat(4, minmax(0, 1fr));
+
+        gap:
+            30px 24px;
+    }
+
+    .page-title {
+        font-size: 32px;
+    }
+
+    .location-title {
+        font-size: 23px;
+    }
+
+}
+
+
+/* ==========================================================================
+   24. 大屏幕
+   ========================================================================== */
+
+@media (min-width: 1500px) {
+
+    .photo-grid {
+        grid-template-columns:
+            repeat(5, minmax(0, 1fr));
+
+        gap:
+            30px 22px;
+    }
+
+}
+
+
+/* ==========================================================================
+   25. 手机
+   ========================================================================== */
+
+@media (max-width: 599px) {
+
+    .top-buttons {
+        top: 12px;
+
+        right: 12px;
+
+        gap: 7px;
+    }
+
+    .back-home-btn {
+        padding:
+            6px 12px;
+
+        font-size: 11px;
+
+        gap: 6px;
+    }
+
+    .back-icon {
+        font-size: 14px;
+    }
+
+    .subpic-page-container {
+        padding:
+            110px
+            18px
+            60px
+            18px;
+    }
+
+    .page-header {
+        padding-left: 16px;
+
+        border-left-width: 3px;
+
+        margin-bottom: 32px;
+    }
+
+    .page-title {
+        font-size: 26px;
+
+        letter-spacing: 1px;
+    }
+
+    .page-subtitle {
+        font-size: 15px;
+    }
+
+    .page-description {
+        font-size: 12px;
+    }
+
+    .location-title {
+        font-size: 20px;
+    }
+
+    .photo-grid {
+        gap:
+            24px 0;
+    }
+
+    .photo-frame {
+        border-radius: 6px;
+    }
+
+    .photo-frame::after {
+        display: none;
+    }
+
+    .lightbox-content {
+        max-width: 96vw;
+
+        max-height: 78vh;
+    }
+
+    .close-btn {
+        top: 12px;
+
+        right: 14px;
+
+        font-size: 34px;
+    }
+
+    .footer-container {
+        padding:
+            0 20px;
+    }
+
+    .footer-text {
+        min-width: 0;
+    }
+
+    .dc-btn {
+        padding:
+            10px 20px;
+
+        font-size: 13px;
+    }
+
+}
+
+/* ==========================================================================
+   26. 角色胶片展示 / Character Film Showcase
+   ========================================================================== */
+
+.character-showcase-section {
+    width: 100%;
+    margin: 8px 0 68px;
+    position: relative;
+}
+
+.character-showcase-header {
+    margin-bottom: 14px;
+    padding-bottom: 10px;
+    border-bottom: 2px solid rgba(194, 24, 7, 0.12);
+}
+
+.character-showcase-title {
+    display: flex;
+    align-items: baseline;
+    gap: 10px;
+}
+
+.character-showcase-title h2 {
+    font-size: 22px;
+    color: #c21807;
+    letter-spacing: 1.5px;
+    font-weight: 700;
+}
+
+.character-showcase-number {
+    font-size: 13px;
+    color: #baa79c;
+    font-weight: 700;
+    letter-spacing: 1px;
+}
+
+.character-showcase-header p {
+    margin-top: 4px;
+    color: #7a6e67;
+    font-size: 13px;
+    line-height: 1.6;
+}
+
+.character-showcase-header p span {
+    margin-left: 6px;
+}
+
+/* --------------------------------------------------------------------------
+   26.1 Badge 胶片
+   -------------------------------------------------------------------------- */
+
+.character-badge-stage {
+    --badge-size: 72px;
+
+    width: 100%;
+    height: 92px;
+    position: relative;
+    overflow: hidden;
+    isolation: isolate;
+
+    border-radius: 8px;
+    background: rgba(255, 255, 255, 0.44);
+    border: 1px solid rgba(0, 0, 0, 0.055);
+
+    box-shadow:
+        inset 0 1px 0 rgba(255,255,255,0.65),
+        0 5px 18px rgba(0, 0, 0, 0.035);
+}
+
+.character-badge-stage::before,
+.character-badge-stage::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    width: 12%;
+    z-index: 4;
+    pointer-events: none;
+}
+
+.character-badge-stage::before {
+    left: 0;
+    background: linear-gradient(90deg, rgba(248,244,240,0.88), rgba(248,244,240,0));
+}
+
+.character-badge-stage::after {
+    right: 0;
+    background: linear-gradient(270deg, rgba(248,244,240,0.88), rgba(248,244,240,0));
+}
+
+.character-badge-track {
+    position: absolute;
+    inset: 0;
+    z-index: 2;
+    pointer-events: none;
+}
+
+.character-badge-item {
+    position: absolute;
+    left: 0;
+    top: 50%;
+
+    width: var(--badge-size);
+    height: var(--badge-size);
+    object-fit: cover;
+    object-position: center;
+
+    border-radius: 50%;
+    border: 3px solid rgba(255,255,255,0.92);
+    background: rgba(255,255,255,0.52);
+    box-shadow:
+        0 4px 10px rgba(0,0,0,0.13),
+        0 0 0 1px rgba(0,0,0,0.08);
+
+    transform: translate3d(0, -50%, 0);
+    user-select: none;
+    -webkit-user-drag: none;
+    will-change: transform;
+}
+
+.character-badge-image-error {
+    opacity: 0.15;
+}
+
+/* --------------------------------------------------------------------------
+   26.2 主人物胶片
+   -------------------------------------------------------------------------- */
+
+.character-stage {
+    --character-height: 330px;
+
+    width: 100%;
+    height: 390px;
+    position: relative;
+    overflow: hidden;
+    isolation: isolate;
+
+    margin-top: 8px;
+    border-radius: 8px;
+    border: 1px solid rgba(0, 0, 0, 0.06);
+
+    background: #d8d0ca;
+    box-shadow:
+        0 8px 28px rgba(0, 0, 0, 0.06);
+
+    perspective: 900px;
+    perspective-origin: 50% 55%;
+}
+
+.character-stage-background {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+
+    background-image:
+        linear-gradient(90deg, rgba(255,255,255,0.10), rgba(255,255,255,0.00) 45%, rgba(255,255,255,0.10)),
+        url("character-showcase/background-placeholder.svg");
+
+    background-size: cover;
+    background-position: center center;
+    background-repeat: no-repeat;
+
+    transform: scale(1.02);
+}
+
+.character-stage-vignette {
+    position: absolute;
+    inset: 0;
+    z-index: 4;
+    pointer-events: none;
+
+    background:
+        linear-gradient(90deg, rgba(248,244,240,0.76) 0%, rgba(248,244,240,0.00) 10%, rgba(248,244,240,0.00) 90%, rgba(248,244,240,0.76) 100%),
+        linear-gradient(180deg, rgba(0,0,0,0.12), transparent 18%, transparent 82%, rgba(0,0,0,0.13));
+}
+
+.character-stage-fade {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    width: 10%;
+    z-index: 5;
+    pointer-events: none;
+}
+
+.character-stage-fade-left {
+    left: 0;
+    background: linear-gradient(90deg, rgba(248,244,240,0.66), rgba(248,244,240,0));
+}
+
+.character-stage-fade-right {
+    right: 0;
+    background: linear-gradient(270deg, rgba(248,244,240,0.66), rgba(248,244,240,0));
+}
+
+.character-track {
+    position: absolute;
+    inset: 0;
+    z-index: 3;
+    pointer-events: none;
+    transform-style: preserve-3d;
+}
+
+.character-item {
+    position: absolute;
+    left: 0;
+    top: 50%;
+
+    width: auto;
+    height: var(--character-height);
+    max-width: none;
+    object-fit: contain;
+    object-position: bottom center;
+
+    transform-origin: 50% 100%;
+    transform-style: preserve-3d;
+
+    user-select: none;
+    -webkit-user-drag: none;
+
+    filter: drop-shadow(0 10px 8px rgba(0,0,0,0.18));
+    will-change: transform, opacity;
+}
+
+.character-image-error {
+    opacity: 0;
+}
+
+.character-stage-ground {
+    position: absolute;
+    left: 8%;
+    right: 8%;
+    bottom: 12px;
+    height: 34px;
+    z-index: 2;
+    pointer-events: none;
+
+    border-radius: 50%;
+    background: radial-gradient(ellipse at center, rgba(0,0,0,0.22) 0%, rgba(0,0,0,0.08) 44%, rgba(0,0,0,0.00) 74%);
+    filter: blur(7px);
+    opacity: 0.58;
+}
+
+/* 进入和离开区域稍微压低对比度，强化“远去”的感觉。 */
+.character-item {
+    transition: filter 120ms linear;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .character-item,
+    .character-badge-item {
+        transition: none !important;
+    }
+}
+
+/* --------------------------------------------------------------------------
+   26.3 手机
+   -------------------------------------------------------------------------- */
+
+@media (max-width: 599px) {
+
+    .character-showcase-section {
+        margin-bottom: 48px;
+    }
+
+    .character-showcase-title h2 {
+        font-size: 20px;
+    }
+
+    .character-showcase-header p {
+        font-size: 12px;
+    }
+
+    .character-showcase-header p span {
+        display: block;
+        margin-left: 0;
+    }
+
+    .character-badge-stage {
+        --badge-size: 52px;
+        height: 68px;
+        border-radius: 6px;
+    }
+
+    .character-badge-item {
+        border-width: 2px;
+    }
+
+    .character-stage {
+        --character-height: 220px;
+        height: 260px;
+        border-radius: 6px;
+        margin-top: 6px;
+        perspective: 700px;
+    }
+
+    .character-stage-fade {
+        width: 15%;
+    }
+
+    .character-stage-ground {
+        left: 3%;
+        right: 3%;
+        bottom: 7px;
+    }
+}
+
+/* --------------------------------------------------------------------------
+   26.4 大屏幕
+   -------------------------------------------------------------------------- */
+
+@media (min-width: 1500px) {
+
+    .character-stage {
+        --character-height: 360px;
+        height: 420px;
+    }
+
+    .character-badge-stage {
+        --badge-size: 78px;
+        height: 98px;
+    }
+}

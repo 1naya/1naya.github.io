@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>图片链接测试页面</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 40px;
+            background-color: #f4f4f9;
+        }
+        .test-container {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+        .image-box {
+            background: white;
+            padding: 15px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        h3 {
+            margin-top: 0;
+            color: #333;
+        }
+        p {
+            font-family: monospace;
+            background: #eee;
+            padding: 5px;
+            display: inline-block;
+            border-radius: 4px;
+        }
+        img {
+            max-width: 300px;
+            height: auto;
+            display: block;
+            border: 1px solid #ddd;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>图片链接测试</h1>
+    <p>当前页面用于测试 imgdb1, imgdb2, imgdb3 文件夹中的图片加载情况。</p>
+    <hr>
+
+    <div class="test-container">
+
+        <!-- 测试图片 1 -->
+        <div class="image-box">
+            <h3>测试 1：imgdb1 文件夹</h3>
+            <p>路径: imgdb1/test.webp</p>
+            <img src="imgdb1/test.webp" alt="imgdb1 中的图片加载失败">
+        </div>
+
+        <!-- 测试图片 2 -->
+        <div class="image-box">
+            <h3>测试 2：imgdb2 文件夹</h3>
+            <p>路径: imgdb2/test.webp</p>
+            <img src="imgdb2/test.webp" alt="imgdb2 中的图片加载失败">
+        </div>
+
+        <!-- 测试图片 3 -->
+        <div class="image-box">
+            <h3>测试 3：imgdb3 文件夹</h3>
+            <p>路径: imgdb3/test.webp</p>
+            <img src="imgdb3/test.webp" alt="imgdb3 中的图片加载失败">
+        </div>
+
+    </div>
+
+</body>
+</html>

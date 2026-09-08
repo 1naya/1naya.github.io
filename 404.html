@@ -1,0 +1,392 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>迷途的旅人啊</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<style>
+
+/* =======================
+   基础
+======================= */
+
+body{
+    margin:0;
+    padding:60px 10%;
+
+    min-height:100dvh;
+    box-sizing:border-box;
+
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
+
+    color:#e53935;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    background:
+    radial-gradient(rgba(0,0,0,.015) 1px, transparent 1px),
+    linear-gradient(180deg,#fcfaf8 0%,#f8f4f0 55%,#f4eee7 100%);
+
+    background-size:4px 4px,100% 100%;
+
+    position:relative;
+
+    overflow-x:hidden;
+}
+
+/* =======================
+   404水印（修正位置）
+======================= */
+
+body::before{
+    content:"404";
+
+    position:fixed;
+
+    top:50%;
+    left:50%;
+
+    transform:translate(-60%,-55%);
+
+    font-size:260px;
+    font-weight:900;
+
+    letter-spacing:-12px;
+
+    color:#e53935;
+    opacity:.035;
+
+    pointer-events:none;
+    user-select:none;
+
+    z-index:0;
+}
+
+/* 光泽 */
+body::after{
+    content:"";
+    position:fixed;
+    inset:0;
+
+    background:linear-gradient(
+        110deg,
+        transparent 0%,
+        rgba(255,255,255,.18) 48%,
+        transparent 52%
+    );
+
+    animation:shine 16s linear infinite;
+
+    pointer-events:none;
+    mix-blend-mode:screen;
+    opacity:.25;
+}
+
+@keyframes shine{
+    0%{ transform:translateX(-120%); }
+    100%{ transform:translateX(120%); }
+}
+
+/* =======================
+   主体
+======================= */
+
+.content-layout{
+    max-width:1200px;
+    width:100%;
+
+    display:flex;
+    gap:60px;
+
+    position:relative;
+    z-index:1;
+}
+
+.text-section{
+    flex:1;
+    min-width:320px;
+}
+
+.nav-section{
+    flex:1;
+    min-width:320px;
+
+    display:flex;
+    flex-direction:column;
+    gap:35px;
+}
+
+/* =======================
+   文本
+======================= */
+
+.mainCN{
+    font-size:36px;
+    font-weight:700;
+    line-height:1.5;
+    margin-bottom:16px;
+}
+
+.mainEN{
+    font-size:18px;
+    font-weight:600;
+    line-height:1.6;
+    opacity:.9;
+    margin-bottom:20px;
+}
+
+/* =======================
+   狐狸
+======================= */
+
+.fox-emote{
+    font-size:54px;
+    display:inline-block;
+    margin:10px 0 18px 0;
+    transition:.25s;
+}
+
+.fox-emote:hover{
+    transform:rotate(-6deg) scale(1.08);
+}
+
+/* =======================
+   导航
+======================= */
+
+.navitext{
+    margin-bottom:20px;
+}
+
+.nav-card{
+    text-decoration:none;
+    color:inherit;
+
+    display:flex;
+    align-items:center;
+    gap:20px;
+
+    position:relative;
+
+    transition:.25s;
+}
+
+.nav-card:hover{
+    transform:translateX(8px);
+    opacity:.9;
+}
+
+.nav-card::after{
+    content:"";
+    position:absolute;
+
+    left:120px;
+    bottom:-10px;
+
+    width:0;
+    height:1px;
+
+    background:#e53935;
+    opacity:.15;
+
+    transition:.25s;
+}
+
+.nav-card:hover::after{
+    width:180px;
+}
+
+
+.nav-img{
+    width:100px;
+    height:100px;
+    object-fit:contain;
+}
+
+.nav-text-group{
+    display:flex;
+    flex-direction:column;
+}
+
+.nav-title{
+    font-size:27px;
+    font-weight:700;
+    margin-bottom:4px;
+}
+
+.nav-subtitle{
+    font-size:19px;
+    font-style:oblique;
+}
+
+/* Discord */
+.discord-box{
+    height:100px;
+    width:100px;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    background:rgba(229,57,53,.06);
+    border-radius:12px;
+}
+
+.discord-icon{
+    width:48px;
+    height:48px;
+}
+
+/* =======================
+   响应式（关键修复）
+======================= */
+
+@media (max-width:960px){
+
+body{
+    padding:40px 24px;
+
+    /* 🔴 关键：手机端取消居中，否则会裁切 */
+    display:block;
+}
+
+/* 防止横向问题 */
+.content-layout{
+    flex-direction:column;
+    gap:50px;
+}
+
+/* 缩放字体 */
+.mainCN{font-size:24px;}
+.mainEN{font-size:14px;}
+
+.nav-title{font-size:22px;}
+.nav-subtitle{font-size:16px;}
+
+.nav-img,.discord-box{
+    width:80px;
+    height:80px;
+}
+
+.discord-icon{
+    width:38px;
+    height:38px;
+}
+
+/* 水印缩小 */
+body::before{
+    font-size:160px;
+    transform:translate(-50%,-50%);
+}
+
+.text-section,
+.nav-section{
+    padding-left:28px;
+    padding-right:8px;
+}
+
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="content-layout">
+
+    <div class="text-section">
+
+        <div class="mainCN">
+            迷途之人，何至此间？<br>
+            昔日月明，今何所至？<br>
+            若欲留坐，亦可一叙；<br>
+            若问前路，我可指君。<br>
+            前路漫漫，勿失本心。
+        </div>
+
+        <a href="/Fox_said.html" style="text-decoration:none;color:inherit;">
+            <div class="fox-emote">ฅ^•ﻌ•^ฅ</div>
+        </a>
+
+        <div class="mainEN">
+            Lost traveler, how comest thou here?<br>
+            If thou seek the way, I shall guide thee home.<br>
+            The road is long, yet light remains.<br>
+            Hold fast thy heart, and do not fade.
+        </div>
+
+    </div>
+
+    <div class="nav-section">
+
+        <div class="navitext">
+            <div class="mainCN" style="margin-bottom:0;">欲往何处？</div>
+            <div class="mainEN" style="margin-bottom:0;">Where shall we go?</div>
+        </div>
+
+        <a href="/index.html" class="nav-card">
+            <img src="/img_404/404_home.webp" class="nav-img">
+            <div class="nav-text-group">
+                <span class="nav-title">返回首页</span>
+                <span class="nav-subtitle">Home Page</span>
+            </div>
+        </a>
+
+        <div class="nav-card" onclick="redirectToRandomPage()">
+            <img src="/img_404/404_contact.webp" class="nav-img">
+            <div class="nav-text-group">
+                <span class="nav-title">随便看看</span>
+                <span class="nav-subtitle">Random Page</span>
+            </div>
+        </div>
+
+        <a href="https://discordapp.com/users/325077792998031361" target="_blank" class="nav-card">
+
+            <div class="discord-box">
+                <img src="/img_404/discord_icon.svg" class="discord-icon">
+            </div>
+
+            <div class="nav-text-group">
+                <span class="nav-title">或者找我聊聊</span>
+                <span class="nav-subtitle">Discord @1naya</span>
+            </div>
+
+        </a>
+
+    </div>
+
+</div>
+
+<script>
+function redirectToRandomPage(){
+
+    const pages=[
+        '/index.html',
+        '/Fox_said.html',
+        '/S1_Memory_MAG_CN.html',
+        '/S2_Memory_MAG_CN.html',
+        '/S2_Memory_MAG_EN.html'
+    ];
+
+    const excluded=[
+        '/Fox_home.html',
+        '/test.html'
+    ];
+
+    const valid=pages.filter(p=>!excluded.includes(p));
+
+    const target=valid[Math.floor(Math.random()*valid.length)];
+
+    document.body.style.opacity="0.25";
+
+    setTimeout(()=>{
+        window.location.href=target;
+    },280);
+}
+</script>
+
+</body>
+</html>

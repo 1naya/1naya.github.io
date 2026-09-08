@@ -1,0 +1,158 @@
+/* ==========================================================================
+   1. 基础重置 & 全局背景系统 (与相册页粒子纹理绝对一致)
+   ========================================================================== */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: #f8f4f0;
+    font-family: 'Arial', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    color: #333333;
+    line-height: 1.6;
+    overflow-x: hidden;
+    position: relative;
+    
+    /* 🎯 完美像素同步：粒子细微网格背景 */
+    background-image: radial-gradient(rgba(0,0,0,.015) 1px, transparent 1px);
+    background-size: 4px 4px;
+}
+
+/* 🎯 完美像素同步：WIP 居中巨型艺术字浅红水印 */
+body::before {
+    content: "COMING SOON";
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 11vw; /* 调整比例防止长单词爆框 */
+    font-weight: 900;
+    color: #e53935;
+    opacity: .025;
+    pointer-events: none;
+    user-select: none;
+    z-index: 0;
+}
+
+/* ==========================================================================
+   2. 极其丝滑的返回按钮
+   ========================================================================== */
+.back-home-btn {
+    position: fixed;
+    top: 24px;
+    left: auto;
+    right: 24px;
+    z-index: 999;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: rgba(248, 244, 240, 0.85);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    border: 1px solid rgba(194, 24, 7, 0.15);
+    padding: 8px 15px;
+    border-radius: 8px;
+    text-decoration: none;
+    color: #c21807;
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.03);
+    transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    text-align: right;
+}
+
+.back-home-btn:hover {
+    background: #e53935;
+    color: #ffffff;
+    border-color: #e53935;
+    transform: translateX(-4px);
+    box-shadow: 0 6px 20px rgba(229, 57, 53, 0.15);
+}
+
+.back-icon {
+    font-size: 16px;
+}
+
+/* ==========================================================================
+   3. 🧱 页脚与群组链接
+   ========================================================================== */
+.main-footer {
+    background-color: #f8f4f0; 
+    width: 100%;
+    padding: 40px 0 60px 0; 
+    border-top: 1px solid rgba(194, 24, 7, 0.05);
+    position: relative;
+    z-index: 1;
+}
+
+.footer-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;         
+    flex-wrap: wrap;               
+    gap: 24px;
+    max-width: 1300px;             
+    padding: 0 40px;
+    margin: 0 auto;                
+}
+
+.footer-text {
+    flex: 1;
+    min-width: 300px;              
+}
+
+.footer-text p {
+    text-align: left;              
+    margin: 4px 0;                 
+    font-size: 12px;               
+    color: #333333;                
+}
+
+.main-footer .social-links {
+    display: flex;
+    justify-content: flex-end;     
+    margin-top: 0 !important;      
+    flex-shrink: 0;                
+}
+
+.dc-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    background-color: #e53935;
+    color: #ffffff;
+    text-decoration: none;
+    padding: 12px 28px;
+    border-radius: 30px;
+    font-size: 14px;
+    font-weight: 600;
+    letter-spacing: 1px;
+    box-shadow: 0 4px 15px rgba(229, 57, 53, 0.2);
+    transition: all 0.3s ease;
+}
+
+.dc-btn:hover {
+    background-color: #c21807;
+    box-shadow: 0 6px 20px rgba(194, 24, 7, 0.4);
+    transform: translateY(-2px);
+}
+
+.hidden-egg-link {
+    color: #baa79c;
+    text-decoration: none;
+    font-size: 10px;
+    margin: 0 4px;
+    cursor: default;
+    transition: color 0.3s;
+}
+.hidden-egg-link:hover {
+    color: #c21807; 
+}
+
+/* 📱 移动端适应断点 */
+@media (max-width: 768px) {
+    .back-home-btn { top: 12px; right: 12px; padding: 6px 12px; font-size: 11px; }
+}

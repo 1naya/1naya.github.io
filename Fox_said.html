@@ -1,0 +1,2026 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>不妙小工具 / Utility Tools</title>
+
+    <style>
+        /* =========================================================
+           1. 基础重置 & 全局背景
+           ========================================================= */
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: #f8f4f0;
+            font-family: 'Arial', -apple-system, BlinkMacSystemFont,
+                         "Segoe UI", Roboto, sans-serif;
+
+            color: #333333;
+            line-height: 1.6;
+
+            overflow-x: hidden;
+            position: relative;
+
+            background-image:
+                radial-gradient(
+                    rgba(0, 0, 0, .015) 1px,
+                    transparent 1px
+                );
+
+            background-size: 4px 4px;
+        }
+
+
+        /* =========================================================
+           2. 巨大背景水印
+           ========================================================= */
+
+        body::before {
+            content: "TOOLS";
+
+            position: fixed;
+
+            top: 50%;
+            left: 50%;
+
+            transform: translate(-50%, -50%);
+
+            font-size: 16vw;
+            font-weight: 900;
+
+            color: #e53935;
+            opacity: .025;
+
+            pointer-events: none;
+            user-select: none;
+
+            z-index: 0;
+        }
+
+
+        /* =========================================================
+           3. 返回主页按钮
+           ========================================================= */
+
+        .back-home-btn {
+            position: fixed;
+
+            top: 24px;
+            right: 24px;
+
+            z-index: 999;
+
+            display: inline-flex;
+            align-items: center;
+
+            gap: 8px;
+
+            background: rgba(248, 244, 240, 0.85);
+
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+
+            border: 1px solid rgba(194, 24, 7, 0.15);
+
+            padding: 8px 15px;
+
+            border-radius: 8px;
+
+            text-decoration: none;
+
+            color: #c21807;
+
+            font-size: 13px;
+            font-weight: 700;
+
+            letter-spacing: 0.5px;
+
+            box-shadow:
+                0 4px 15px rgba(0, 0, 0, 0.03);
+
+            transition:
+                all 0.3s cubic-bezier(
+                    0.25,
+                    0.46,
+                    0.45,
+                    0.94
+                );
+
+            text-align: right;
+        }
+
+        .back-home-btn:hover {
+            background: #e53935;
+            color: #ffffff;
+
+            border-color: #e53935;
+
+            transform: translateX(-4px);
+
+            box-shadow:
+                0 6px 20px rgba(229, 57, 53, 0.15);
+        }
+
+        .back-icon {
+            font-size: 16px;
+        }
+
+
+        /* =========================================================
+           4. 页面主体
+           ========================================================= */
+
+        .tools-page-container {
+            max-width: 1300px;
+
+            margin: 0 auto;
+
+            padding:
+                110px
+                24px
+                80px;
+
+            position: relative;
+            z-index: 1;
+        }
+
+
+        /* =========================================================
+           5. 页面标题
+           ========================================================= */
+
+        .tools-page-header {
+            border-bottom:
+                2px solid rgba(194, 24, 7, 0.15);
+
+            padding-bottom: 16px;
+
+            margin-bottom: 32px;
+        }
+
+        .tools-page-header h1 {
+            font-size: 26px;
+
+            color: #c21807;
+
+            letter-spacing: 2px;
+        }
+
+        .en-title {
+            font-size: 18px;
+
+            color: #99867a;
+
+            font-weight: 700;
+        }
+
+        .tools-page-desc {
+            font-size: 13px;
+
+            color: #7a6e67;
+
+            margin-top: 6px;
+        }
+
+
+        /* =========================================================
+           6. 工具布局
+           ========================================================= */
+
+        .tools-grid {
+            display: grid;
+
+            grid-template-columns:
+                repeat(2, minmax(0, 1fr));
+
+            gap: 24px;
+        }
+
+
+        /* =========================================================
+           7. 工具卡片
+           ========================================================= */
+
+        .tool-card {
+            background:
+                rgba(255, 255, 255, 0.82);
+
+            border:
+                1px solid rgba(0, 0, 0, 0.045);
+
+            border-radius: 14px;
+
+            padding: 24px;
+
+            box-shadow:
+                0 4px 15px rgba(0, 0, 0, 0.025);
+
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+
+            transition:
+                transform 0.3s ease,
+                box-shadow 0.3s ease;
+        }
+
+        .tool-card:hover {
+            transform: translateY(-3px);
+
+            box-shadow:
+                0 12px 28px rgba(194, 24, 7, 0.07);
+        }
+
+
+        /* 像素画板占满整行 */
+
+        .tool-card.pixel-tool {
+            grid-column: 1 / -1;
+        }
+
+
+        /* =========================================================
+           8. 工具标题
+           ========================================================= */
+
+        .tool-header {
+            border-bottom:
+                1px solid rgba(194, 24, 7, 0.10);
+
+            padding-bottom: 12px;
+
+            margin-bottom: 20px;
+        }
+
+        .tool-header h2 {
+            color: #c21807;
+
+            font-size: 20px;
+
+            letter-spacing: 1px;
+        }
+
+        .tool-header .tool-en {
+            color: #99867a;
+
+            font-size: 13px;
+
+            font-weight: 700;
+
+            margin-left: 6px;
+        }
+
+        .tool-description {
+            color: #7a6e67;
+
+            font-size: 12px;
+
+            margin-top: 4px;
+        }
+
+
+        /* =========================================================
+           9. 小栏目标题
+           ========================================================= */
+
+        .tool-section {
+            margin-bottom: 28px;
+        }
+
+        .tool-section:last-child {
+            margin-bottom: 0;
+        }
+
+        .tool-section h3 {
+            color: #d32f2f;
+
+            font-size: 14px;
+
+            margin-bottom: 10px;
+        }
+
+
+        /* =========================================================
+           10. 输入框
+           ========================================================= */
+
+        textarea,
+        input[type="text"] {
+            width: 100%;
+
+            padding: 11px 12px;
+
+            border-radius: 8px;
+
+            border:
+                1px solid rgba(194, 24, 7, 0.16);
+
+            background:
+                rgba(255, 255, 255, 0.72);
+
+            color: #333;
+
+            font-size: 14px;
+
+            font-family:
+                'Arial',
+                -apple-system,
+                BlinkMacSystemFont,
+                "Segoe UI",
+                sans-serif;
+
+            outline: none;
+
+            transition:
+                border-color 0.2s ease,
+                box-shadow 0.2s ease;
+        }
+
+        textarea {
+            min-height: 110px;
+
+            resize: vertical;
+        }
+
+        textarea:focus,
+        input[type="text"]:focus {
+            border-color: #e53935;
+
+            box-shadow:
+                0 0 0 3px
+                rgba(229, 57, 53, 0.08);
+        }
+
+        textarea::placeholder,
+        input::placeholder {
+            color: #aaa09a;
+        }
+
+
+        /* =========================================================
+           11. 按钮
+           ========================================================= */
+
+        .tool-buttons {
+            display: flex;
+
+            flex-wrap: wrap;
+
+            gap: 8px;
+
+            margin-top: 10px;
+        }
+
+        .tool-btn {
+            background: #e53935;
+
+            color: #ffffff;
+
+            padding: 9px 17px;
+
+            border: none;
+
+            border-radius: 7px;
+
+            cursor: pointer;
+
+            font-size: 13px;
+
+            font-weight: 600;
+
+            letter-spacing: .3px;
+
+            transition:
+                background-color 0.25s ease,
+                transform 0.25s ease,
+                box-shadow 0.25s ease;
+        }
+
+        .tool-btn:hover {
+            background: #c21807;
+
+            transform: translateY(-1px);
+
+            box-shadow:
+                0 5px 12px
+                rgba(194, 24, 7, 0.16);
+        }
+
+        .tool-btn.secondary {
+            background: rgba(194, 24, 7, 0.08);
+
+            color: #c21807;
+
+            box-shadow: none;
+        }
+
+        .tool-btn.secondary:hover {
+            background: rgba(194, 24, 7, 0.14);
+
+            box-shadow: none;
+        }
+
+
+        /* =========================================================
+           12. 输出结果
+           ========================================================= */
+
+        .result-box {
+            margin-top: 12px;
+
+            padding: 11px 13px;
+
+            min-height: 20px;
+
+            border-radius: 7px;
+
+            background:
+                rgba(255, 255, 255, 0.65);
+
+            border:
+                1px solid rgba(194, 24, 7, 0.07);
+
+            font-size: 13px;
+
+            color: #4a403b;
+
+            word-break: break-all;
+        }
+
+        .result-box:empty {
+            display: none;
+        }
+
+        .copy-success {
+            color: #4caf50;
+
+            font-size: 12px;
+
+            margin-top: 8px;
+
+            font-weight: 700;
+
+            display: none;
+        }
+
+
+        /* =========================================================
+           13. 二维码区域
+           ========================================================= */
+
+        .qr-input-row {
+            display: flex;
+
+            gap: 8px;
+        }
+
+        .qr-input-row input {
+            flex: 1;
+        }
+
+        .qrcode-container {
+            margin-top: 16px;
+
+            width: 200px;
+            height: 200px;
+
+            background: #ffffff;
+
+            display: flex;
+
+            align-items: center;
+            justify-content: center;
+
+            border-radius: 8px;
+
+            overflow: hidden;
+
+            border:
+                1px solid rgba(0, 0, 0, 0.06);
+        }
+
+        .qrcode-container svg {
+            display: block;
+
+            max-width: 100%;
+            max-height: 100%;
+        }
+
+
+        /* =========================================================
+           14. 像素画板
+           ========================================================= */
+
+        .pixel-editor {
+            display: flex;
+
+            gap: 24px;
+
+            align-items: flex-start;
+        }
+
+
+        /* 颜色面板 */
+
+        .color-palette {
+            display: grid;
+
+            grid-template-columns:
+                repeat(2, 38px);
+
+            gap: 8px;
+
+            padding: 12px;
+
+            background:
+                rgba(248, 244, 240, 0.8);
+
+            border:
+                1px solid rgba(194, 24, 7, 0.08);
+
+            border-radius: 10px;
+
+            flex-shrink: 0;
+        }
+
+        .color-palette div {
+            width: 34px;
+            height: 34px;
+
+            border-radius: 6px;
+
+            cursor: pointer;
+
+            border:
+                1px solid rgba(0, 0, 0, 0.15);
+
+            transition:
+                transform 0.15s ease,
+                box-shadow 0.15s ease;
+        }
+
+        .color-palette div:hover {
+            transform: scale(1.08);
+        }
+
+        .color-palette div.selected {
+            box-shadow:
+                0 0 0 3px #f8f4f0,
+                0 0 0 5px #c21807;
+        }
+
+
+        /* 像素网格 */
+
+        .pixel-grid-wrapper {
+            overflow-x: auto;
+
+            max-width: 100%;
+        }
+
+        #grid {
+            display: grid;
+
+            grid-template-columns:
+                repeat(24, 24px);
+
+            grid-template-rows:
+                repeat(24, 24px);
+
+            width: max-content;
+
+            border:
+                1px solid #ccc;
+
+            background: #ffffff;
+        }
+
+        .cell {
+            width: 24px;
+            height: 24px;
+
+            background-color: #ffffff;
+
+            border:
+                1px solid #e3e3e3;
+
+            box-sizing: border-box;
+
+            cursor: pointer;
+        }
+
+
+        /* 像素画控制区域 */
+
+        .pixel-controls {
+            margin-top: 16px;
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 12px;
+
+            flex-wrap: wrap;
+        }
+
+        .current-color {
+            font-size: 12px;
+
+            color: #7a6e67;
+        }
+
+        .current-color span {
+            display: inline-block;
+
+            width: 16px;
+            height: 16px;
+
+            vertical-align: middle;
+
+            margin-right: 5px;
+
+            border:
+                1px solid rgba(0,0,0,.15);
+
+            border-radius: 3px;
+        }
+
+
+        /* =========================================================
+           15. Footer
+           ========================================================= */
+
+        .main-footer {
+            background-color: #f8f4f0;
+
+            width: 100%;
+
+            padding:
+                40px
+                0
+                60px;
+
+            border-top:
+                1px solid rgba(194, 24, 7, 0.05);
+        }
+
+        .footer-container {
+            display: flex;
+
+            justify-content: space-between;
+
+            align-items: flex-end;
+
+            flex-wrap: wrap;
+
+            gap: 24px;
+
+            max-width: 1300px;
+
+            padding: 0 40px;
+
+            margin: 0 auto;
+        }
+
+        .footer-text {
+            flex: 1;
+
+            min-width: 300px;
+        }
+
+        .footer-text p {
+            margin: 4px 0;
+
+            font-size: 12px;
+
+            color: #333333;
+        }
+
+        .main-footer .social-links {
+            display: flex;
+
+            justify-content: flex-end;
+
+            flex-shrink: 0;
+        }
+
+        .dc-btn {
+            display: inline-flex;
+
+            align-items: center;
+
+            gap: 10px;
+
+            background-color: #e53935;
+
+            color: #ffffff;
+
+            text-decoration: none;
+
+            padding: 12px 28px;
+
+            border-radius: 30px;
+
+            font-size: 14px;
+
+            font-weight: 600;
+
+            letter-spacing: 1px;
+
+            box-shadow:
+                0 4px 15px
+                rgba(229, 57, 53, 0.2);
+
+            transition:
+                all 0.3s ease;
+        }
+
+        .dc-btn:hover {
+            background-color: #c21807;
+
+            box-shadow:
+                0 6px 20px
+                rgba(194, 24, 7, 0.4);
+
+            transform: translateY(-2px);
+        }
+
+        .hidden-egg-link {
+            color: #baa79c;
+
+            text-decoration: none;
+
+            font-size: 10px;
+
+            margin: 0 4px;
+
+            cursor: default;
+
+            transition: color 0.3s;
+        }
+
+        .hidden-egg-link:hover {
+            color: #c21807;
+        }
+
+
+        /* =========================================================
+           16. 平板
+           ========================================================= */
+
+        @media (max-width: 900px) {
+
+            .tools-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .tool-card.pixel-tool {
+                grid-column: auto;
+            }
+
+            .pixel-editor {
+                flex-direction: column;
+            }
+        }
+
+
+        /* =========================================================
+           17. 手机
+           ========================================================= */
+
+        @media (max-width: 600px) {
+
+            body::before {
+                font-size: 25vw;
+            }
+
+            .back-home-btn {
+                top: 16px;
+                right: 16px;
+
+                padding: 7px 11px;
+
+                font-size: 11px;
+            }
+
+            .tools-page-container {
+                padding:
+                    90px
+                    16px
+                    60px;
+            }
+
+            .tools-page-header h1 {
+                font-size: 23px;
+            }
+
+            .en-title {
+                font-size: 14px;
+            }
+
+            .tool-card {
+                padding: 18px;
+            }
+
+            .qr-input-row {
+                flex-direction: column;
+            }
+
+            .qr-input-row .tool-btn {
+                width: 100%;
+            }
+
+            .qrcode-container {
+                width: 180px;
+                height: 180px;
+            }
+
+            #grid {
+                grid-template-columns:
+                    repeat(24, 18px);
+
+                grid-template-rows:
+                    repeat(24, 18px);
+            }
+
+            .cell {
+                width: 18px;
+                height: 18px;
+            }
+
+            .color-palette {
+                grid-template-columns:
+                    repeat(4, 38px);
+            }
+
+            .footer-container {
+                padding: 0 20px;
+
+                align-items: flex-start;
+            }
+
+            .footer-text {
+                min-width: 0;
+            }
+
+            .main-footer .social-links {
+                justify-content: flex-start;
+            }
+        }
+    </style>
+</head>
+
+
+<body>
+
+    <!-- =========================================================
+         返回主页
+         ========================================================= -->
+
+    <a
+        href="index.html"
+        class="back-home-btn"
+        title="返回档案主页 / Home Page"
+    >
+        <span class="back-icon">←</span>
+
+        <span>
+            返回档案主页
+            <br>
+            Home Page
+        </span>
+    </a>
+
+
+    <!-- =========================================================
+         页面主体
+         ========================================================= -->
+
+    <main class="tools-page-container">
+
+        <header class="tools-page-header">
+
+            <h1>
+                狐屋工具箱
+                <span class="en-title">
+                    / Utility Tools
+                </span>
+            </h1>
+
+            <p class="tools-page-desc">
+                一些简单、不实用，也许还有一点奇怪的小工具。<br>
+                A collection of some useless tools.
+            </p>
+
+        </header>
+
+
+        <!-- =====================================================
+             工具网格
+             ===================================================== -->
+
+        <div class="tools-grid">
+
+
+            <!-- =================================================
+                 工具一：狐禅
+                 ================================================= -->
+
+            <section class="tool-card">
+
+                <div class="tool-header">
+
+                    <h2>
+                        狐禅
+                        <span class="tool-en">
+                            / Fox Zen
+                        </span>
+                    </h2>
+
+                    <p class="tool-description">
+                        将文字转换为只有我狐才能参透的神秘文字。
+                    </p>
+
+                </div>
+
+
+                <!-- 加密 -->
+
+                <div class="tool-section">
+
+                    <h3>
+                        听狐说宇宙的奥秘
+                    </h3>
+
+                    <textarea
+                        id="inputText"
+                        placeholder="输入要加密的文字"
+                    ></textarea>
+
+                    <div class="tool-buttons">
+
+                        <button
+                            class="tool-btn"
+                            onclick="encrypt()"
+                        >
+                            加密
+                        </button>
+
+                        <button
+                            class="tool-btn secondary"
+                            onclick="clearInput('inputText')"
+                        >
+                            清除输入
+                        </button>
+
+                    </div>
+
+                    <div
+                        id="encryptedText"
+                        class="result-box"
+                    ></div>
+
+                    <div
+                        id="decryptedFromEncrypt"
+                        class="result-box"
+                    ></div>
+
+                    <button
+                        id="copyButton"
+                        class="tool-btn secondary"
+                        style="display:none; margin-top:8px;"
+                        onclick="copyToClipboard()"
+                    >
+                        复制到剪贴板
+                    </button>
+
+                    <p
+                        id="copySuccess"
+                        class="copy-success"
+                    >
+                        加密结果已复制到剪贴板！
+                    </p>
+
+                </div>
+
+
+                <!-- 解密 -->
+
+                <div class="tool-section">
+
+                    <h3>
+                        参透狐说的真意
+                    </h3>
+
+                    <textarea
+                        id="encodedText"
+                        placeholder="输入要解密的文字"
+                    ></textarea>
+
+                    <div class="tool-buttons">
+
+                        <button
+                            class="tool-btn"
+                            onclick="decrypt()"
+                        >
+                            解密
+                        </button>
+
+                        <button
+                            class="tool-btn secondary"
+                            onclick="clearInput('encodedText')"
+                        >
+                            清除输入
+                        </button>
+
+                    </div>
+
+                    <div
+                        id="decryptedText"
+                        class="result-box"
+                    ></div>
+
+                </div>
+
+            </section>
+
+
+
+            <!-- =================================================
+                 工具二：二维码
+                 ================================================= -->
+
+            <section class="tool-card">
+
+                <div class="tool-header">
+
+                    <h2>
+                        二维码工坊
+                        <span class="tool-en">
+                            / QR Studio
+                        </span>
+                    </h2>
+
+                    <p class="tool-description">
+                        生成可下载的 SVG 文本二维码与网址二维码。
+                    </p>
+
+                </div>
+
+
+                <!-- 文本二维码 -->
+
+                <div class="tool-section">
+
+                    <h3>
+                        文本二维码
+                    </h3>
+
+                    <div class="qr-input-row">
+
+                        <input
+                            type="text"
+                            id="text"
+                            placeholder="输入要生成二维码的文本"
+                        >
+
+                        <button
+                            class="tool-btn"
+                            onclick="generateQRCode()"
+                        >
+                            生成
+                        </button>
+
+                    </div>
+
+                    <div
+                        id="qrcode"
+                        class="qrcode-container"
+                    ></div>
+
+                    <div class="tool-buttons">
+
+                        <button
+                            id="download-text"
+                            class="tool-btn secondary"
+                            style="display:none;"
+                            onclick="downloadQRCode(
+                                'qrcode',
+                                'text-qrcode.svg'
+                            )"
+                        >
+                            下载 SVG
+                        </button>
+
+                    </div>
+
+                </div>
+
+
+                <!-- URL二维码 -->
+
+                <div class="tool-section">
+
+                    <h3>
+                        网址二维码
+                    </h3>
+
+                    <div class="qr-input-row">
+
+                        <input
+                            type="text"
+                            id="url"
+                            placeholder="例如：https://1naya.github.io/"
+                        >
+
+                        <button
+                            class="tool-btn"
+                            onclick="generateURLQRCode()"
+                        >
+                            生成
+                        </button>
+
+                    </div>
+
+                    <div
+                        id="url-qrcode"
+                        class="qrcode-container"
+                    ></div>
+
+                    <div class="tool-buttons">
+
+                        <button
+                            id="download-url"
+                            class="tool-btn secondary"
+                            style="display:none;"
+                            onclick="downloadQRCode(
+                                'url-qrcode',
+                                'url-qrcode.svg'
+                            )"
+                        >
+                            下载 SVG
+                        </button>
+
+                    </div>
+
+                </div>
+
+            </section>
+
+
+
+            <!-- =================================================
+                 工具三：像素画板
+                 ================================================= -->
+
+            <section class="tool-card pixel-tool">
+
+                <div class="tool-header">
+
+                    <h2>
+                        像素画板
+                        <span class="tool-en">
+                            / Pixel Art
+                        </span>
+                    </h2>
+
+                    <p class="tool-description">
+                        24 × 24 像素画板，可以选择颜色并导出 JPG。
+                    </p>
+
+                </div>
+
+
+                <div class="pixel-editor">
+
+
+                    <!-- 颜色选择 -->
+
+                    <div>
+
+                        <div class="color-palette">
+
+                            <div
+                                class="selected"
+                                style="background-color:white;"
+                                data-color="white"
+                            ></div>
+
+                            <div
+                                style="background-color:blue;"
+                                data-color="blue"
+                            ></div>
+
+                            <div
+                                style="background-color:green;"
+                                data-color="green"
+                            ></div>
+
+                            <div
+                                style="background-color:yellow;"
+                                data-color="yellow"
+                            ></div>
+
+                            <div
+                                style="background-color:orange;"
+                                data-color="orange"
+                            ></div>
+
+                            <div
+                                style="background-color:purple;"
+                                data-color="purple"
+                            ></div>
+
+                            <div
+                                style="background-color:black;"
+                                data-color="black"
+                            ></div>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- 网格 -->
+
+                    <div class="pixel-grid-wrapper">
+
+                        <div id="grid"></div>
+
+                        <div class="pixel-controls">
+
+                            <span class="current-color">
+                                当前颜色：
+                                <span
+                                    id="currentColor"
+                                    style="background-color:black;"
+                                ></span>
+                            </span>
+
+                            <button
+                                id="save-btn"
+                                class="tool-btn"
+                            >
+                                保存为 JPG
+                            </button>
+
+                            <button
+                                id="clear-grid-btn"
+                                class="tool-btn secondary"
+                            >
+                                清空画板
+                            </button>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </section>
+
+        </div>
+
+    </main>
+
+
+
+    <!-- =========================================================
+         Footer
+         ========================================================= -->
+
+    <footer class="main-footer">
+
+        <div class="footer-container">
+
+            <div class="footer-text">
+
+                <p>
+                    © 2026 BPSR Community Archives.
+                    星痕共鸣国际服中文玩家交流群保留所有羁绊所有权。
+                    / All Bonds Reserved.
+                </p>
+
+                <p>
+                    Designed for our Community
+                    <a
+                        href="Fox_home.html"
+                        class="hidden-egg-link"
+                    >
+                        ❖
+                    </a>
+                    Powered by 狐屋Inaya ·
+                    星痕共鸣国际服中文玩家交流群
+                </p>
+
+            </div>
+
+
+            <div class="social-links">
+
+                <a
+                    href="https://discordapp.com/users/325077792998031361"
+                    target="_blank"
+                    class="dc-btn"
+                    title="想一起做点什么？随时聊聊！"
+                >
+                    <span>💬</span>
+
+                    <span>
+                        随时私信我 / DM me on Discord
+                    </span>
+                </a>
+
+            </div>
+
+        </div>
+
+    </footer>
+
+
+
+    <!-- =========================================================
+         外部库
+         ========================================================= -->
+
+    <script src="https://cdn.jsdelivr.net/npm/qrcode-svg@1.1.0/lib/qrcode.js"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+
+
+
+    <!-- =========================================================
+         狐禅
+         ========================================================= -->
+
+    <script>
+
+        const keyMap1 = {
+            "0": "狐",
+            "1": "影",
+            "2": "幻",
+            "3": "梦",
+            "4": "灵",
+            "5": "雾",
+            "6": "静",
+            "7": "隙",
+            "8": "境",
+            "9": "音",
+            "a": "云",
+            "b": "霭",
+            "c": "霞",
+            "d": "星",
+            "e": "寒",
+            "f": "彩",
+            "兮": "兮"
+        };
+
+        const keyMap2 = {
+            "0": "晨",
+            "1": "曦",
+            "2": "影",
+            "3": "梦",
+            "4": "风",
+            "5": "雪",
+            "6": "幻",
+            "7": "清",
+            "8": "露",
+            "9": "珠",
+            "a": "月",
+            "b": "幽",
+            "c": "醉",
+            "d": "蓝",
+            "e": "静",
+            "f": "莎",
+            "兮": "兮"
+        };
+
+        const keyMap3 = {
+            "0": "幻",
+            "1": "影",
+            "2": "狐",
+            "3": "梦",
+            "4": "妖",
+            "5": "兰",
+            "6": "雨",
+            "7": "晴",
+            "8": "境",
+            "9": "诗",
+            "a": "舞",
+            "b": "花",
+            "c": "霞",
+            "d": "星",
+            "e": "谷",
+            "f": "霜",
+            "兮": "兮"
+        };
+
+        const keyMap4 = {
+            "0": "梦",
+            "1": "幻",
+            "2": "影",
+            "3": "狐",
+            "4": "雪",
+            "5": "萧",
+            "6": "音",
+            "7": "隙",
+            "8": "庭",
+            "9": "霞",
+            "a": "晨",
+            "b": "露",
+            "c": "夜",
+            "d": "雪",
+            "e": "柳",
+            "f": "幽",
+            "兮": "兮"
+        };
+
+
+        function reverseMap(map) {
+
+            const reversed = {};
+
+            for (let key in map) {
+                reversed[map[key]] = key;
+            }
+
+            return reversed;
+        }
+
+
+        const reverseKeyMap1 = reverseMap(keyMap1);
+        const reverseKeyMap2 = reverseMap(keyMap2);
+        const reverseKeyMap3 = reverseMap(keyMap3);
+        const reverseKeyMap4 = reverseMap(keyMap4);
+
+
+        const schemes = [
+
+            {
+                name: "神斯常乐兮",
+                keyMap: keyMap1,
+                reverseKeyMap: reverseKeyMap1
+            },
+
+            {
+                name: "归去何来兮",
+                keyMap: keyMap2,
+                reverseKeyMap: reverseKeyMap2
+            },
+
+            {
+                name: "吁嗟徂矣兮",
+                keyMap: keyMap3,
+                reverseKeyMap: reverseKeyMap3
+            },
+
+            {
+                name: "福泽久延兮",
+                keyMap: keyMap4,
+                reverseKeyMap: reverseKeyMap4
+            }
+
+        ];
+
+
+        function encrypt() {
+
+            const inputText =
+                document.getElementById("inputText").value;
+
+            const scheme =
+                schemes[
+                    Math.floor(
+                        Math.random() * schemes.length
+                    )
+                ];
+
+
+            const hexText =
+                Array.from(inputText)
+                    .map(
+                        c =>
+                            c.charCodeAt(0)
+                            .toString(16)
+                    )
+                    .join('兮');
+
+
+            const encryptedText =
+                Array.from(hexText)
+                    .map(
+                        c =>
+                            scheme.keyMap[c] || c
+                    )
+                    .join('')
+                    +
+                    scheme.name;
+
+
+            document.getElementById(
+                "encryptedText"
+            ).innerText =
+                "加密结果: " + encryptedText;
+
+
+            document.getElementById(
+                "copyButton"
+            ).style.display =
+                "inline-block";
+
+
+            const decryptedText =
+                decryptInstant(encryptedText);
+
+
+            document.getElementById(
+                "decryptedFromEncrypt"
+            ).innerText =
+                "解密验证: " + decryptedText;
+        }
+
+
+        function decryptInstant(encryptedText) {
+
+            for (let scheme of schemes) {
+
+                if (
+                    encryptedText.endsWith(
+                        scheme.name
+                    )
+                ) {
+
+                    const encodedPart =
+                        encryptedText.slice(
+                            0,
+                            -scheme.name.length
+                        );
+
+
+                    const decodedText =
+                        Array.from(encodedPart)
+                            .map(
+                                c =>
+                                    scheme.reverseKeyMap[c]
+                                    || c
+                            )
+                            .join('');
+
+
+                    const hexArray =
+                        decodedText.split('兮');
+
+
+                    return String.fromCharCode(
+                        ...hexArray.map(
+                            h => parseInt(h, 16)
+                        )
+                    );
+                }
+            }
+
+            return "无法解密";
+        }
+
+
+        function decrypt() {
+
+            const encryptedText =
+                document.getElementById(
+                    "encodedText"
+                ).value;
+
+            const decryptedText =
+                decryptInstant(encryptedText);
+
+
+            document.getElementById(
+                "decryptedText"
+            ).innerText =
+                "解密结果: " + decryptedText;
+        }
+
+
+        function clearInput(id) {
+
+            document.getElementById(id).value = "";
+
+
+            if (id === "inputText") {
+
+                document.getElementById(
+                    "encryptedText"
+                ).innerText = "";
+
+                document.getElementById(
+                    "decryptedFromEncrypt"
+                ).innerText = "";
+
+                document.getElementById(
+                    "copyButton"
+                ).style.display = "none";
+
+            } else {
+
+                document.getElementById(
+                    "decryptedText"
+                ).innerText = "";
+
+            }
+        }
+
+
+        function copyToClipboard() {
+
+            const encryptedText =
+                document.getElementById(
+                    "encryptedText"
+                ).innerText
+                .replace(
+                    "加密结果: ",
+                    ""
+                );
+
+
+            navigator.clipboard
+                .writeText(encryptedText)
+                .then(function () {
+
+                    document.getElementById(
+                        "copySuccess"
+                    ).style.display =
+                        "block";
+
+
+                    setTimeout(
+                        () => {
+
+                            document.getElementById(
+                                "copySuccess"
+                            ).style.display =
+                                "none";
+
+                        },
+                        3000
+                    );
+
+                });
+        }
+
+    </script>
+
+
+
+    <!-- =========================================================
+         二维码工具
+         ========================================================= -->
+
+    <script>
+
+        function generateQRCode() {
+
+            const text =
+                document.getElementById(
+                    "text"
+                ).value;
+
+            const qrcodeContainer =
+                document.getElementById(
+                    "qrcode"
+                );
+
+
+            if (!text) {
+
+                alert("请输入要生成二维码的内容。");
+
+                return;
+            }
+
+
+            qrcodeContainer.innerHTML = "";
+
+
+            const qr = new QRCode({
+
+                content: text,
+
+                width: 200,
+
+                height: 200,
+
+                ecl: "L"
+
+            });
+
+
+            qrcodeContainer.innerHTML =
+                qr.svg();
+
+
+            document.getElementById(
+                "download-text"
+            ).style.display =
+                "inline-block";
+        }
+
+
+        function generateURLQRCode() {
+
+            const url =
+                document.getElementById(
+                    "url"
+                ).value.trim();
+
+
+            if (
+                !url.startsWith("http://")
+                &&
+                !url.startsWith("https://")
+            ) {
+
+                alert(
+                    "请输入有效的网址，确保以 http:// 或 https:// 开头。"
+                );
+
+                return;
+            }
+
+
+            const urlQRCodeContainer =
+                document.getElementById(
+                    "url-qrcode"
+                );
+
+
+            urlQRCodeContainer.innerHTML = "";
+
+
+            const qr = new QRCode({
+
+                content: url,
+
+                width: 200,
+
+                height: 200,
+
+                ecl: "M"
+
+            });
+
+
+            urlQRCodeContainer.innerHTML =
+                qr.svg();
+
+
+            document.getElementById(
+                "download-url"
+            ).style.display =
+                "inline-block";
+        }
+
+
+        function downloadQRCode(
+            containerId,
+            fileName
+        ) {
+
+            const svgElement =
+                document
+                    .getElementById(containerId)
+                    .querySelector("svg");
+
+
+            if (!svgElement) {
+
+                alert("请先生成二维码。");
+
+                return;
+            }
+
+
+            const svgData =
+                new XMLSerializer()
+                    .serializeToString(
+                        svgElement
+                    );
+
+
+            const svgBlob =
+                new Blob(
+                    [svgData],
+                    {
+                        type:
+                            "image/svg+xml;charset=utf-8"
+                    }
+                );
+
+
+            const svgUrl =
+                URL.createObjectURL(
+                    svgBlob
+                );
+
+
+            const downloadLink =
+                document.createElement("a");
+
+
+            downloadLink.href =
+                svgUrl;
+
+            downloadLink.download =
+                fileName;
+
+
+            downloadLink.click();
+
+
+            URL.revokeObjectURL(
+                svgUrl
+            );
+        }
+
+    </script>
+
+
+
+    <!-- =========================================================
+         像素画板
+         ========================================================= -->
+
+    <script>
+
+        let selectedColor = "black";
+
+
+        const grid =
+            document.getElementById(
+                "grid"
+            );
+
+
+        /* 创建 24 × 24 网格 */
+
+        for (
+            let i = 0;
+            i < 24 * 24;
+            i++
+        ) {
+
+            const cell =
+                document.createElement(
+                    "div"
+                );
+
+
+            cell.classList.add(
+                "cell"
+            );
+
+
+            cell.addEventListener(
+                "click",
+                () => {
+
+                    cell.style.backgroundColor =
+                        selectedColor;
+
+                }
+            );
+
+
+            grid.appendChild(
+                cell
+            );
+        }
+
+
+        /* 颜色选择 */
+
+        document
+            .querySelectorAll(
+                ".color-palette div"
+            )
+            .forEach(
+                colorDiv => {
+
+                    colorDiv.addEventListener(
+                        "click",
+                        () => {
+
+                            selectedColor =
+                                colorDiv.dataset.color;
+
+
+                            document
+                                .querySelectorAll(
+                                    ".color-palette div"
+                                )
+                                .forEach(
+                                    item =>
+                                        item.classList.remove(
+                                            "selected"
+                                        )
+                                );
+
+
+                            colorDiv.classList.add(
+                                "selected"
+                            );
+
+
+                            document.getElementById(
+                                "currentColor"
+                            ).style.backgroundColor =
+                                selectedColor;
+
+                        }
+                    );
+
+                }
+            );
+
+
+        /* 保存 JPG */
+
+        document
+            .getElementById("save-btn")
+            .addEventListener(
+                "click",
+                () => {
+
+                    html2canvas(
+                        grid,
+                        {
+                            backgroundColor:
+                                "#ffffff"
+                        }
+                    )
+                    .then(
+                        canvas => {
+
+                            const link =
+                                document.createElement(
+                                    "a"
+                                );
+
+
+                            link.href =
+                                canvas.toDataURL(
+                                    "image/jpeg",
+                                    0.95
+                                );
+
+
+                            link.download =
+                                "grid-art.jpg";
+
+
+                            link.click();
+
+                        }
+                    );
+
+                }
+            );
+
+
+        /* 清空画板 */
+
+        document
+            .getElementById(
+                "clear-grid-btn"
+            )
+            .addEventListener(
+                "click",
+                () => {
+
+                    document
+                        .querySelectorAll(
+                            "#grid .cell"
+                        )
+                        .forEach(
+                            cell => {
+
+                                cell.style.backgroundColor =
+                                    "#ffffff";
+
+                            }
+                        );
+
+                }
+            );
+
+    </script>
+
+</body>
+</html>
+```

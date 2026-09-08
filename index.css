@@ -1,0 +1,817 @@
+/* ==========================================================================
+   1. 基础重置 & 全局视觉基调 (融汇404质感)
+   ========================================================================== */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: #f8f4f0;
+    font-family: 'Arial', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    color: #333333;
+    line-height: 1.6;
+    overflow-x: hidden;
+    position: relative;
+    background-image: radial-gradient(rgba(0,0,0,.015) 1px, transparent 1px);
+    background-size: 4px 4px;
+}
+
+body::before {
+    content: "ARCHIVES";
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 16vw;
+    font-weight: 900;
+    color: #e53935;
+    opacity: .025;
+    pointer-events: none;
+    user-select: none;
+    z-index: 0;
+}
+
+/* ==========================================================================
+   2. 导航栏 (Header & Navigation)
+   ========================================================================== */
+.main-header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 75px;
+    background: rgba(248, 244, 240, 0.75);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border-bottom: 1px solid rgba(194, 24, 7, 0.05);
+    z-index: 1000;
+}
+
+.nav-container {
+    max-width: 1300px;
+    height: 100%;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 40px;
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    text-decoration: none;
+    color: #e53935;
+}
+
+.logo-mark {
+    font-size: 18px;
+}
+
+.logo-text {
+    font-size: 14px;
+    line-height: 1.2;
+    font-weight: 700;
+}
+
+.logo-text em {
+    font-style: normal;
+    opacity: .7;
+}
+
+.nav-menu {
+    display: flex;
+    list-style: none;
+    gap: 35px;
+    align-items: center;
+}
+
+.nav-item {
+    text-decoration: none;   
+    color: #e53935; 
+    opacity: 0.85;
+    font-size: 15px;
+    font-weight: 700;
+    letter-spacing: 1.25px;
+    display: inline-block;
+    transition: all 0.25s ease;
+}
+
+.nav-item:hover, 
+.nav-item.active,
+.dropdown:hover .nav-item {
+    opacity: 1;
+    font-weight: 300;
+    animation: textBlinkGlow 2s ease-in-out infinite alternate;
+}
+
+@keyframes textBlinkGlow {
+    0% { opacity: 0.85; text-shadow: 0 0 0 rgba(229, 57, 53, 0); }
+    100% { opacity: 1; text-shadow: 0 0 4px rgba(229, 57, 53, 0.15); }
+}
+
+/* 下拉菜单 (Dropdown) */
+.dropdown {
+    position: relative;
+}
+
+.dropdown:hover .dropdown-content {
+    display: block;
+}
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    background-color: rgba(248, 244, 240, 0.95);
+    width: auto; 
+    padding: 4px 0;
+    list-style: none;
+    transition: all 0.3s ease;
+}
+
+.dropdown-content li a {
+    display: block;
+    padding: 10px 24px;
+    text-decoration: none;
+    color: #e53935;
+    font-size: 14px;
+    font-weight: 700;
+    transition: all 0.2s;
+    text-align: left;
+    white-space: nowrap;
+}
+
+.dropdown-content li a:hover {
+    color: #c21807;
+    background-color: rgba(194, 24, 7, 0.03);
+    font-weight: 300;
+}
+
+.menu-toggle {
+    display: none;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 24px;
+    height: 18px;
+    cursor: pointer;
+}
+
+.menu-toggle .bar {
+    width: 100%;
+    height: 2px;
+    background-color: #c21807;
+    transition: all 0.3s ease;
+}
+
+/* ==========================================================================
+   3. 顶部公会简介区 (Hero Section)
+   ========================================================================== */
+.hero-section {
+    padding: 0;
+    background: linear-gradient(180deg, rgba(255,255,255,0.5) 0%, rgba(248,244,240,0) 100%);
+    text-align: left;
+    position: relative;
+    z-index: 1;
+}
+
+.hero-archive-override {
+    padding-top: 100px; 
+    padding-bottom: 20px;
+}
+
+.hero-container {
+    width: 100%;
+    margin: 0 auto;
+}
+
+.main-title {
+    font-size: 36px;
+    font-weight: 600;
+    letter-spacing: 0px;
+    color: #c21807; 
+    text-shadow: 1px 1px 2px rgba(255, 255, 255, 0.9);
+    margin-bottom: 6px;
+}
+
+.sub-title-accent {
+    font-size: 22px;
+    font-weight: 400;
+    color: #baa79c;
+    letter-spacing: 1px;
+    margin-bottom: 24px;
+}
+
+.intro-box {
+    background-color: rgba(255, 255, 255, 0.7);
+    border: 1px solid rgba(194, 24, 7, 0.15);
+    border-radius: 8px;
+    padding: 20px;
+    box-shadow: 0 4px 20px rgba(194, 24, 7, 0.03);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    margin: 0 auto 0px 0;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.intro-text {
+    font-size: 15px;
+    color: #4a423d;
+    text-align: justify;
+}
+
+.intro-text-en {
+    font-size: 13.5px;
+    color: #7a6e67;
+    font-style: italic;
+    text-align: justify;
+    border-top: 1px dashed rgba(194, 24, 7, 0.1);
+    padding-top: 12px;
+}
+
+/* ==========================================================================
+   4. 核心骨架与布局 (Container & Grid)
+   ========================================================================== */
+.archive-container {
+    max-width: 1300px;
+    margin: 0 auto;
+    padding: 20px 40px 80px 40px;
+    display: flex;
+    flex-direction: column;
+    gap: 70px;
+    position: relative;
+    z-index: 1;
+}
+
+.hero-archive-override .archive-container {
+    padding-bottom: 20px;
+    gap: 0;
+}
+
+.magazine-sector, .gallery-sector, .tally-sector {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+}
+
+.sector-header {
+    border-bottom: 2px solid rgba(194, 24, 7, 0.15);
+    padding-bottom: 12px;
+}
+
+.sector-header h2 {
+    font-size: 22px;
+    color: #c21807;
+    letter-spacing: 2px;
+}
+
+.en-sector-title {
+    font-size: 16px;
+    color: #99867a;
+    font-weight: 700;
+}
+
+.sector-desc {
+    font-size: 13px;
+    color: #7a6e67;
+    margin-top: 4px;
+}
+
+/* ==========================================================================
+   5. 双轨焦点区基础属性 (Featured Card & Stage Mobile Default)
+   ========================================================================== */
+.focus-tally-row {
+    display: flex;
+    flex-direction: column;
+    gap: 50px;
+}
+
+.tally-box-wrapper {
+    background: rgba(255, 255, 255, 0.4);
+    border-radius: 12px;
+    border: 1px solid rgba(0, 0, 0, 0.03);
+    padding: 8px;
+    overflow: hidden;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.01);
+}
+
+.featured-hero-card {
+    background: rgba(255, 255, 255, 0.8);
+    border-radius: 12px;
+    border: 1px solid rgba(0,0,0,0.04);
+    overflow: hidden;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.02);
+    display: flex;
+    flex-direction: column;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    position: relative;
+}
+
+.featured-hero-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 12px 24px rgba(194, 24, 7, 0.06);
+}
+
+/* 画册核心舞台 */
+.dynamic-cover-stage {
+    position: relative;
+    width: 100%;
+    height: 480px; /* 移动端默认基础高度 */
+    background-color: #1c1714;
+    overflow: hidden;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.stage-img {
+    max-width: 100%;
+    max-height: 100%;
+    width: auto;
+    height: auto;
+    object-fit: contain;
+    z-index: 2;
+    position: relative;
+    box-shadow: 0 0 24px rgba(0,0,0,0.35);
+}
+
+.stage-blur-bg {
+    position: absolute;
+    top: -10%; left: -10%; width: 120%; height: 120%;
+    background-size: cover;
+    background-position: center;
+    filter: blur(28px) brightness(0.45);
+    opacity: 0.7;
+    z-index: 1;
+}
+
+.card-hover-overlay {
+    position: absolute;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background: rgba(194, 24, 7, 0.2);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    backdrop-filter: blur(2px);
+    z-index: 10;
+}
+
+.dynamic-cover-stage:hover .card-hover-overlay {
+    opacity: 1;
+}
+
+.view-tag {
+    color: #fff;
+    background: #c21807;
+    padding: 6px 16px;
+    font-size: 12px;
+    border-radius: 20px;
+    font-weight: 600;
+    letter-spacing: 1px;
+}
+
+.card-info {
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+}
+
+.stage-info-content {
+    padding: 24px;
+}
+
+.card-info h3 {
+    font-size: 17px;
+    color: #222;
+    margin-bottom: 8px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.edition-tag {
+    font-size: 11px;
+    background: rgba(194, 24, 7, 0.1);
+    color: #c21807;
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-weight: normal;
+}
+
+.mag-desc {
+    font-size: 13px;
+    color: #666;
+    margin-bottom: 16px;
+    text-align: justify;
+}
+
+.stage-desc {
+    line-height: 1.7;
+}
+
+/* ==========================================================================
+   5.1 双按钮布局区域组件 (精致一左一右)
+   ========================================================================== */
+.mag-btn-group {
+    display: flex;
+    gap: 16px;
+    align-items: center;
+    justify-content: space-between; /* 按钮天生两端并排 */
+    width: 100%;
+    padding: 24px;
+    background: transparent;
+    position: relative;
+}
+
+.read-now-btn {
+    display: inline-block;
+    text-align: center;
+    background: rgba(194, 24, 7, 0.05);
+    border: 1px solid rgba(194, 24, 7, 0.2);
+    color: #c21807;
+    text-decoration: none;
+    border-radius: 6px;
+    font-size: 13px;
+    font-weight: 600;
+    transition: all 0.2s ease;
+    padding: 10px 24px;
+    width: fit-content;
+}
+
+.featured-hero-card:hover .read-now-btn {
+    background: #e53935;
+    color: #fff;
+    border-color: #e53935;
+}
+
+.past-mag-btn {
+    font-size: 13px;
+    font-weight: 600;
+    color: #baa79c;
+    text-decoration: none;
+    padding: 10px 16px;
+    border: 1px dashed rgba(186, 167, 156, 0.5);
+    border-radius: 6px;
+    transition: all 0.25s ease;
+    display: inline-block;
+}
+
+.past-mag-btn:hover {
+    color: #c21807;
+    border-color: #c21807;
+    background-color: rgba(194, 24, 7, 0.02);
+    padding-left: 20px;
+}
+
+/* ==========================================================================
+   6. 星痕掠影左右滑动滑块专区
+   ========================================================================== */
+.gallery-slider-wrapper {
+    position: relative;
+    display: flex;
+    align-items: center;
+    width: 100%;
+    margin-top: 10px;
+}
+
+.gallery-slider-viewport {
+    overflow: hidden;
+    width: 100%;
+}
+
+.gallery-grid {
+    display: flex;
+    flex-wrap: nowrap;
+    gap: 0;
+    transition: transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    width: 100%;
+}
+
+.gallery-item {
+    flex: 0 0 100%;
+    width: 100%;
+    position: relative;
+    aspect-ratio: 1.4142 / 1; 
+    border-radius: 12px;
+    overflow: hidden;
+    background-color: #1a1a1a;
+    cursor: pointer;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+}
+
+.gallery-item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.5s ease;
+}
+
+.gallery-overlay {
+    position: absolute;
+    bottom: 0; left: 0; width: 100%;
+    background: linear-gradient(0deg, rgba(0,0,0,0.85) 0%, rgba(0,0,0,0) 100%);
+    padding: 24px 20px 16px 20px;
+}
+
+.gallery-item:hover img { transform: scale(1.03); }
+.gallery-text h4 { color: #ffffff; font-size: 15px; letter-spacing: 1px; }
+
+.slider-btn {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: rgba(248, 244, 240, 0.85);
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
+    border: 1px solid rgba(194, 24, 7, 0.1);
+    color: #c21807;
+    font-size: 16px;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 10;
+    transition: all 0.3s ease;
+    user-select: none;
+}
+
+.slider-btn:hover {
+    background: #ffffff;
+    box-shadow: 0 4px 12px rgba(194, 24, 7, 0.15);
+    color: #e53935;
+}
+
+.prev-btn { left: -10px; }
+.next-btn { right: -10px; }
+
+.social-links {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+.dc-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    background-color: #e53935; 
+    color: #ffffff;
+    text-decoration: none;
+    padding: 12px 28px;
+    border-radius: 30px;
+    font-size: 14px;
+    font-weight: 600;
+    letter-spacing: 1px;
+    box-shadow: 0 4px 15px rgba(229, 57, 53, 0.2);
+    transition: all 0.3s ease;
+}
+
+.dc-btn:hover {
+    background-color: #c21807; 
+    box-shadow: 0 6px 20px rgba(194, 24, 7, 0.4);
+    transform: translateY(-2px);
+}
+
+/* ==========================================================================
+   7. 灯箱弹窗 (Lightbox)
+   ========================================================================== */
+.lightbox {
+    display: none;
+    position: fixed;
+    z-index: 2000;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background-color: rgba(13, 13, 13, 0.95);
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.lightbox-content {
+    max-width: 90%;
+    max-height: 82vh;
+    object-fit: contain;
+    border-radius: 4px;
+    box-shadow: 0 0 30px rgba(0,0,0,0.5);
+    animation: zoom 0.25s ease-out;
+}
+
+@keyframes zoom {
+    from { transform: scale(0.95); opacity: 0; }
+    to { transform: scale(1); opacity: 1; }
+}
+
+.close-btn {
+    position: absolute;
+    top: 24px; right: 32px;
+    color: #baa79c;
+    font-size: 40px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: color 0.2s;
+}
+.close-btn:hover { color: #fff; }
+
+.lightbox-caption {
+    margin-top: 16px;
+    color: #baa79c;
+    font-size: 13px;
+    letter-spacing: 1px;
+    text-align: center;
+}
+
+/* ==========================================================================
+   8. 页脚与彩蛋 (Footer) —— 终极完美对齐版
+   ========================================================================== */
+.main-footer {
+    background-color: #f8f4f0; 
+    width: 100%;
+    padding: 40px 0 60px 0; 
+    border-top: 1px solid rgba(194, 24, 7, 0.05);
+}
+
+.footer-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;         
+    flex-wrap: wrap;               
+    gap: 24px;
+    max-width: 1300px;             
+    padding: 0 40px;
+    margin: 0 auto;                
+}
+
+.footer-text {
+    flex: 1;
+    min-width: 300px;              
+}
+
+.footer-text p {
+    text-align: left;              
+    margin: 4px 0;                 
+    font-size: 12px;               
+    color: #333333;                
+}
+
+.main-footer .social-links {
+    display: flex;
+    justify-content: flex-end;     
+    margin-top: 0 !important;      
+    flex-shrink: 0;                
+}
+
+.hidden-egg-link {
+    color: #baa79c;
+    text-decoration: none;
+    font-size: 10px;
+    margin: 0 4px;
+    cursor: default;
+    transition: color 0.3s;
+}
+.hidden-egg-link:hover {
+    color: #c21807; 
+}
+
+/* ==========================================================================
+   9. 📱 响应式平板/手机端布局流媒体断点切换 (<= 1023px)
+   ========================================================================== */
+@media (max-width: 1023px) {
+    .focus-tally-row {
+        flex-direction: column-reverse; /* 移动端反转：问卷在下，杂志卡片在上 */
+    }
+}
+
+@media (max-width: 960px) {
+    .nav-container { padding: 0 24px; }
+    .menu-toggle { display: flex; }
+
+    .nav-menu {
+        position: fixed;
+        top: 75px;
+        right: -100%;
+        width: 280px;
+        height: calc(100vh - 75px);
+        background-color: rgba(248, 244, 240, 0.98);
+        backdrop-filter: blur(20px);
+        -webkit-backdrop-filter: blur(20px);
+        border-left: 1px solid rgba(194, 24, 7, 0.05);
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 40px 30px;
+        gap: 24px;
+        transition: right 0.3s ease;
+        box-shadow: -10px 0 30px rgba(0,0,0,0.03);
+    }
+
+    .nav-menu.active { right: 0; }
+    .nav-item { width: 100%; display: block; }
+    .dropdown { width: 100%; }
+    
+    .dropdown-content {
+        position: static;
+        width: 100%;
+        background: transparent;
+        padding: 8px 0 0 16px;
+    }
+    .dropdown.open .dropdown-content { display: block; }
+
+    .archive-container { padding: 10px 24px; gap: 70px; }
+    .main-title { font-size: 26px; }
+    .sub-title-accent { font-size: 18px; }
+    .intro-box { padding: 18px; }
+    .hero-archive-override { padding-top: 110px; padding-bottom: 10px; }
+}
+
+/* ==========================================================================
+   10. 💻 电脑大屏专属极致对齐高级样式 (>= 1024px)
+   ========================================================================== */
+@media (min-width: 1024px) {
+    .focus-tally-row {
+        display: flex;
+        flex-direction: row;
+        align-items: stretch; /* 🎯 核心：物理级高度绝对拉平齐平 */
+        gap: 40px;
+        width: 100%;
+    }
+    .focus-tally-row .tally-sector {
+        flex: 0 0 calc(38% - 20px);
+        width: calc(38% - 20px);
+    }
+    .focus-tally-row .magazine-sector {
+        flex: 0 0 calc(62% - 20px);
+        width: calc(62% - 20px);
+    }
+    
+    .featured-hero-card {
+        height: calc(100% - 73px); /* 跟随左侧问卷拉满总高度 */
+        display: flex;
+        flex-direction: column;
+        padding: 0 !important;   /* 清空默认 padding，允许大红杠完全贴边横贯 */
+        overflow: hidden;         /* 保护红色边缘顺应外边框圆角 */
+    }
+ 
+    /* 🟥 红杠一：大屏状态下，在卡片顶端（文字上方）渲染 100% 宽度的贴边大红条 */
+    .featured-hero-card::before {
+        content: "";
+        display: block;
+        width: 100%;            
+        height: 24px;             
+        background-color: #c21807;
+        flex-shrink: 0;
+    }
+   
+    .stage-info-content {
+        flex-shrink: 0;           /* 强锁文字容器，绝对不被压缩 */
+        padding: 24px 24px 12px 24px; /* 补回内边距 */
+    }
+    
+    .stage-desc {
+        margin-bottom: 0; 
+    }
+
+    /* 🎯 图片舞台：大屏无限弹性拉满 */
+    .dynamic-cover-stage {
+        flex-grow: 1;             /* 无情吞噬一切多余高度，上下彻底顶格拉满 */
+        flex-shrink: 1;
+        height: 0;                /* 触发 Flex 完美高度自适应分配 */
+        padding: 0 24px;          /* 左右内缩留白，图片极大时两侧天生暴露出黑边电影感 */
+    }
+
+    /* 🟥 红杠二：硬核实线技术 */
+    .mag-btn-group {
+        flex-shrink: 0;           /* 强锁底部按钮容器，绝对不缩水 */
+        padding: 24px;            
+        
+        /* 💡 直接通过按钮组的 border-top 渲染出 20px 厚度的第二根贯穿大红杠！
+           它在标准文档流里排队，100% 绝对贴边横贯全行，永不丢失、绝不遮挡！ */
+         /*border-top: 20px solid #c21807; */
+        border-bottom: 20px solid #c21807; /* 红框现在死死贴在按钮的下方了 */
+    }
+
+    /* 画廊大屏模式 */
+    .gallery-grid {
+        gap: 28px;
+    }
+    .gallery-item {
+        flex: 0 0 calc(50% - 14px);
+        width: calc(50% - 14px);
+    }
+    .slider-btn {
+        width: 44px;
+        height: 44px;
+        font-size: 20px;
+    }
+    .prev-btn { left: -22px; }
+    .next-btn { right: -22px; }
+}
