@@ -6,7 +6,7 @@
 document.addEventListener("DOMContentLoaded", function() {
     
     const folderPath = "img_side/"; // 🎯 遵照嘱托：请把你的文件夹名字也同步改为 img_side
-    const maxCheckCount = 70;     
+    const maxCheckCount = 60;     
     
     let validImages = [];       
     let leftCurrentImg = "";
